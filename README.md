@@ -1,18 +1,21 @@
 MGEQuant
 
-Building Smarter Trading Solutions in Public.
+Building smarter discretionary trading tools through open development.
 
-Projects
+Current projects:
 
-- QAX V5
-- TradePilot V5
-- MarketCoach V3.1
+• QAX V5
+• TradePilot V5
+• MarketCoach V3.1
 
-Public Repository
+We publicly share:
 
-This repository documents the development of the MGEQuant trading toolkit.
+Development logs
+Testing screenshots
+Release notes
+Project roadmap
 
-The source code remains private while development logs, screenshots, release notes, and project updates are shared publicly.
+Source code remains private during development.
 
-Follow our progress on X:
-https://x.com/MGEQuant
+Follow the journey on X:
+@MGEQuant
