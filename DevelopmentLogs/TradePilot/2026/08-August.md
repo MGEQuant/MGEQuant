@@ -76,4 +76,14 @@ Execution Permission → TradePilot
 
 No conflicts or contradictory signals were observed during this sequence.
 
+### London Session Observation
+
+12:15 AM – August 3, 2026
+
+TradePilot V5
+
+Correctly rejected execution because MarketCoach had not validated the setup.
+Displayed "No Matching ID" since only QAX had an active Opportunity ID.
+
+
 
