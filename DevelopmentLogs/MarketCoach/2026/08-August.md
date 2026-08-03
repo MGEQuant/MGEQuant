@@ -38,3 +38,44 @@ Result:
 
 No premature trade recommendation during the first minutes of Asia.
 
+## August 2 – Asia Session
+
+Trade Review
+Reference: 710, 715, 720, 740 .png (separate)
+
+Setup:
+
+Session: Asia
+Type: A+ Expansion Long
+Score: 8/10
+
+MarketCoach correctly transitioned through four states:
+
+
+NO EDGE
+
+      ↓
+A+ Expansion
+
+      ↓
+Pullback
+
+      ↓
+NO EDGE
+
+
+Observation:
+
+
+The indicator recognized the developing pullback 
+
+before momentum completely disappeared.
+
+Price retraced enough to hit the adjusted stop.
+
+Original setup quality appears acceptable.
+
+# Main lesson:
+
+The trade management requires refinement more than the signal generation.
+
