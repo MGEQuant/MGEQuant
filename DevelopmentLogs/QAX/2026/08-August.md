@@ -200,3 +200,45 @@ MC V3.1 marked the original opportunity lifecycle as complete, but no structural
 
 Trade remains active according to the original risk plan. Focus is on disciplined management rather than reacting emotionally to short-term fluctuations.
 
+## 📅 August 4, 2026 – London Session
+
+Time: 12:25 AM (25 minutes after London Open)
+
+This is the first fresh London opportunity after Asia.
+
+⚔️ The Three Musketeers Review
+
+# 🔵 QAX V5
+
+QAX also improved.
+
+Compared with Asia:
+
+Earlier:
+
+Qualified Pullback Missing
+
+Now:
+
+Fresh BOS
+Sweep = Bullish
+Location = Excellent
+Risk = 85%
+Opportunity = 74%
+
+Trade Type
+
+Liquidity Reversal
+
+Interesting...
+
+This tells me QAX interpreted this as
+
+Liquidity sweep into continuation
+
+instead of
+
+Simple breakout.
+
+That is actually a higher quality read.
+
