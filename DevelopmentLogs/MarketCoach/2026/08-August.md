@@ -353,3 +353,111 @@ no new lifecycle formed,
 no value reset developed.
 
 This behavior is working exactly as intended.
+
+## 📒 MC Development Log
+
+August 4, 2026 — Asia Session
+NQ September 2026
+
+Version: MC V3.1 + QAX V5 + TP V5
+
+# Trading Summary
+
+Session: Asia
+
+Direction: Long
+
+# Signal Quality:
+
+MC: A+ Expansion Long (8/10)
+Daily: Bullish
+4H: Bullish
+VWAP: Above
+EMA Alignment: Bullish
+
+Result:
+
+✅ Entry Executed
+
+✅ Trailed Position
+
+✅ Exit via Trail Stop
+
+Realized Profit: +$350
+
+Timeline
+7:45 PM PT
+
+MC generated
+
+A+ Expansion Long (8/10)
+
+QAX
+
+Bullish Structure
+Long Bias
+Discovery Phase
+
+TP
+
+Permission Locked
+Waiting for consensus
+
+Decision
+
+✅ Manual Long Entry
+
+8:05 PM
+
+Trade moved in favor.
+
+Instead of moving immediately to breakeven,
+
+the decision was
+
+Let the market breathe.
+
+No panic.
+
+8:20 PM
+
+Open Profit
+
+≈ +$445
+
+Discussion
+
+Should the stop now trail?
+
+Decision
+
+YES
+
+Move stop beneath confirmed higher low.
+
+8:25 PM
+
+Trail Stop hit.
+
+Final Result
+
++$350
+
+Biggest Observation
+
+Today confirmed something very important.
+
+MC detects excellent entries.
+
+However,
+
+once a trader is IN the position,
+
+MC becomes passive.
+
+The user repeatedly asked:
+
+Should I move my stop now?
+
+That question should eventually be answered by MC itself.
+
