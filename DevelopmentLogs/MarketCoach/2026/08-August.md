@@ -761,3 +761,28 @@ System Discipline: ⭐⭐⭐⭐⭐
 ## Developer Notes:
 
 Sometimes the best trade is preserving capital. Today demonstrated that patience is an active decision, not the absence of one.
+
+# Development Log — August 5, 2026 (Asia Session)
+
+Session: Asia Close (11:55 PM PT)
+
+Trading
+
+Entered only after MC V3.1 and TP V5 aligned.
+Managed risk by protecting profit rather than waiting for TP1.
+Closed with approximately +$250.
+No additional trades after the move completed.
+
+## Observations
+
+MC and TP successfully aligned on a continuation short.
+QAX remained in Discovery/Wait state and never issued a matching trigger.
+MC later transitioned to "No Edge" while TP shifted into trade management, correctly discouraging a chase entry.
+Current architecture still allows different engines to reach different lifecycle states simultaneously.
+
+# V6 Design Goal
+
+Introduce a Master Opportunity Manager.
+Synchronize MC, QAX, and TP so all modules reference one lifecycle and one opportunity ID.
+Require unanimous confirmation before any A+ Execute signal is displayed.
+Separate "Entry Permission" from "Trade Management" so once a trade is active, the engines naturally shift from finding entries to helping manage the position.
