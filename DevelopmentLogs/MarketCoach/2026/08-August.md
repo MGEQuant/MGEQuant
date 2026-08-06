@@ -786,3 +786,68 @@ Introduce a Master Opportunity Manager.
 Synchronize MC, QAX, and TP so all modules reference one lifecycle and one opportunity ID.
 Require unanimous confirmation before any A+ Execute signal is displayed.
 Separate "Entry Permission" from "Trade Management" so once a trade is active, the engines naturally shift from finding entries to helping manage the position.
+
+## 📅 Trading Journal Update
+
+Date: August 6, 2026
+Time: 2:00 PM PT
+Session: New York Closed
+Next Session: Asia Opens at 3:00 PM PT
+
+📊 Session Summary
+
+Today was exactly the kind of day that tests discipline rather than trading skill.
+
+🟤 QAX V5
+State: SESSION WAIT
+Entry: SESSION WAIT
+Stage: SESSION WAIT
+Session: AFTER HOURS
+
+QAX has properly transitioned into an idle state. 
+Instead of continuing to evaluate trades after the session ends, it recognizes that trading hours are over.
+
+🔴 MC V3.1
+
+Status:
+
+SESSION WAIT
+
+Reason:
+
+Trading session is disabled.
+
+Next:
+
+Wait for an enabled session.
+
+I like this behavior. MC isn't trying to manufacture opportunities after the market has closed.
+
+⚪ TP V5
+
+Permission:
+
+LOCKED
+
+Reason:
+
+Session disabled / After Hours
+
+Coach says:
+
+Wait for Asia, London, or New York.
+
+Exactly what we'd want.
+
+📖 What happened today?
+
+From start to finish:
+
+No A+ setup
+No permission
+No forced entries
+No emotional trades
+No evaluation damage
+
+Sometimes that's the highest-quality trading day.
+
