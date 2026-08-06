@@ -79,7 +79,7 @@ Original setup quality appears acceptable.
 
 The trade management requires refinement more than the signal generation.
 
-### London Session Observation
+## London Session Observation
 
 12:15 AM – August 3, 2026
 
@@ -140,7 +140,7 @@ Need 4H Long Bias confirmation.
 # Conclusion:
 MC refused to recycle the London setup and required an entirely new market story before considering another A+ opportunity.
 
-### Session Takeaway
+## Session Takeaway
 
 The market moved nearly 100 points after the morning reversal.
 
@@ -221,7 +221,7 @@ Do not tighten yet.
 
 That is exactly what a continuation trade should say.
 
-### 4:10 PM PT – Asia Session
+## 4:10 PM PT – Asia Session
 
 Still holding the Asia continuation long.
 
@@ -317,7 +317,7 @@ Lifecycle Ended
 
 No new A+ setup was issued after the earlier expansion because price never returned to value.
 
-### Trade Review
+## Trade Review
 
 Although no new official Three Musketeers signal appeared, a discretionary long was executed based on:
 
@@ -338,7 +338,7 @@ Position transitioned into a managed trade rather than a hope trade.
 
 Capital protection remained the primary objective.
 
-### Lessons Learned
+## Lessons Learned
 
 Today reinforced an important distinction:
 
@@ -464,7 +464,7 @@ That question should eventually be answered by MC itself.
 # August 5, 2026
 ## London Session Validation
 
-### Trading Summary
+## Trading Summary
 
 Session: London
 Instrument: NQ 09-26
@@ -480,7 +480,7 @@ Result:
 
 ## Three Musketeers Review
 
-### MarketCoach V3.1
+## MarketCoach V3.1
 
 MarketCoach identified a developing continuation opportunity during London.
 
@@ -498,7 +498,7 @@ No additional A+ opportunity was generated after the stop.
 
 ---
 
-### QAX V5
+## QAX V5
 
 QAX validated overall market structure and provided an Opportunity Plan.
 
@@ -514,7 +514,7 @@ This confirms that the lifecycle reset logic is functioning correctly.
 
 ---
 
-### TradePilot V5
+## TradePilot V5
 
 TradePilot granted execution permission for the initial setup.
 
@@ -794,7 +794,7 @@ Time: 2:00 PM PT
 Session: New York Closed
 Next Session: Asia Opens at 3:00 PM PT
 
-📊 Session Summary
+## 📊 Session Summary
 
 Today was exactly the kind of day that tests discipline rather than trading skill.
 
