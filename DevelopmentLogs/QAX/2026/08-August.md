@@ -769,3 +769,47 @@ It means:
 
 Exactly what QAX is supposed to do.
 
+## 📓 DevelopmentLog — August 9, 2026
+
+### Three Musketeers — Forward-Test Deployment
+
+Today marks the first live forward-observation session of the upgraded NQ decision-support architecture.
+
+## MC V3.2 — Market Context
+
+Candidate + confirmation layer
+Identifies market regime, intent, phase, trend health, pullback quality and exhaustion
+Recognizes opening-auction conditions and can withhold opportunity during unstable price discovery
+Provides context rather than final execution permission
+
+## QAX V5.1 Optimized — Structure Engine
+
+Lifecycle-aware structure qualification
+Multi-timeframe alignment
+Fresh BOS, pullback, location and extension/chase protection
+Earned Opportunity + Opportunity Memory developed from the V5.x research audits
+Designed to preserve valid opportunity quality without bypassing final qualification
+Structure qualification only — not final execution permission
+
+## TP V5.1 — Final Permission
+
+Receives MC context and QAX structure information
+Builds execution consensus across direction, setup, stage, trend, entry zone, reaction, confirmation and acceptance
+Can remain locked even when market structure is strongly directional
+Produces the final permission state and trade plan for manual execution
+
+### First Asia observation — Aug. 9
+
+At the opening, NQ showed extremely strong bullish alignment and a sharp expansion. QAX recognized bullish structure and later recorded an Earned Opportunity, but identified the market as extended/chase conditions. MC classified the environment as Opening Auction and withheld execution opportunity. TP remained locked and explicitly blocked the setup during opening price discovery.
+
+## Architecture principle:
+
+MC discovers → QAX qualifies → TP grants permission → Trader executes manually.
+
+No automatic trading. No forced signal. No chasing.
+
+The market earns the trade — not the trader.
+
+## Status
+
+Forward testing in progress. No optimization or performance conclusions until sufficient Asia, London and New York observations are collected.
