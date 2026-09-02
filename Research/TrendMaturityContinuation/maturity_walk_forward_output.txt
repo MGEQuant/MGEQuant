@@ -1,0 +1,30 @@
+Loading cached 1-min bars from F:\Trading Software\MarketCoach\Releases\NQMarketCoachV340SyncLive\_bars1m_cache_pacific.pkl
+[Timezone check] step at 390 (06:30 PT / NY open): +2,363   step at 570: -29
+  -> OK, proceeding.
+
+Walk-forward split at 2024:  train n=61 (2021-2023)   test n=104 (2024-2026)
+
+STEP 1 - choose the ceiling on TRAIN only
+ceiling                  n  excl_top5%
+no filter               61      +0.087
+<= 4.0                  52      +0.186
+<= 3.5                  44      +0.251
+<= 3.0                  41      +0.246
+<= 2.5                  37      +0.311
+<= 2.0                  31      +0.310
+<= 1.5                  31      +0.310
+  -> train picks maturity <= 2.5 (train excl_top5% +0.311 vs +0.087 unfiltered)
+
+STEP 2 - apply that frozen choice to the untouched TEST half
+test set                         n    win%     avg_R  excl_top5%
+unfiltered                     104   63.5%    +0.307      +0.247
+maturity <= 2.5 (frozen)        69   62.3%    +0.248      +0.191
+  out-of-sample change: -0.056
+  kept minus dropped on TEST: -0.175R  SE=0.229  t=-0.76
+  trades the filter removed from test: n=35, their avg_R=+0.423
+
+VERDICT
+  Filter did NOT hold out of sample (+0.247 -> +0.191).
+
+Reversed split (train on recent, test on early) as a robustness check:
+  train picks <= 3.5; early-half unfiltered +0.087 -> filtered +0.251 (n=61 -> 44)
