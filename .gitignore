@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+
+# Research lives outside this repo, at F:\Trading Software\Research, so it stays
+# private and is never pushed to GitHub. Do not re-add it here.
+Research/
