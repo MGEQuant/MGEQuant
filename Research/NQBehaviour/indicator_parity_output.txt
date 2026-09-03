@@ -1,0 +1,15 @@
+Shape array parsed from the .cs: 48 values
+Loading cached 1-min bars from F:\Trading Software\MarketCoach\Releases\NQMarketCoachV340SyncLive\_bars1m_cache_pacific.pkl
+Max |difference| vs the Python-fitted shape: 0.000049
+  -> TRANSCRIPTION OK
+
+Timezone conversion check (the .cs adds PlatformToEasternOffsetHours=3 to chart time)
+  buckets agreeing with true Eastern: 100.00%
+  -> OK
+
+Replicating the .cs level/expected-range logic on the held-out period
+  indicator-as-coded, on 2024-2026: n=187,143  MAE=36.33t  R2=0.042  medAPE=36.1%
+  validated Python model:            n=187,143  MAE=36.30t  R2=0.042  medAPE=36.1%
+  -> PARITY OK - the .cs reproduces the validated model within tolerance
+
+Halt bucket guard: bucket 35 shape = 0.0000 -> correctly zero, and the .cs never divides by it
