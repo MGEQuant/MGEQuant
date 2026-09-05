@@ -1,0 +1,25 @@
+# Line endings are platform-independent in this repo.
+#
+# Why: this tree is worked from both Windows (git.exe, which reads
+# core.autocrlf=true from C:/Program Files/Git/etc/gitconfig) and WSL (whose
+# git never reads that system config, so it stages CRLF verbatim). In the
+# Research repo on 2026-09-05 that produced 103 files staged as whole-file
+# rewrites -- 620,502 lines added and 620,502 removed, zero content change.
+# text=auto stores LF in the repo regardless of which git commits.
+* text=auto
+
+# Binary: never convert, never diff as text.
+*.pkl  binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.7z   binary
+*.xlsx binary
+*.docx binary
+*.pptx binary
+*.dll  binary
+*.exe  binary
