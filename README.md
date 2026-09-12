@@ -4,9 +4,9 @@ Building smarter discretionary trading tools through open development.
 
 Current projects:
 
-• QAX V5
-• TradePilot V5
-• MarketCoach V3.1
+• MarketCoach V3.4.1
+• ExhaustionFade
+• NYLowSweep
 
 We publicly share:
 
