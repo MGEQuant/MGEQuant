@@ -1,7 +1,0 @@
-RefreshSweepArrows(m, chartControl);
-        }
-        {
-            List<KeyValuePair<string, double>> rows = new List<KeyValuePair<string, double>>();
-            double minGap = Math.Max(m.BinSize, m.TickSize) * 1.5;
-
-            int pocBin = LadderPocBinMo
