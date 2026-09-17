@@ -1,0 +1,459 @@
+{
+  "input": "F:\\Trading Software\\backtest_lab\\NQ_BackAdjusted\\NQ_Continuous_Adjusted.csv",
+  "symbol": "NQ",
+  "commission_round_trip": 5.0,
+  "slippage_ticks": 1.0,
+  "timestamp_assumption": "UTC minute CLOSE; vendor convention unverified",
+  "warning": "Research only: full-session selection bias, no exchange holiday calendar, OHLC fill uncertainty. Not out-of-sample validation.",
+  "coverage": {
+    "first_date": "2019-12-09",
+    "last_date": "2026-09-09",
+    "complete_sessions": 1654,
+    "skipped_sessions": [
+      {
+        "date": "2019-12-09",
+        "minute_bars": 329
+      },
+      {
+        "date": "2019-12-10",
+        "minute_bars": 346
+      },
+      {
+        "date": "2019-12-11",
+        "minute_bars": 376
+      },
+      {
+        "date": "2019-12-24",
+        "minute_bars": 225
+      },
+      {
+        "date": "2020-01-20",
+        "minute_bars": 209
+      },
+      {
+        "date": "2020-02-17",
+        "minute_bars": 210
+      },
+      {
+        "date": "2020-03-09",
+        "minute_bars": 376
+      },
+      {
+        "date": "2020-03-12",
+        "minute_bars": 375
+      },
+      {
+        "date": "2020-03-16",
+        "minute_bars": 376
+      },
+      {
+        "date": "2020-03-18",
+        "minute_bars": 377
+      },
+      {
+        "date": "2020-04-07",
+        "minute_bars": 381
+      },
+      {
+        "date": "2020-04-10",
+        "minute_bars": 1
+      },
+      {
+        "date": "2020-05-25",
+        "minute_bars": 210
+      },
+      {
+        "date": "2020-06-03",
+        "minute_bars": 388
+      },
+      {
+        "date": "2020-07-03",
+        "minute_bars": 210
+      },
+      {
+        "date": "2020-09-07",
+        "minute_bars": 210
+      },
+      {
+        "date": "2020-09-23",
+        "minute_bars": 389
+      },
+      {
+        "date": "2020-10-21",
+        "minute_bars": 389
+      },
+      {
+        "date": "2020-11-23",
+        "minute_bars": 381
+      },
+      {
+        "date": "2020-11-26",
+        "minute_bars": 210
+      },
+      {
+        "date": "2020-11-27",
+        "minute_bars": 225
+      },
+      {
+        "date": "2020-12-10",
+        "minute_bars": 389
+      },
+      {
+        "date": "2020-12-24",
+        "minute_bars": 225
+      },
+      {
+        "date": "2021-01-18",
+        "minute_bars": 210
+      },
+      {
+        "date": "2021-02-15",
+        "minute_bars": 210
+      },
+      {
+        "date": "2021-05-31",
+        "minute_bars": 210
+      },
+      {
+        "date": "2021-06-10",
+        "minute_bars": 385
+      },
+      {
+        "date": "2021-07-05",
+        "minute_bars": 210
+      },
+      {
+        "date": "2021-08-24",
+        "minute_bars": 388
+      },
+      {
+        "date": "2021-08-25",
+        "minute_bars": 378
+      },
+      {
+        "date": "2021-09-06",
+        "minute_bars": 210
+      },
+      {
+        "date": "2021-11-25",
+        "minute_bars": 210
+      },
+      {
+        "date": "2021-11-26",
+        "minute_bars": 225
+      },
+      {
+        "date": "2022-01-17",
+        "minute_bars": 210
+      },
+      {
+        "date": "2022-02-21",
+        "minute_bars": 210
+      },
+      {
+        "date": "2022-05-23",
+        "minute_bars": 389
+      },
+      {
+        "date": "2022-05-30",
+        "minute_bars": 210
+      },
+      {
+        "date": "2022-06-20",
+        "minute_bars": 210
+      },
+      {
+        "date": "2022-07-04",
+        "minute_bars": 210
+      },
+      {
+        "date": "2022-08-03",
+        "minute_bars": 389
+      },
+      {
+        "date": "2022-08-30",
+        "minute_bars": 389
+      },
+      {
+        "date": "2022-09-05",
+        "minute_bars": 210
+      },
+      {
+        "date": "2022-11-24",
+        "minute_bars": 210
+      },
+      {
+        "date": "2022-11-25",
+        "minute_bars": 225
+      },
+      {
+        "date": "2023-01-16",
+        "minute_bars": 210
+      },
+      {
+        "date": "2023-02-20",
+        "minute_bars": 210
+      },
+      {
+        "date": "2023-04-05",
+        "minute_bars": 273
+      },
+      {
+        "date": "2023-05-29",
+        "minute_bars": 210
+      },
+      {
+        "date": "2023-06-19",
+        "minute_bars": 210
+      },
+      {
+        "date": "2023-07-03",
+        "minute_bars": 225
+      },
+      {
+        "date": "2023-07-04",
+        "minute_bars": 210
+      },
+      {
+        "date": "2023-09-04",
+        "minute_bars": 210
+      },
+      {
+        "date": "2023-11-23",
+        "minute_bars": 210
+      },
+      {
+        "date": "2023-11-24",
+        "minute_bars": 225
+      },
+      {
+        "date": "2024-01-15",
+        "minute_bars": 210
+      },
+      {
+        "date": "2024-02-19",
+        "minute_bars": 210
+      },
+      {
+        "date": "2024-05-27",
+        "minute_bars": 210
+      },
+      {
+        "date": "2024-06-19",
+        "minute_bars": 210
+      },
+      {
+        "date": "2024-07-03",
+        "minute_bars": 225
+      },
+      {
+        "date": "2024-07-04",
+        "minute_bars": 210
+      },
+      {
+        "date": "2024-07-19",
+        "minute_bars": 380
+      },
+      {
+        "date": "2024-07-25",
+        "minute_bars": 385
+      },
+      {
+        "date": "2024-08-02",
+        "minute_bars": 382
+      },
+      {
+        "date": "2024-08-05",
+        "minute_bars": 388
+      },
+      {
+        "date": "2024-09-02",
+        "minute_bars": 210
+      },
+      {
+        "date": "2024-09-19",
+        "minute_bars": 387
+      },
+      {
+        "date": "2024-11-28",
+        "minute_bars": 210
+      },
+      {
+        "date": "2024-11-29",
+        "minute_bars": 225
+      },
+      {
+        "date": "2024-12-24",
+        "minute_bars": 225
+      },
+      {
+        "date": "2025-01-20",
+        "minute_bars": 210
+      },
+      {
+        "date": "2025-02-17",
+        "minute_bars": 210
+      },
+      {
+        "date": "2025-05-26",
+        "minute_bars": 210
+      },
+      {
+        "date": "2025-06-19",
+        "minute_bars": 210
+      },
+      {
+        "date": "2025-07-03",
+        "minute_bars": 225
+      },
+      {
+        "date": "2025-07-04",
+        "minute_bars": 210
+      },
+      {
+        "date": "2025-09-01",
+        "minute_bars": 210
+      },
+      {
+        "date": "2025-11-27",
+        "minute_bars": 210
+      },
+      {
+        "date": "2025-11-28",
+        "minute_bars": 225
+      },
+      {
+        "date": "2025-12-24",
+        "minute_bars": 225
+      },
+      {
+        "date": "2026-01-19",
+        "minute_bars": 210
+      },
+      {
+        "date": "2026-02-16",
+        "minute_bars": 210
+      },
+      {
+        "date": "2026-05-25",
+        "minute_bars": 210
+      },
+      {
+        "date": "2026-06-11",
+        "minute_bars": 345
+      },
+      {
+        "date": "2026-06-19",
+        "minute_bars": 210
+      },
+      {
+        "date": "2026-07-03",
+        "minute_bars": 210
+      },
+      {
+        "date": "2026-07-17",
+        "minute_bars": 325
+      },
+      {
+        "date": "2026-08-20",
+        "minute_bars": 389
+      },
+      {
+        "date": "2026-09-07",
+        "minute_bars": 210
+      }
+    ]
+  },
+  "overall": {
+    "trades": 1918,
+    "wins": 715,
+    "win_rate_pct": 37.27841501564129,
+    "net_dollars": -48890.0,
+    "expectancy_dollars": -25.490093847758082,
+    "mean_net_r": -0.015288803109930098,
+    "profit_factor": 0.9522124585805468,
+    "closed_trade_max_drawdown": 79025.0
+  },
+  "by_year": {
+    "2019": {
+      "trades": 10,
+      "wins": 4,
+      "win_rate_pct": 40.0,
+      "net_dollars": -615.0,
+      "expectancy_dollars": -61.5,
+      "mean_net_r": -0.18599302121402328,
+      "profit_factor": 0.5444444444444444,
+      "closed_trade_max_drawdown": 1185.0
+    },
+    "2020": {
+      "trades": 276,
+      "wins": 115,
+      "win_rate_pct": 41.666666666666664,
+      "net_dollars": 13215.0,
+      "expectancy_dollars": 47.880434782608695,
+      "mean_net_r": 0.09805770809549469,
+      "profit_factor": 1.1396491598858713,
+      "closed_trade_max_drawdown": 14525.0
+    },
+    "2021": {
+      "trades": 268,
+      "wins": 94,
+      "win_rate_pct": 35.07462686567164,
+      "net_dollars": -4315.0,
+      "expectancy_dollars": -16.100746268656717,
+      "mean_net_r": -0.06381056203581108,
+      "profit_factor": 0.9603746728499931,
+      "closed_trade_max_drawdown": 20955.0
+    },
+    "2022": {
+      "trades": 284,
+      "wins": 111,
+      "win_rate_pct": 39.08450704225352,
+      "net_dollars": 13495.0,
+      "expectancy_dollars": 47.517605633802816,
+      "mean_net_r": 0.059892963441622905,
+      "profit_factor": 1.0826367839319067,
+      "closed_trade_max_drawdown": 15675.0
+    },
+    "2023": {
+      "trades": 292,
+      "wins": 98,
+      "win_rate_pct": 33.56164383561644,
+      "net_dollars": -17325.0,
+      "expectancy_dollars": -59.332191780821915,
+      "mean_net_r": -0.10402477731490731,
+      "profit_factor": 0.8615329283887468,
+      "closed_trade_max_drawdown": 22425.0
+    },
+    "2024": {
+      "trades": 280,
+      "wins": 112,
+      "win_rate_pct": 40.0,
+      "net_dollars": 13860.0,
+      "expectancy_dollars": 49.5,
+      "mean_net_r": 0.03596065677467974,
+      "profit_factor": 1.1091338582677166,
+      "closed_trade_max_drawdown": 16980.0
+    },
+    "2025": {
+      "trades": 291,
+      "wins": 113,
+      "win_rate_pct": 38.83161512027491,
+      "net_dollars": -21625.0,
+      "expectancy_dollars": -74.3127147766323,
+      "mean_net_r": -0.02280170407665958,
+      "profit_factor": 0.8917505130900536,
+      "closed_trade_max_drawdown": 53025.0
+    },
+    "2026": {
+      "trades": 217,
+      "wins": 68,
+      "win_rate_pct": 31.336405529953918,
+      "net_dollars": -45580.0,
+      "expectancy_dollars": -210.04608294930875,
+      "mean_net_r": -0.12670389683656783,
+      "profit_factor": 0.7754679802955665,
+      "closed_trade_max_drawdown": 48350.0
+    }
+  }
+}

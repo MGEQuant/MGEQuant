@@ -1,0 +1,17 @@
+    RemoveDrawObject("LH_VWAP");
+            }
+
+            DrawLevelNamesAndArrows(m);
+
+            if (ShowVoids && m.Voids.Count > 0)
+                Draw.HorizontalLine(this, VoidTag, m.Voids[0].Center, brushVoid, DashStyleHelper.Dash, 1);
+
+            if (ShowSummary)
+                Draw.TextFixed(this, SummaryTag, BuildSummaryText(m), TextPosition.TopRight,
+                    brushText, labelFont, System.Windows.Media.Brushes.Transparent,
+                    System.Windows.Media.Brushes.Transparent, 0);
+        }
+
+        private void DrawLevelNamesAndArrows(HeatModel m)
+        {
+            // Every name sits on the current bar (barsAgo 0), s

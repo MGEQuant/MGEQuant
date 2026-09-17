@@ -1,0 +1,33 @@
+{
+  "hypothesis": "Restrict setup closes to 10:00 ET onward improves net dollar expectancy versus unchanged baseline.",
+  "single_change": "Earliest eligible setup close: 09:45 -> 10:00 America/New_York. Entry cutoff, expiry, levels, fills, costs, exits and daily cap unchanged.",
+  "input": "F:\\Trading Software\\backtest_lab\\NQ_BackAdjusted\\NQ_Continuous_Adjusted.csv",
+  "simulator_sha256": "e7b2d86422bb77fbb3b1cb67afb1649ed039ca391a17a58bfb4da8f71c4737d1",
+  "baseline_reproduction_verified": true,
+  "complete_sessions": 1654,
+  "skipped_sessions": 88,
+  "baseline": {
+    "trades": 1918,
+    "wins": 715,
+    "win_rate_pct": 37.27841501564129,
+    "net_dollars": -48890.0,
+    "expectancy_dollars": -25.490093847758082,
+    "mean_net_r": -0.015288803109930098,
+    "profit_factor": 0.9522124585805468,
+    "closed_trade_max_drawdown": 79025.0
+  },
+  "variant": {
+    "trades": 1681,
+    "wins": 635,
+    "win_rate_pct": 37.775133848899465,
+    "net_dollars": -43455.0,
+    "expectancy_dollars": -25.850684116597265,
+    "mean_net_r": -0.022504069667477186,
+    "profit_factor": 0.9480125616868551,
+    "closed_trade_max_drawdown": 90550.0
+  },
+  "expectancy_change": -0.3605902688391822,
+  "net_change": 5435.0,
+  "hypothesis_supported_in_sample": false,
+  "limitations": "Exploratory full-sample test, not independent validation. UTC minute-close convention and roll adjustments unverified. Full-session selection bias and minute-OHLC fill uncertainty remain."
+}

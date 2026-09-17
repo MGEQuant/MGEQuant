@@ -1,0 +1,27 @@
+LadderPocBin(m);
+            if (pocBin >= 0)
+                AddLevelRow(rows, "POC", m.BinCenter(pocBin), minGap);
+            if (m.NodePrices.Count > 0)
+                AddLevelRow(rows, "HVN", m.NodePrices[0], minGap);
+            if (m.Voids.Count > 0)
+                AddLevelRow(rows, "LVN", m.Voids[0].Center, minGap);
+
+            foreach (LiquidityPool pool in m.Pools)
+            {
+                if (pool.Sweeps <= 0)
+                    continue;
+                string name = pool.Kind == PoolKind.High ? "SWEEP-H" : "SWEEP-L";
+                AddLevelRow(rows, name, pool.Price, minGap);
+                if (rows.Count >= 16)
+                    break;
+            }
+
+            if (ShowSessionLevels)
+            {
+                AddLevelRow(rows, "PDH", m.PriorHigh > 0 ? m.PriorHigh : m.SessionHigh, minGap);
+                AddLevelRow(rows, "PDL", m.PriorLow > 0 ? m.PriorLow : m.SessionLow, minGap);
+                AddLevelRow(rows, "ORH", m.OpeningHigh, minGap);
+                AddLevelRow(rows, "ORL", m.OpeningLow, minGap);
+                AddLevelRow(rows, "VWAP", m.Vwap, minGap);
+                AddLevelRow(rows, "WH", m.WeekHigh, minGap);
+                AddLevelR

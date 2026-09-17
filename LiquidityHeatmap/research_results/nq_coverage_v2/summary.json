@@ -1,0 +1,194 @@
+{
+  "input": "F:\\Trading Software\\backtest_lab\\NQ_BackAdjusted\\NQ_Continuous_Adjusted.csv",
+  "symbol": "NQ",
+  "commission_round_trip": 5.0,
+  "slippage_ticks": 1.0,
+  "timestamp_assumption": "UTC minute CLOSE; vendor convention unverified",
+  "coverage_policy": "morning_0931_1200_v2; PDH/PDL require complete prior observed cash session",
+  "warning": "Research only: complete-morning selection bias, no exchange holiday calendar or absent-session detection, OHLC fill uncertainty. Not out-of-sample validation.",
+  "coverage": {
+    "first_date": "2019-12-09",
+    "last_date": "2026-09-09",
+    "complete_sessions": 1654,
+    "execution_sessions": 1725,
+    "skipped_sessions": [
+      {
+        "date": "2019-12-09",
+        "minute_bars": 329,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2019-12-10",
+        "minute_bars": 346,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2019-12-11",
+        "minute_bars": 376,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2020-03-09",
+        "minute_bars": 376,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2020-03-12",
+        "minute_bars": 375,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2020-03-16",
+        "minute_bars": 376,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2020-04-10",
+        "minute_bars": 1,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2020-06-03",
+        "minute_bars": 388,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2021-08-24",
+        "minute_bars": 388,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2022-08-03",
+        "minute_bars": 389,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2022-08-30",
+        "minute_bars": 389,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2024-07-19",
+        "minute_bars": 380,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2024-07-25",
+        "minute_bars": 385,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2024-08-02",
+        "minute_bars": 382,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2024-08-05",
+        "minute_bars": 388,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2026-06-11",
+        "minute_bars": 345,
+        "reason": "incomplete_morning"
+      },
+      {
+        "date": "2026-07-17",
+        "minute_bars": 325,
+        "reason": "incomplete_morning"
+      }
+    ]
+  },
+  "overall": {
+    "trades": 1992,
+    "wins": 736,
+    "win_rate_pct": 36.94779116465863,
+    "net_dollars": -60045.0,
+    "expectancy_dollars": -30.143072289156628,
+    "mean_net_r": -0.02587643233875989,
+    "profit_factor": 0.9426205618015108,
+    "closed_trade_max_drawdown": 88770.0
+  },
+  "by_year": {
+    "2019": {
+      "trades": 11,
+      "wins": 5,
+      "win_rate_pct": 45.45454545454545,
+      "net_dollars": -485.0,
+      "expectancy_dollars": -44.09090909090909,
+      "mean_net_r": -0.08466898032443673,
+      "profit_factor": 0.6407407407407407,
+      "closed_trade_max_drawdown": 1055.0
+    },
+    "2020": {
+      "trades": 291,
+      "wins": 119,
+      "win_rate_pct": 40.893470790378004,
+      "net_dollars": 12315.0,
+      "expectancy_dollars": 42.31958762886598,
+      "mean_net_r": 0.07951995909388526,
+      "profit_factor": 1.1254137176027292,
+      "closed_trade_max_drawdown": 15085.0
+    },
+    "2021": {
+      "trades": 275,
+      "wins": 95,
+      "win_rate_pct": 34.54545454545455,
+      "net_dollars": -5075.0,
+      "expectancy_dollars": -18.454545454545453,
+      "mean_net_r": -0.07604467136260291,
+      "profit_factor": 0.9542586750788643,
+      "closed_trade_max_drawdown": 21645.0
+    },
+    "2022": {
+      "trades": 298,
+      "wins": 116,
+      "win_rate_pct": 38.92617449664429,
+      "net_dollars": 11165.0,
+      "expectancy_dollars": 37.466442953020135,
+      "mean_net_r": 0.04926106299621087,
+      "profit_factor": 1.0665157427541627,
+      "closed_trade_max_drawdown": 15915.0
+    },
+    "2023": {
+      "trades": 303,
+      "wins": 101,
+      "win_rate_pct": 33.333333333333336,
+      "net_dollars": -17375.0,
+      "expectancy_dollars": -57.34323432343234,
+      "mean_net_r": -0.11400105916627505,
+      "profit_factor": 0.8627946460299285,
+      "closed_trade_max_drawdown": 22015.0
+    },
+    "2024": {
+      "trades": 291,
+      "wins": 117,
+      "win_rate_pct": 40.20618556701031,
+      "net_dollars": 14355.0,
+      "expectancy_dollars": 49.329896907216494,
+      "mean_net_r": 0.037312967957591064,
+      "profit_factor": 1.1111885674451027,
+      "closed_trade_max_drawdown": 15435.0
+    },
+    "2025": {
+      "trades": 297,
+      "wins": 113,
+      "win_rate_pct": 38.04713804713805,
+      "net_dollars": -24590.0,
+      "expectancy_dollars": -82.79461279461279,
+      "mean_net_r": -0.04306473525717833,
+      "profit_factor": 0.8787086590869855,
+      "closed_trade_max_drawdown": 53025.0
+    },
+    "2026": {
+      "trades": 226,
+      "wins": 70,
+      "win_rate_pct": 30.97345132743363,
+      "net_dollars": -50355.0,
+      "expectancy_dollars": -222.80973451327435,
+      "mean_net_r": -0.13737982768412496,
+      "profit_factor": 0.7597910604398226,
+      "closed_trade_max_drawdown": 52555.0
+    }
+  }
+}

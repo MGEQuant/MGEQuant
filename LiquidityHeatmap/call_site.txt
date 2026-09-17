@@ -1,0 +1,19 @@
+
+        {
+            List<KeyValuePair<string, double>> rows = new List<KeyValuePair<string, double>>();
+            double minGap = Math.Max(m.BinSize, m.TickSize) * 1.5;
+
+            int pocBin = LadderPocBinModel(m);
+            if (pocBin >= 0)
+                AddLevelRow(rows, "POC", m.BinCenter(pocBin), minGap);
+            if (m.NodePrices.Count > 0)
+                AddLevelRow(rows, "HVN", m.NodePrices[0], minGap);
+            if (m.Voids.Count > 0)
+                AddLevelRow(rows, "LVN", m.Voids[0].Center, minGap);
+
+            foreach (LiquidityPool pool in m.Pools)
+            {
+                if (pool.Sweeps <= 0)
+                    continue;
+                string name = pool.Kind == PoolKind.High ? "SWEEP-H" : "SWEEP-L";
+                AddLevelRow(rows, name, pool.Price

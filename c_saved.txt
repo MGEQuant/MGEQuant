@@ -1,0 +1,53 @@
+hin air.
+            bool wantTags = ShowLevelTags || ShowLiveArrows;
+            List<KeyValuePair<string, double>> rows = wantTags
+                ? CollectLevelRows(m) : new List<KeyValuePair<string, double>>();
+            int wanted = rows.Count > 16 ? 16 : rows.Count;
+
+            for (int i = 0; i < wanted; i++)
+            {
+                string tag = LevelNamePrefix + i.ToString(Inv);
+                string arrowTag = LiveArrowPrefix + i.ToString(Inv);
+                double price = rows[i].Value;
+                string text = rows[i].Key + " " + FormatPrice(price, m);
+                System.Windows.Media.Brush brush = BrushForLevel(rows[i].Key);
+
+                if (ShowLevelTags)
+                    Draw.Text(this, tag, false, text, 0, price, 1, brush, labelFont,
+                        System.Windows.TextAlignment.Left,
+                        System.Windows.Media.Brushes.Transparent,
+                        System.Windows.Media.Brushes.Transparent, 0);
+
+                if (ShowLiveArrows)
+                {
+                    bool above = price >= m.Price;
+                    if (above)
+                        Draw.ArrowDown(this, arrowTag, false, 0,
+                            price + m.TickSize, brush);
+                    else
+                        Draw.ArrowUp(this, arrowTag, false, 0,
+                            price - m.TickSize, brush);
+                }
+                else
+                {
+                    RemoveDrawObject(arrowTag);
+                }
+            }
+
+            // wipe anything the current frame did not redraw
+            for (int i = wanted; i < previousLevelRows; i++)
+            {
+                RemoveDrawObject(LevelNamePrefix + i.ToString(Inv));
+                RemoveDrawObject(LiveArrowPrefix + i.ToString(Inv));
+            }
+            previousLevelRows = wanted;
+        }
+        {
+            List<KeyValuePair<string, double>> rows = new List<KeyValuePair<string, double>>();
+            double minGap = Math.Max(m.BinSize, m.TickSize) * 1.5;
+
+            int pocBin = LadderPocBin(m);
+            if (pocBin >= 0)
+                AddLevelRow(rows, "POC", m.BinCenter(pocBin), minGap);
+            if (m.NodePrices.Count > 0)
+                AddLevelRow(rows, "HVN", m.
