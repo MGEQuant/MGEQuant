@@ -4,3 +4,8 @@ __pycache__/
 # Research lives outside this repo, at F:\Trading Software\Research, so it stays
 # private and is never pushed to GitHub. Do not re-add it here.
 Research/
+
+# Source code stays private (README: "Source code remains private during development").
+# Indicator/strategy source lives in F:\Trading Software\Research or the private org repos - never here.
+Releases/NQ_ProbabilityIndicator/
+*.cs
