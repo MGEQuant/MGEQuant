@@ -10,3 +10,4 @@ Research/
 Releases/NQ_ProbabilityIndicator/
 *.cs
 *.pine
+.mcp.json
