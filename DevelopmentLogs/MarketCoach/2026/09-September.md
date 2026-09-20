@@ -106,3 +106,13 @@ for months. Where live code resets a block of state on one condition, the harnes
 derive every one of those resets from a single expression — and a test must assert the
 two implementations agree. This is the same defect family as the bot/backtest divergence
 found in the Kraken project three days earlier.
+
+## September 12 — MarketCoach: a passing walk-forward test was resting on roll gaps
+
+A configuration that passed walk-forward testing failed once the price data was corrected.
+
+The original test used front-month NQ with contract roll gaps left in, up to 282 points. On a back-adjusted series the relaxed configuration turned slightly negative. The shipped configuration stayed positive, but its edge more than halved.
+
+Every number got worse once the roll gaps were removed, and only one of the two stayed above zero. The relaxed setup was reverted and the original configuration restored in the source.
+
+A roll gap is a price move that no one could ever have traded. A test that includes them is measuring the data, not the strategy.
