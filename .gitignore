@@ -9,3 +9,4 @@ Research/
 # Indicator/strategy source lives in F:\Trading Software\Research or the private org repos - never here.
 Releases/NQ_ProbabilityIndicator/
 *.cs
+*.pine
