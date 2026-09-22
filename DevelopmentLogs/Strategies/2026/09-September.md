@@ -1,7 +1,6 @@
 ---
 layout: default
 title: "Strategies — September 2026"
-permalink: /DevelopmentLogs/Strategies/2026/09-September.md
 ---
 
 # Strategies - September 2026

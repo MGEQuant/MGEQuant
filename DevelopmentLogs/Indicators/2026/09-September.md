@@ -1,7 +1,6 @@
 ---
 layout: default
 title: "Indicators — September 2026"
-permalink: /DevelopmentLogs/Indicators/2026/09-September.md
 ---
 
 # Indicators - September 2026
