@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Vision"
+permalink: "/Mission and Vision/Vision.md"
 ---
 
 I'd love this to become more than just three NinjaTrader indicators.
