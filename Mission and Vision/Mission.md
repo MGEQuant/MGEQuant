@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Mission"
+permalink: "/Mission and Vision/Mission.md"
 ---
 
 ### The Three Musketeers

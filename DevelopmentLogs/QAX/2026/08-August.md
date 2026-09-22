@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "QAX — August 2026"
+permalink: /DevelopmentLogs/QAX/2026/08-August.md
 ---
 
 # August 1, 2026 – Asia Session (3:12 PM PT)

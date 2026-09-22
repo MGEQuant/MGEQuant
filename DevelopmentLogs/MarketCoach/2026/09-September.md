@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "MarketCoach — September 2026"
+permalink: /DevelopmentLogs/MarketCoach/2026/09-September.md
 ---
 
 # September 2026 — Development Log
