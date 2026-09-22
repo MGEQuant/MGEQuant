@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MGEQuant | Honest quant trading research, built in the open</title>
+<meta name="description" content="Building smarter trading solutions in public. Data. Structure. Execution. We test hard and publish what fails.">
+<meta property="og:title" content="MGEQuant">
+<meta property="og:description" content="Honest quant trading research, built in the open.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mgequant.com/">
+<meta property="og:image" content="https://mgequant.com/assets/img/mgequant-logo.png">
+<link rel="icon" href="assets/img/mgequant-logo.png">
+<style>
+  :root {
+    --bg: #06070a;
+    --bg-panel: #0d0f14;
+    --border: #1e222b;
+    --silver: #e6e8ec;
+    --silver-dim: #9aa0ab;
+    --blue: #3b8bff;
+    --blue-dim: #6fa8ff;
+    --text: #c7cbd4;
+    --text-dim: #7d8390;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+  header.hero {
+    text-align: center;
+    padding: 56px 24px 24px;
+  }
+  header.hero img {
+    width: 148px;
+    height: 148px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--border), 0 20px 60px -20px rgba(59, 139, 255, 0.35);
+  }
+  header.hero h1 {
+    color: var(--silver);
+    font-size: 2rem;
+    letter-spacing: 0.02em;
+    margin: 28px 0 6px;
+  }
+  header.hero h1 .accent { color: var(--blue); }
+  header.hero .tagline {
+    color: var(--silver-dim);
+    font-size: 1.05rem;
+    margin: 0 0 4px;
+  }
+  header.hero .subtagline {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+  hr.rule {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue) 50%, transparent);
+    opacity: 0.5;
+    margin: 40px 0;
+  }
+  p.lead {
+    color: var(--text);
+    font-size: 1.02rem;
+  }
+  h2 {
+    color: var(--silver);
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    margin-top: 44px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  a { color: var(--blue-dim); text-decoration: none; border-bottom: 1px solid rgba(111, 168, 255, 0.25); }
+  a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 8px; }
+  li ul { margin-top: 8px; }
+  .card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .card {
+    flex: 1 1 200px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color 0.15s ease;
+  }
+  .card:hover { border-color: var(--blue); }
+  .card a { border-bottom: none; display: block; color: var(--silver); font-weight: 600; margin-bottom: 4px; }
+  .card a:hover { color: var(--blue-dim); }
+  .card span { color: var(--text-dim); font-size: 0.88rem; }
+  .disclaimer {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-top: 28px;
+  }
+  footer {
+    text-align: center;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+  footer a { color: var(--blue-dim); }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <img src="assets/img/mgequant-logo.png" alt="MGEQuant logo">
+    <h1>MGE<span class="accent">QUANT</span></h1>
+    <p class="tagline">Honest quant trading research, built in the open.</p>
+    <p class="subtagline">Data. Structure. Execution.</p>
+  </header>
+
+  <div class="wrap">
+    <p class="lead">We build indicators and strategies for NQ futures, test them hard, and publish what we find &mdash; including what fails. Most ideas do not survive testing, and we say so.</p>
+
+    <h2>What's here</h2>
+    <div class="card-row">
+      <div class="card">
+        <a href="DevelopmentLogs/">Development logs</a>
+        <span>What we built, tested, and learned</span>
+      </div>
+      <div class="card">
+        <a href="Screenshots/">Screenshots</a>
+        <span>The indicators on real charts</span>
+      </div>
+      <div class="card">
+        <a href="Mission%20and%20Vision/">Mission and vision</a>
+        <span>Why we're doing this in public</span>
+      </div>
+      <div class="card">
+        <a href="mgequant-propfirm-calculator.html">Prop-firm calculator</a>
+        <span>Free tool</span>
+      </div>
+    </div>
+    <ul style="margin-top:20px;">
+      <li><a href="DevelopmentLogs/Indicators/2026/09-September.md">Indicators</a>: News Wire, Liquidity Heatmap, IB 25/75 and more</li>
+      <li><a href="DevelopmentLogs/Strategies/2026/09-September.md">Strategies</a>: the setups we trade by hand, and how far each has been tested</li>
+      <li><a href="DevelopmentLogs/MarketCoach/2026/09-September.md">MarketCoach</a>: including a passing test that turned out to be resting on roll gaps</li>
+    </ul>
+
+    <h2>How we work</h2>
+    <ul>
+      <li>We use random-entry controls and out-of-sample checks, and we correct our own numbers in public when we find a mistake.</li>
+      <li>Every entry says how far an idea has been tested. A rule appearing here does not mean it works.</li>
+    </ul>
+
+    <h2>What we don't do</h2>
+    <p>No trade signals, no trade advice, no performance promises. Source code stays private.</p>
+    <p class="disclaimer">Educational and research content only. Not investment advice. Trading futures involves substantial risk of loss. Backtested results are hypothetical and do not represent actual trading.</p>
+
+    <hr class="rule">
+
+    <footer>
+      Weekly notes: <a href="https://mgequantnotes.substack.com">mgequantnotes.substack.com</a><br>
+      Follow along on X: <a href="https://x.com/MGEQuant">@MGEQuant</a>
+    </footer>
+  </div>
+</body>
+</html>
