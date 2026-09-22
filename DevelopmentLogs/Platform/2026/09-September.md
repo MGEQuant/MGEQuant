@@ -1,7 +1,6 @@
 ---
 layout: default
 title: "Platform — September 2026"
-permalink: /DevelopmentLogs/Platform/2026/09-September.md
 ---
 
 # Platform - September 2026
