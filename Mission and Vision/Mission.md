@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Mission"
+---
+
 ### The Three Musketeers
 
 Built by traders, refined through real market experience.

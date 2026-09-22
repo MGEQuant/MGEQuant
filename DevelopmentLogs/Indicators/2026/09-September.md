@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Indicators — September 2026"
+---
+
 # Indicators - September 2026
 
 Indicators read the market and draw on the chart. None of them place orders.

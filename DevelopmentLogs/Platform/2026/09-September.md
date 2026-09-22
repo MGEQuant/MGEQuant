@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Platform — September 2026"
+---
+
 # Platform - September 2026
 
 ## September 12 — NinjaTrader recovered: compiling again after a month on a stale assembly
