@@ -1,3 +1,8 @@
+---
+layout: default
+title: "Strategies — September 2026"
+---
+
 # Strategies - September 2026
 
 Strategies and rule sets, whether coded or read by hand. A rule appearing here does not mean it works. Each entry says how far it has been tested.
@@ -23,3 +28,11 @@ A strategy built from a public trading-education walkthrough. A 50-period EMA se
 It ships with the fleet's standard safeguards: it stays disabled unless the connected account name matches, it caps dollar risk and stop size per trade, it locks out for the day after a loss limit, and it caps entries per session. A visual companion indicator draws the setup and the trade on the chart.
 
 No results are claimed. Every backtest number quoted for a strategy has to pass the same independent audit as the rest of the fleet, and this one is still in that process.
+
+## September 21 — Exhaustion Coil: first backtest
+
+The third idea from September 15 ("a coil after an exhaustion extreme") was formalized into exact rules and backtested in Python against the NQ back-adjusted continuous contract. A bug was found and fixed during the process (coil boundaries were not being locked at confirmation, causing every setup to self-invalidate before a breakout could fire).
+
+The pattern was tested across RSI thresholds, timeframes, and sessions. Full backtest numbers, the NT8 strategy source, and all diagnostic scripts are in the private Research repo (`Research/ExhaustionCoil/`).
+
+Status: stays in Python / backtest-only until an explicit go/no-go decision.

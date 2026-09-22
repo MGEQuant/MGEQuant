@@ -1,3 +1,8 @@
+---
+layout: default
+title: "MarketCoach — September 2026"
+---
+
 # September 2026 — Development Log
 
 ## September 2 — Kraken VolSqueeze Breakout: first real test, no edge demonstrated

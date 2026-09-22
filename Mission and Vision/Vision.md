@@ -1,3 +1,7 @@
+---
+layout: default
+title: "Vision"
+---
 
 I'd love this to become more than just three NinjaTrader indicators.
 

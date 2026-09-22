@@ -1,3 +1,8 @@
+---
+layout: default
+title: "MarketCoach — August 2026"
+---
+
 # August 1, 2026 – Asia Session (3:12 PM PT)
 Milestone
 
