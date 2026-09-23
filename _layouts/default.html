@@ -292,20 +292,20 @@
 </style>
 {% if page.url contains "/Mission" %}
 <style>
-/* Mission & Vision: parchment scroll over a candlestick backdrop.
+/* Mission & Vision: burnt parchment scroll over a live silver/blue candlestick backdrop.
    Markup is built at build time in <body>; CSS-only, zero JS.
    Tokens are scoped to .mv-stage so the shared :root contract with index.html stays byte-identical. */
 .mv-stage {
-  --mv-paper: #eadcb9;
-  --mv-paper-2: #dcc9a1;
+  --mv-paper: #d8c49e;
+  --mv-paper-2: #c2a97e;
   --mv-ink: #3a301d;
   --mv-ink-strong: #2b2414;
   --mv-ink-dim: #6b5a38;
   --mv-link: #0e4fa6;
   --mv-link-rule: rgba(14, 79, 166, 0.45);
-  --mv-up: rgba(44, 197, 150, 0.90);
-  --mv-dn: rgba(255, 104, 132, 0.85);
-  --mv-grid: rgba(196, 168, 110, 0.13);
+  --mv-up: rgba(59, 139, 255, 0.92);
+  --mv-dn: rgba(154, 160, 171, 0.85);
+  --mv-grid: rgba(148, 160, 180, 0.13);
   --mv-roll-a: #dcb976;
   --mv-roll-b: #8d6b37;
   --mv-roll-c: #63491f;
@@ -314,16 +314,16 @@
 }
 @media (prefers-color-scheme: light) {
   .mv-stage {
-    --mv-paper: #f6ecd7;
-    --mv-paper-2: #eeddc0;
+    --mv-paper: #e9dab6;
+    --mv-paper-2: #d7c299;
     --mv-ink: #3d3120;
     --mv-ink-strong: #2e2515;
     --mv-ink-dim: #74613e;
     --mv-link: #0f4fa8;
     --mv-link-rule: rgba(15, 79, 168, 0.50);
-    --mv-up: rgba(9, 148, 110, 0.85);
-    --mv-dn: rgba(214, 62, 92, 0.80);
-    --mv-grid: rgba(150, 120, 60, 0.16);
+    --mv-up: rgba(22, 104, 220, 0.88);
+    --mv-dn: rgba(70, 79, 96, 0.85);
+    --mv-grid: rgba(84, 96, 116, 0.16);
     --mv-roll-a: #e4c489;
     --mv-roll-b: #97743c;
     --mv-roll-c: #6b5126;
@@ -352,7 +352,7 @@
     transparent 0 63px,
     var(--mv-grid) 63px 64px
   );
-  animation: mv-drift 90s linear infinite;
+  animation: mv-drift 72s linear infinite;
 }
 @keyframes mv-drift {
   from { transform: translateX(0); }
@@ -364,6 +364,19 @@
   background: currentColor;
   border-radius: 2px;
   color: var(--mv-up);
+  animation: mv-live 3.2s ease-in-out infinite;
+}
+/* Live strip: six phase groups ripple the bob+glow across the candles (CSS-only).
+   Negative delays start every candle mid-cycle; reduced-motion falls back to base state. */
+.mv-c:nth-child(6n+1) { animation-delay: -0.4s; }
+.mv-c:nth-child(6n+2) { animation-delay: -1.1s; animation-duration: 2.7s; }
+.mv-c:nth-child(6n+3) { animation-delay: -1.9s; animation-duration: 4.1s; }
+.mv-c:nth-child(6n+4) { animation-delay: -2.6s; animation-duration: 3.5s; }
+.mv-c:nth-child(6n+5) { animation-delay: -0.8s; animation-duration: 2.4s; }
+.mv-c:nth-child(6n+6) { animation-delay: -1.5s; animation-duration: 3.8s; }
+@keyframes mv-live {
+  0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(140, 198, 255, 0); }
+  50% { transform: translateY(-6px); box-shadow: 0 0 10px currentColor; }
 }
 .mv-c.up { color: var(--mv-up); }
 .mv-c.down { color: var(--mv-dn); }
@@ -426,13 +439,18 @@
   font-family: Georgia, "Times New Roman", "Palatino Linotype", serif;
   line-height: 1.72;
   background:
-    linear-gradient(90deg, rgba(110, 82, 38, 0.20), transparent 7%, transparent 93%, rgba(110, 82, 38, 0.20)),
-    radial-gradient(130% 46% at 50% 0%, rgba(255, 255, 255, 0.34), transparent 62%),
+    linear-gradient(180deg, rgba(18, 9, 2, 0.70), rgba(52, 30, 8, 0.20) 7%, transparent 16%, transparent 84%, rgba(52, 30, 8, 0.22) 93%, rgba(14, 7, 2, 0.75)),
+    linear-gradient(90deg, rgba(20, 10, 3, 0.62), rgba(66, 40, 14, 0.15) 6%, transparent 18%, transparent 82%, rgba(66, 40, 14, 0.15) 94%, rgba(20, 10, 3, 0.62)),
+    radial-gradient(circle at 3% 5%, rgba(26, 13, 3, 0.55), transparent 24%),
+    radial-gradient(circle at 97% 11%, rgba(30, 15, 4, 0.45), transparent 20%),
+    radial-gradient(circle at 7% 95%, rgba(28, 14, 3, 0.50), transparent 22%),
+    radial-gradient(circle at 95% 91%, rgba(26, 13, 3, 0.55), transparent 24%),
+    radial-gradient(120% 55% at 50% 6%, rgba(96, 62, 24, 0.20), transparent 55%),
     radial-gradient(circle at 16% 28%, rgba(146, 108, 52, 0.16), transparent 36%),
     radial-gradient(circle at 86% 72%, rgba(146, 108, 52, 0.13), transparent 40%),
     linear-gradient(180deg, var(--mv-paper), var(--mv-paper-2));
   border-radius: 4px;
-  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.8), inset 0 0 44px rgba(126, 96, 46, 0.18);
+  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.8), inset 0 0 46px rgba(58, 32, 10, 0.42), inset 0 0 130px rgba(22, 11, 3, 0.30);
 }
 .mv-paper h1,
 .mv-paper h2 { color: var(--mv-ink-strong); border-bottom: 1px dashed rgba(122, 96, 52, 0.45); }
@@ -440,7 +458,7 @@
 .mv-paper a { color: var(--mv-link); border-bottom-color: var(--mv-link-rule); }
 .mv-paper a:hover { color: var(--mv-link); border-bottom-color: var(--mv-link); }
 .mv-paper .card {
-  background: rgba(255, 250, 235, 0.45);
+  background: rgba(240, 223, 188, 0.40);
   border-color: rgba(122, 96, 52, 0.35);
 }
 .mv-paper .card a { color: var(--mv-ink-strong); border-bottom: none; }
@@ -451,7 +469,7 @@
   box-shadow: 0 12px 28px -18px rgba(60, 40, 10, 0.55);
 }
 .mv-paper code {
-  background: rgba(255, 250, 235, 0.6);
+  background: rgba(238, 220, 180, 0.52);
   border-color: rgba(122, 96, 52, 0.35);
   color: var(--mv-ink-strong);
 }
