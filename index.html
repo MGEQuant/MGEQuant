@@ -161,6 +161,20 @@
     margin-right: auto;
   }
   .site-nav .brand:hover { color: var(--blue-dim); }
+  .site-nav .brand::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+    margin-right: 8px;
+    animation: brand-live 2.4s ease-in-out infinite;
+  }
+  @keyframes brand-live {
+    0%, 100% { opacity: 0.55; box-shadow: 0 0 3px rgba(59, 139, 255, 0.5); }
+    50% { opacity: 1; box-shadow: 0 0 9px rgba(111, 168, 255, 0.95); }
+  }
   .site-nav a:not(.brand) {
     color: var(--text-dim);
     font-size: 0.82rem;
@@ -175,8 +189,59 @@
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: none; }
   }
+  .logo-stage {
+    position: relative;
+    display: inline-flex;
+    animation: rise 0.6s ease backwards;
+    transition: transform 0.3s ease;
+  }
+  .logo-stage:hover { transform: scale(1.05); }
   header.hero img {
-    animation: rise 0.6s ease both, logo-pulse 3.5s 0.6s ease-in-out infinite alternate;
+    animation: logo-pulse 3.5s 0.6s ease-in-out infinite alternate;
+    transition: filter 0.3s ease;
+  }
+  .logo-stage:hover img { filter: brightness(1.08) drop-shadow(0 0 18px rgba(59, 139, 255, 0.45)); }
+  .logo-orbit, .logo-trail {
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: logo-orbit 7s linear infinite;
+    transition: filter 0.3s ease;
+  }
+  .logo-orbit {
+    background: radial-gradient(circle 7px at 50% 6px, rgba(190, 220, 255, 0.95), rgba(59, 139, 255, 0.55) 55%, rgba(59, 139, 255, 0) 75%);
+  }
+  .logo-trail {
+    background: conic-gradient(rgba(59, 139, 255, 0) 264deg, rgba(59, 139, 255, 0.25) 318deg, rgba(147, 197, 255, 0.75) 360deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 1.5px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 1.5px));
+  }
+  .logo-stage:hover .logo-orbit, .logo-stage:hover .logo-trail { filter: brightness(1.5); }
+  .logo-glint {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .logo-glint::before {
+    content: "";
+    position: absolute;
+    top: -30%;
+    bottom: -30%;
+    left: 0;
+    width: 45%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.30) 50%, transparent);
+    transform: translateX(-160%) skewX(-16deg);
+    animation: logo-glint 6.5s ease-in-out infinite;
+  }
+  @keyframes logo-orbit {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes logo-glint {
+    0%, 55% { transform: translateX(-160%) skewX(-16deg); }
+    85%, 100% { transform: translateX(340%) skewX(-16deg); }
   }
   header.hero h1 { animation: rise 0.6s 0.1s ease both; }
   header.hero .tagline { animation: rise 0.6s 0.2s ease both; }
@@ -249,7 +314,12 @@
   </nav>
 
   <header class="hero">
-    <img src="assets/img/mgequant-logo.png" alt="MGEQuant logo">
+    <span class="logo-stage">
+      <img src="assets/img/mgequant-logo.png" alt="MGEQuant logo">
+      <span class="logo-orbit" aria-hidden="true"></span>
+      <span class="logo-trail" aria-hidden="true"></span>
+      <span class="logo-glint" aria-hidden="true"></span>
+    </span>
     <h1>MGE<span class="accent">QUANT</span></h1>
     <p class="tagline">Honest quant trading research, built in the open.</p>
     <p class="subtagline">Data. Structure. Execution.</p>

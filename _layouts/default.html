@@ -64,6 +64,20 @@
     margin-right: auto;
   }
   .site-nav .brand:hover { color: var(--blue-dim); }
+  .site-nav .brand::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+    margin-right: 8px;
+    animation: brand-live 2.4s ease-in-out infinite;
+  }
+  @keyframes brand-live {
+    0%, 100% { opacity: 0.55; box-shadow: 0 0 3px rgba(59, 139, 255, 0.5); }
+    50% { opacity: 1; box-shadow: 0 0 9px rgba(111, 168, 255, 0.95); }
+  }
   .site-nav a:not(.brand) {
     color: var(--text-dim);
     font-size: 0.82rem;
