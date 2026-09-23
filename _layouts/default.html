@@ -27,22 +27,61 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.6;
   }
-  .topbar {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(560px 300px at 50% -60px, rgba(59, 139, 255, 0.14), transparent 70%);
+    animation: glow-drift 12s ease-in-out infinite alternate;
+  }
+  @keyframes glow-drift {
+    from { transform: translateY(0); opacity: 0.7; }
+    to { transform: translateY(24px); opacity: 1; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  .site-nav {
+    position: relative;
+    z-index: 1;
     max-width: 760px;
     margin: 0 auto;
-    padding: 24px 24px 0;
+    padding: 20px 24px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 18px;
+    animation: rise 0.5s ease both;
   }
-  .topbar a {
-    color: var(--blue-dim);
-    text-decoration: none;
-    font-size: 0.92rem;
-    border-bottom: 1px solid rgba(111, 168, 255, 0.25);
+  .site-nav .brand {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--silver);
+    border-bottom: none;
+    margin-right: auto;
   }
-  .topbar a:hover { color: var(--blue); border-bottom-color: var(--blue); }
+  .site-nav .brand:hover { color: var(--blue-dim); }
+  .site-nav a:not(.brand) {
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 3px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .site-nav a:not(.brand):hover { color: var(--blue-dim); }
+  .site-nav a.active { color: var(--silver); border-bottom-color: var(--blue); }
   .wrap {
+    position: relative;
+    z-index: 1;
     max-width: 760px;
     margin: 0 auto;
     padding: 16px 24px 80px;
+    animation: rise 0.55s 0.08s ease both;
   }
   .wrap h1 {
     color: var(--silver);
@@ -85,11 +124,70 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 16px 18px;
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
   }
-  .card:hover { border-color: var(--blue); }
+  .card:hover {
+    border-color: var(--blue);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -16px rgba(59, 139, 255, 0.45);
+  }
   .card a { border-bottom: none; display: block; color: var(--silver); font-weight: 600; margin-bottom: 4px; }
   .card a:hover { color: var(--blue-dim); }
   .card span { color: var(--text-dim); font-size: 0.88rem; }
+  .log-list { list-style: none; padding: 0; }
+  .log-list li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+  .log-list li:last-child { border-bottom: none; }
+  .log-list a { font-weight: 600; }
+  .log-list time {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    margin-left: auto;
+  }
+  .shot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .shot {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--bg-panel);
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+  }
+  .shot .shot-cap {
+    display: block;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    transition: color 0.15s ease;
+  }
+  .shot:hover {
+    transform: translateY(-3px);
+    border-color: var(--blue);
+    box-shadow: 0 12px 28px -16px rgba(59, 139, 255, 0.45);
+  }
+  .shot:hover img { transform: scale(1.06); }
+  .shot:hover .shot-cap { color: var(--blue-dim); }
   footer {
     text-align: center;
     margin-top: 56px;
@@ -99,12 +197,35 @@
     font-size: 0.9rem;
   }
   footer a { color: var(--blue-dim); }
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .wrap > * {
+        animation: reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 </head>
 <body>
-  <div class="topbar">
-    <a href="/">&larr; MGEQuant home</a>
-  </div>
+  <nav class="site-nav">
+    <a class="brand" href="/">MGEQuant</a>
+    <a href="/DevelopmentLogs/"{% if page.url contains "/DevelopmentLogs" %} class="active"{% endif %}>Dev logs</a>
+    <a href="/Screenshots/"{% if page.url contains "/Screenshots" %} class="active"{% endif %}>Screenshots</a>
+    <a href="/Mission%20and%20Vision/"{% if page.url contains "/Mission" %} class="active"{% endif %}>Mission</a>
+    <a href="/mgequant-propfirm-calculator.html"{% if page.url contains "calculator" %} class="active"{% endif %}>Calculator</a>
+  </nav>
   <div class="wrap">
     {{ content }}
     <footer>

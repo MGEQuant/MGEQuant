@@ -1,5 +1,6 @@
 ---
 layout: default
+date: "2026-09-21"
 title: "Strategies — September 2026"
 ---
 

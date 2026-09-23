@@ -1,5 +1,6 @@
 ---
 layout: default
+date: "2026-08-10"
 title: "MarketCoach — August 2026"
 ---
 

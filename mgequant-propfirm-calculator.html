@@ -32,6 +32,8 @@
     body{min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);line-height:1.6;background:linear-gradient(180deg,var(--color-bg),var(--color-surface));color:var(--color-text)}
     .wrap{max-width:1280px;margin:0 auto;padding:var(--space-6)}
     .topbar{display:flex;justify-content:space-between;gap:var(--space-4);align-items:flex-start;margin-bottom:var(--space-8)}
+    .home-link{display:inline-block;margin-bottom:.6rem;font-size:var(--text-sm);color:var(--color-blue);text-decoration:none}
+    .home-link:hover{text-decoration:underline}
     h1{font-size:var(--text-xl);line-height:1.1;max-width:18ch}
     .sub{color:var(--color-text-muted);max-width:70ch;margin-top:var(--space-3)}
     .theme-btn{border:1px solid color-mix(in oklab,var(--color-text) 14%, transparent);background:var(--color-surface);color:var(--color-text);padding:.75rem 1rem;border-radius:999px;cursor:pointer;min-width:44px;min-height:44px}
@@ -72,6 +74,7 @@
   <div class="wrap">
     <div class="topbar">
       <div>
+        <a class="home-link" href="/">&larr; MGEQuant home</a>
         <h1>MGEQuant Propfirm account calculator</h1>
         <p class="sub">Configure account size, drawdown, consistency, payout, and trading-day rules for different proprietary trading firms.</p>
       </div>
