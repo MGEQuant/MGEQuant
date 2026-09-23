@@ -1,5 +1,6 @@
 ---
 layout: default
+date: "2026-08-10"
 title: "QAX — August 2026"
 ---
 

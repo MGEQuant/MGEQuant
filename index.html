@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -123,15 +125,142 @@
     font-size: 0.9rem;
   }
   footer a { color: var(--blue-dim); }
+
+  /* --- motion & liveliness --- */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(560px 300px at 50% -60px, rgba(59, 139, 255, 0.14), transparent 70%);
+    animation: glow-drift 12s ease-in-out infinite alternate;
+  }
+  @keyframes glow-drift {
+    from { transform: translateY(0); opacity: 0.7; }
+    to { transform: translateY(24px); opacity: 1; }
+  }
+  header.hero, .wrap { position: relative; z-index: 1; }
+  .site-nav {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 20px 24px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 18px;
+    animation: rise 0.5s ease both;
+  }
+  .site-nav .brand {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--silver);
+    border-bottom: none;
+    margin-right: auto;
+  }
+  .site-nav .brand:hover { color: var(--blue-dim); }
+  .site-nav a:not(.brand) {
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 3px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .site-nav a:not(.brand):hover { color: var(--blue-dim); }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+  header.hero img {
+    animation: rise 0.6s ease both, logo-pulse 3.5s 0.6s ease-in-out infinite alternate;
+  }
+  header.hero h1 { animation: rise 0.6s 0.1s ease both; }
+  header.hero .tagline { animation: rise 0.6s 0.2s ease both; }
+  header.hero .subtagline { animation: rise 0.6s 0.3s ease both; }
+  @keyframes logo-pulse {
+    from { box-shadow: 0 0 0 1px var(--border), 0 20px 60px -20px rgba(59, 139, 255, 0.25); }
+    to { box-shadow: 0 0 0 1px rgba(59, 139, 255, 0.55), 0 20px 70px -18px rgba(59, 139, 255, 0.55); }
+  }
+  .ticker {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-panel);
+    margin-top: 8px;
+  }
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: ticker 32s linear infinite;
+  }
+  .ticker-track span {
+    padding: 9px 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .card { transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; }
+  .card:hover {
+    border-color: var(--blue);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -16px rgba(59, 139, 255, 0.45);
+  }
+  .latest-more { margin-top: 14px; font-size: 0.9rem; }
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .wrap > * {
+        animation: reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 100%;
+      }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
 </style>
 </head>
 <body>
+  <nav class="site-nav">
+    <a class="brand" href="./">MGEQuant</a>
+    <a href="DevelopmentLogs/">Dev logs</a>
+    <a href="Screenshots/">Screenshots</a>
+    <a href="Mission%20and%20Vision/">Mission</a>
+    <a href="mgequant-propfirm-calculator.html">Calculator</a>
+  </nav>
+
   <header class="hero">
     <img src="assets/img/mgequant-logo.png" alt="MGEQuant logo">
     <h1>MGE<span class="accent">QUANT</span></h1>
     <p class="tagline">Honest quant trading research, built in the open.</p>
     <p class="subtagline">Data. Structure. Execution.</p>
   </header>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Data &middot; Structure &middot; Execution &middot; Built in the open &middot; We publish what fails &middot; No signals &middot; No performance promises &middot; Source code stays private &middot;&nbsp;</span>
+      <span>Data &middot; Structure &middot; Execution &middot; Built in the open &middot; We publish what fails &middot; No signals &middot; No performance promises &middot; Source code stays private &middot;&nbsp;</span>
+    </div>
+  </div>
 
   <div class="wrap">
     <p class="lead">We build indicators and strategies &mdash; started on NQ futures, now testing across other indices, forex, crypto, and stocks &mdash; and publish what we find, including what fails. Most ideas do not survive testing, and we say so.</p>
@@ -155,11 +284,21 @@
         <span>Free tool</span>
       </div>
     </div>
-    <ul style="margin-top:20px;">
-      <li><a href="DevelopmentLogs/Indicators/2026/09-September.html">Indicators</a>: News Wire, Liquidity Heatmap, IB 25/75 and more</li>
-      <li><a href="DevelopmentLogs/Strategies/2026/09-September.html">Strategies</a>: the setups we trade by hand, and how far each has been tested</li>
-      <li><a href="DevelopmentLogs/MarketCoach/2026/09-September.html">MarketCoach</a>: including a passing test that turned out to be resting on roll gaps</li>
-    </ul>
+    <h2>Latest dev logs</h2>
+    {% assign devlog_all = site.pages | where_exp: "p", "p.url contains '/DevelopmentLogs/'" %}
+    {% assign devlogs = devlog_all | where_exp: "p", "p.date != nil" %}
+    {% assign devlogs = devlogs | sort: "date" | reverse %}
+    {% if devlogs.size > 0 %}
+    <div class="card-row">
+      {% for p in devlogs limit: 3 %}
+      <div class="card">
+        <a href="{{ p.url }}">{{ p.title }}</a>
+        <span>{{ p.date | date: "%b %-d, %Y" }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="latest-more"><a href="DevelopmentLogs/">All development logs &rarr;</a></p>
+    {% endif %}
 
     <h2>How we work</h2>
     <ul>

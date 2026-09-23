@@ -12,3 +12,7 @@ Releases/NQ_ProbabilityIndicator/
 *.pine
 .mcp.json
 .claude/
+
+# Cline local memory/rules - local-only, never push.
+CLINE.md
+.clinerules/
