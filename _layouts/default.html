@@ -290,6 +290,173 @@
     }
   }
 </style>
+{% if page.url contains "/Mission" %}
+<style>
+/* Mission & Vision: parchment scroll over a candlestick backdrop.
+   Markup is built at build time in <body>; CSS-only, zero JS.
+   Tokens are scoped to .mv-stage so the shared :root contract with index.html stays byte-identical. */
+.mv-stage {
+  --mv-paper: #eadcb9;
+  --mv-paper-2: #dcc9a1;
+  --mv-ink: #3a301d;
+  --mv-ink-strong: #2b2414;
+  --mv-ink-dim: #6b5a38;
+  --mv-link: #0e4fa6;
+  --mv-link-rule: rgba(14, 79, 166, 0.45);
+  --mv-up: rgba(44, 197, 150, 0.90);
+  --mv-dn: rgba(255, 104, 132, 0.85);
+  --mv-grid: rgba(196, 168, 110, 0.13);
+  --mv-roll-a: #dcb976;
+  --mv-roll-b: #8d6b37;
+  --mv-roll-c: #63491f;
+  position: relative;
+  padding: 76px 0 150px;
+}
+@media (prefers-color-scheme: light) {
+  .mv-stage {
+    --mv-paper: #f6ecd7;
+    --mv-paper-2: #eeddc0;
+    --mv-ink: #3d3120;
+    --mv-ink-strong: #2e2515;
+    --mv-ink-dim: #74613e;
+    --mv-link: #0f4fa8;
+    --mv-link-rule: rgba(15, 79, 168, 0.50);
+    --mv-up: rgba(9, 148, 110, 0.85);
+    --mv-dn: rgba(214, 62, 92, 0.80);
+    --mv-grid: rgba(150, 120, 60, 0.16);
+    --mv-roll-a: #e4c489;
+    --mv-roll-b: #97743c;
+    --mv-roll-c: #6b5126;
+  }
+}
+.mv-chart-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.mv-chart {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  width: max-content;
+  min-width: 100%;
+  padding-right: 12px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 63px,
+    var(--mv-grid) 63px 64px
+  );
+  animation: mv-drift 90s linear infinite;
+}
+@keyframes mv-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.mv-c {
+  position: relative;
+  flex: 0 0 14px;
+  background: currentColor;
+  border-radius: 2px;
+  color: var(--mv-up);
+}
+.mv-c.up { color: var(--mv-up); }
+.mv-c.down { color: var(--mv-dn); }
+.mv-c::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -7%;
+  bottom: -7%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: currentColor;
+  opacity: 0.85;
+}
+.mv-c.h0 { height: 30%; }
+.mv-c.h1 { height: 46%; }
+.mv-c.h2 { height: 38%; }
+.mv-c.h3 { height: 61%; }
+.mv-c.h4 { height: 52%; }
+.mv-c.h5 { height: 74%; }
+.mv-c.h6 { height: 65%; }
+.mv-c.h7 { height: 86%; }
+.mv-c.h8 { height: 77%; }
+.mv-c.h9 { height: 96%; }
+.mv-c.h10 { height: 70%; }
+.mv-scroll {
+  position: relative;
+  z-index: 1;
+  width: min(640px, calc(100% - 40px));
+  margin: 0 auto;
+}
+.mv-roll {
+  position: relative;
+  height: 30px;
+  margin: 0 -14px;
+  border-radius: 15px;
+  background: linear-gradient(180deg, var(--mv-roll-a) 0%, var(--mv-roll-b) 45%, var(--mv-roll-c) 72%, var(--mv-roll-b) 100%);
+  box-shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.65);
+}
+.mv-roll::before,
+.mv-roll::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: radial-gradient(circle at 34% 30%, var(--mv-roll-a), var(--mv-roll-b) 55%, var(--mv-roll-c));
+  box-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.6);
+}
+.mv-roll::before { left: -10px; }
+.mv-roll::after { right: -10px; }
+.mv-roll-top { margin-bottom: -6px; z-index: 2; }
+.mv-roll-bottom { margin-top: -6px; z-index: 2; }
+.mv-paper {
+  position: relative;
+  padding: clamp(26px, 5vw, 44px) clamp(20px, 5vw, 46px);
+  color: var(--mv-ink);
+  font-family: Georgia, "Times New Roman", "Palatino Linotype", serif;
+  line-height: 1.72;
+  background:
+    linear-gradient(90deg, rgba(110, 82, 38, 0.20), transparent 7%, transparent 93%, rgba(110, 82, 38, 0.20)),
+    radial-gradient(130% 46% at 50% 0%, rgba(255, 255, 255, 0.34), transparent 62%),
+    radial-gradient(circle at 16% 28%, rgba(146, 108, 52, 0.16), transparent 36%),
+    radial-gradient(circle at 86% 72%, rgba(146, 108, 52, 0.13), transparent 40%),
+    linear-gradient(180deg, var(--mv-paper), var(--mv-paper-2));
+  border-radius: 4px;
+  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.8), inset 0 0 44px rgba(126, 96, 46, 0.18);
+}
+.mv-paper h1,
+.mv-paper h2 { color: var(--mv-ink-strong); border-bottom: 1px dashed rgba(122, 96, 52, 0.45); }
+.mv-paper h3 { color: var(--mv-ink-dim); }
+.mv-paper a { color: var(--mv-link); border-bottom-color: var(--mv-link-rule); }
+.mv-paper a:hover { color: var(--mv-link); border-bottom-color: var(--mv-link); }
+.mv-paper .card {
+  background: rgba(255, 250, 235, 0.45);
+  border-color: rgba(122, 96, 52, 0.35);
+}
+.mv-paper .card a { color: var(--mv-ink-strong); border-bottom: none; }
+.mv-paper .card a:hover { color: var(--mv-link); }
+.mv-paper .card span { color: var(--mv-ink-dim); }
+.mv-paper .card:hover {
+  border-color: var(--mv-link);
+  box-shadow: 0 12px 28px -18px rgba(60, 40, 10, 0.55);
+}
+.mv-paper code {
+  background: rgba(255, 250, 235, 0.6);
+  border-color: rgba(122, 96, 52, 0.35);
+  color: var(--mv-ink-strong);
+}
+</style>
+{% endif %}
 </head>
 <body>
   <nav class="site-nav">
@@ -300,7 +467,29 @@
     <a href="/mgequant-propfirm-calculator.html"{% if page.url contains "calculator" %} class="active"{% endif %}>Calculator</a>
   </nav>
   <div class="wrap">
+    {% if page.url contains "/Mission" %}
+    <div class="mv-stage">
+      <div class="mv-chart-clip" aria-hidden="true">
+        <div class="mv-chart">
+          {%- for set in (1..2) -%}
+          {%- for i in (1..36) -%}
+          {%- assign d = i | times: 5 | modulo: 7 -%}
+          {%- assign m = i | times: 29 | modulo: 11 -%}
+          {%- if d < 4 -%}{%- assign dir = "up" -%}{%- else -%}{%- assign dir = "down" -%}{%- endif -%}
+          <i class="mv-c {{ dir }} h{{ m }}"></i>
+          {%- endfor -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="mv-scroll">
+        <div class="mv-roll mv-roll-top"></div>
+        <div class="mv-paper">{{ content }}</div>
+        <div class="mv-roll mv-roll-bottom"></div>
+      </div>
+    </div>
+    {% else %}
     {{ content }}
+    {% endif %}
     <footer>
       Weekly notes: <a href="https://mgequantnotes.substack.com">mgequantnotes.substack.com</a><br>
       Follow along on X: <a href="https://x.com/MGEQuant">@MGEQuant</a>
