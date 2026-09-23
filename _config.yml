@@ -1,3 +1,6 @@
+exclude:
+  - "Archive"
+
 defaults:
   - scope:
       path: "DevelopmentLogs"
