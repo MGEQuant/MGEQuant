@@ -1,0 +1,5 @@
+defaults:
+  - scope:
+      path: "DevelopmentLogs"
+    values:
+      layout: default

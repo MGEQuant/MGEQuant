@@ -3,7 +3,7 @@ layout: default
 title: "Vision"
 ---
 
-I'd love this to become more than just three NinjaTrader indicators.
+I'd love this to become more than just three NinjaTrader indicators — and it already has. New indicators, new strategies, and more in the pipeline, built for whatever market has the structure they're looking for: other indices, forex, crypto, or stocks, not just NQ futures.
 
 Imagine a new trader opening the platform.
 
