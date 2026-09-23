@@ -2,7 +2,7 @@
 
 **Honest quant trading research, built in the open.**
 
-We build indicators and strategies for NQ futures, test them hard, and publish what we find, including what fails. Most ideas do not survive testing, and we say so.
+We build indicators and strategies — started on NQ futures, now testing across other indices, forex, crypto, and stocks — and publish what we find, including what fails. Most ideas do not survive testing, and we say so.
 
 ## What's here
 
