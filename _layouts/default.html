@@ -123,6 +123,13 @@
     margin-right: auto;
   }
   .site-nav .brand:hover { color: var(--blue-dim); }
+  .site-nav .brand .brand-back {
+    display: inline-block;
+    margin-right: 0.25em;
+    color: var(--blue);
+    transition: transform 0.18s ease;
+  }
+  .site-nav .brand:hover .brand-back { transform: translateX(-0.2em); }
   .site-nav .brand::before {
     content: "";
     display: inline-block;
@@ -491,7 +498,7 @@
 </head>
 <body>
   <nav class="site-nav">
-    <a class="brand" href="/">MGEQuant</a>
+    <a class="brand" href="/"><span class="brand-back" aria-hidden="true">&larr;</span>MGEQuant</a>
     <a href="/DevelopmentLogs/"{% if page.url contains "/DevelopmentLogs" %} class="active"{% endif %}>Dev logs</a>
     <a href="/Screenshots/"{% if page.url contains "/Screenshots" %} class="active"{% endif %}>Screenshots</a>
     <a href="/Mission%20and%20Vision/"{% if page.url contains "/Mission" %} class="active"{% endif %}>Mission</a>
