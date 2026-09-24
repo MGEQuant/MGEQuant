@@ -276,14 +276,12 @@
   .shotview-back { position: absolute; top: 12px; left: 12px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; background: rgba(6, 7, 10, 0.8); color: var(--blue-dim); font: inherit; font-size: 0.9rem; line-height: 1; text-decoration: none; cursor: pointer; }
   .shotview-back:hover { border-color: var(--blue); color: var(--blue-hi); background: rgba(6, 7, 10, 0.95); }
   .shotview-back:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .shotview-scroll { flex: 1 1 auto; min-height: 0; overflow: auto; background: #0b0d12; }
+  .shotview-img { display: block; width: auto; max-width: none; height: auto; max-height: none; margin: 0 auto; padding: 16px; background: #0b0d12; }
   .shotview-bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 8px 16px; background: var(--bg-panel); }
-  .shotview-open { display: inline-flex; align-items: center; gap: 6px; color: var(--blue-dim); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
-  .shotview-open:hover { color: var(--blue-hi); }
-  .shotview-open:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
   .shotview-cap { flex: 1 1 200px; min-width: 0; color: var(--text-dim); font-size: 0.82rem; line-height: 1.45; }
   .shotview-cap b, .shotview-cap span { display: block; }
   .shotview-cap b { margin-bottom: 3px; color: var(--silver); font-size: 0.88rem; }
-  .shotview-img { display: block; flex: 1 1 auto; min-height: 0; width: 100%; height: auto; max-height: 100%; padding: 16px; object-fit: contain; background: #0b0d12; }
   footer {
     text-align: center;
     margin-top: 56px;
@@ -540,10 +538,11 @@
   </div>
 
   <dialog class="shotview" id="shotview" aria-label="Chart capture">
-    <img class="shotview-img" alt="">
+    <div class="shotview-scroll">
+      <img class="shotview-img" alt="">
+    </div>
     <div class="shotview-bar">
       <span class="shotview-cap" data-cap></span>
-      <a class="shotview-open" data-orig href="#" target="_blank" rel="noopener">Open original &nearr;</a>
     </div>
     <button class="shotview-back" type="button" data-close aria-label="Back to charts">&larr;</button>
   </dialog>
@@ -554,7 +553,6 @@
       if (!dlg || typeof dlg.showModal !== 'function') return;
       var img = dlg.querySelector('.shotview-img');
       var cap = dlg.querySelector('[data-cap]');
-      var orig = dlg.querySelector('[data-orig]');
       var back = dlg.querySelector('.shotview-back');
       var last = null;
       document.querySelectorAll('a.shot').forEach(function (a) {
@@ -578,28 +576,12 @@
             if (b) { var t = document.createElement('b'); t.textContent = b.textContent.trim(); cap.appendChild(t); }
             if (desc) { var d = document.createElement('span'); d.textContent = desc; cap.appendChild(d); }
           }
-          orig.href = href;
           document.documentElement.style.overflow = 'hidden';
           dlg.showModal();
           back.focus();
         });
       });
-      function outsidePainted(e) {
-        var r = img.getBoundingClientRect();
-        var nw = img.naturalWidth, nh = img.naturalHeight;
-        if (!nw || !nh) return false;
-        var cs = getComputedStyle(img);
-        var pl = parseFloat(cs.paddingLeft) || 0, pr = parseFloat(cs.paddingRight) || 0;
-        var pt = parseFloat(cs.paddingTop) || 0, pb = parseFloat(cs.paddingBottom) || 0;
-        var bw = r.width - pl - pr, bh = r.height - pt - pb;
-        if (bw <= 0 || bh <= 0) return false;
-        var bx = r.left + pl, by = r.top + pt;
-        var s = Math.min(bw / nw, bh / nh);
-        var w = nw * s, h = nh * s;
-        var x = bx + (bw - w) / 2, y = by + (bh - h) / 2;
-        return e.clientX < x || e.clientX > x + w || e.clientY < y || e.clientY > y + h;
-      }
-      dlg.addEventListener('click', function (e) { if (e.target === dlg || (e.target === img && outsidePainted(e))) dlg.close(); });
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
       back.addEventListener('click', function () { dlg.close(); });
       dlg.addEventListener('close', function () {
         document.documentElement.style.overflow = '';
