@@ -230,7 +230,7 @@
   .flog th { text-align: left; padding: 6px 8px; color: var(--text-dim); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
   .flog td { padding: 9px 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
   .flog td small { display: block; color: var(--text-dim); font-size: 0.78rem; }
-  .flog .st { display: inline-block; padding: 2px 7px; border-radius: 5px; border: 1px solid currentColor; font-size: 0.64rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .flog .st { display: inline-block; padding: 2px 7px; border-radius: 5px; border: 1px solid currentColor; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.4; }
   .flog td:last-child { white-space: nowrap; color: var(--text-dim); }
 
   /* ---------- bottom row ---------- */
@@ -283,7 +283,7 @@
     .pipeline li:nth-child(4)::after { display: none; }
     .markets { gap: 6px; font-size: 0.7rem; }
     .logo-stage img { width: 130px; height: 130px; }
-    .flog th:nth-child(3), .flog td:nth-child(3) { display: none; }
+    .flog th:nth-child(4), .flog td:nth-child(4) { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
@@ -391,7 +391,7 @@
           <div class="shot"><img src="assets/img/home/liquidity-heatmap.jpg" alt="Liquidity Heatmap on a 5-minute NQ chart marking sweeps of highs and lows and a point of control" loading="lazy" style="object-position: 30% 40%"><span class="tag t-ctx">Context tool</span></div>
           <div class="body">
             <h3>Liquidity Heatmap</h3>
-            <p>Marks sweeps of highs and lows as they happen, with the session's point of control. Trading the sweep-reclaim on its own showed no edge, so it stays a context tool.</p>
+            <p>Marks sweeps of highs and lows as they happen, with the session's point of control. A mechanical sweep-reclaim rule showed no standalone edge in backtest; on the chart it is used as context and read the trader's own way.</p>
             <span class="more">Read the dev log &rarr;</span>
           </div>
         </a>
@@ -434,11 +434,11 @@
         </figure>
         <figure class="panel hov">
           <a class="shot" href="assets/img/home/csc-ab.jpg" target="_blank" rel="noopener"><img src="assets/img/home/csc-ab.jpg" alt="CSC/AB Trader on a 5-minute NQ chart: Attrition Break signals marked through the session and a first-target exit" loading="lazy" style="object-position: 15% 40%"></a>
-          <figcaption><span class="fired">&#9679; Signals fired</span><b>CSC / AB Trader</b>Attrition Break signals marked through the session, with the first target hit at 0.93R. Sim only: a handful of trades proves the machinery, not an edge &mdash; the mechanical version showed none.</figcaption>
+          <figcaption><span class="fired">&#9679; Signals fired</span><b>CSC / AB Trader</b>Attrition Break signals marked through the session, with the first target hit at 0.93R. Traded by hand and forward tested on Sim. The coded version found no backtest edge; the setup is meant to be read by a trader, and a handful of trades is not a verdict either way.</figcaption>
         </figure>
         <figure class="panel hov">
           <a class="shot" href="assets/img/home/ib2575.jpg" target="_blank" rel="noopener"><img src="assets/img/home/ib2575.jpg" alt="IB 25/75 indicator: London Initial Balance box with its 25% line and price breaking below" loading="lazy" style="object-position: 25% 50%"></a>
-          <figcaption><span class="fired" style="color:#7cc4ff">&#9679; Visual only</span><b>IB 25/75</b>Initial Balance box with its 25% and 75% lines. The mechanical rule fired 22 times in about seven years, so the strategy was closed and the indicator stays as a map.</figcaption>
+          <figcaption><span class="fired" style="color:#7cc4ff">&#9679; Visual only</span><b>IB 25/75</b>Initial Balance box with its 25% and 75% lines. The coded rule fired only 22 times in about seven years, too few to backtest; the indicator is still used as a map for reading the session.</figcaption>
         </figure>
         <figure class="panel hov">
           <a class="shot" href="assets/img/home/nylowsweep.jpg" target="_blank" rel="noopener"><img src="assets/img/home/nylowsweep.jpg" alt="NYLowSweep indicator panel on an MNQ chart: order flow this bar, waiting for setup, and its research note" loading="lazy" style="object-position: 85% 40%"></a>
@@ -470,19 +470,19 @@
         <p class="pipe-note">Every step is checked against a random-entry control and out-of-sample data, and we correct our own numbers in public when we find a mistake.</p>
       </div>
       <div class="panel">
-        <h2>The failure log</h2>
-        <p>Not every model survives. Each of these is written up in the dev logs.</p>
+        <h2>Backtest vs. forward test</h2>
+        <p>A mechanical backtest tests one fixed version of a rule. It can find no edge while the same tool stays useful in a trader's hands, read their own way. We publish both sides.</p>
         <table class="flog">
-          <thead><tr><th>Model</th><th>Status</th><th>Why</th><th>Date</th></tr></thead>
+          <thead><tr><th>Model</th><th>Mechanical backtest</th><th>Now</th><th>Date</th></tr></thead>
           <tbody>
-            <tr><td>Liquidity sweep-reclaim</td><td><span class="st t-fail">No edge</span></td><td><small>No standalone edge on NQ</small></td><td>Sep 18</td></tr>
-            <tr><td>CSC + Attrition Break</td><td><span class="st t-fail">No edge</span></td><td><small>Neither beat its mirror trade</small></td><td>Sep 15</td></tr>
-            <tr><td>IB 25/75 retracement</td><td><span class="st t-closed">Closed</span></td><td><small>22 trades in ~7 years</small></td><td>Sep 15</td></tr>
-            <tr><td>MarketCoach relaxed config</td><td><span class="st t-rev">Reverted</span></td><td><small>Its pass rested on roll gaps</small></td><td>Sep 12</td></tr>
-            <tr><td>Kraken VolSqueeze Breakout</td><td><span class="st t-fail">Failed</span></td><td><small>109 trades, negative expectancy</small></td><td>Sep 2</td></tr>
+            <tr><td>Liquidity Heatmap<small>sweep-reclaim rule</small></td><td><span class="st t-rev">No standalone edge</span></td><td><span class="st t-ctx">In use as context</span></td><td>Sep 18</td></tr>
+            <tr><td>CSC + Attrition Break<small>as coded rules</small></td><td><span class="st t-rev">Didn't beat its mirror</span></td><td><span class="st t-live">Traded by hand, forward test</span></td><td>Sep 15</td></tr>
+            <tr><td>IB 25/75<small>retracement rule</small></td><td><span class="st t-rev">22 signals in ~7 yrs</span></td><td><span class="st t-ctx">Indicator in use as a map</span></td><td>Sep 15</td></tr>
+            <tr><td>MarketCoach<small>relaxed config</small></td><td><span class="st t-rev">Pass rested on roll gaps</span></td><td><span class="st t-live">Original config, forward test</span></td><td>Sep 12</td></tr>
+            <tr><td>Kraken VolSqueeze<small>breakout bot</small></td><td><span class="st t-rev">Negative over 109 trades</span></td><td><span class="st t-closed">Paper bot stopped</span></td><td>Sep 2</td></tr>
           </tbody>
         </table>
-        <p class="pipe-note"><a class="sec-link" href="DevelopmentLogs/">View full log &rarr;</a></p>
+        <p class="pipe-note">No live results are claimed for anything still in use; forward tests are how we find out. <a class="sec-link" href="DevelopmentLogs/">Read the write-ups &rarr;</a></p>
       </div>
     </section>
 
