@@ -283,7 +283,7 @@
   .shotview-cap { flex: 1 1 200px; min-width: 0; color: var(--text-dim); font-size: 0.82rem; line-height: 1.45; }
   .shotview-cap b, .shotview-cap span { display: block; }
   .shotview-cap b { margin-bottom: 3px; color: var(--silver); font-size: 0.88rem; }
-  .shotview-img { display: block; flex: 1 1 auto; min-height: 0; width: 100%; height: 100%; object-fit: contain; background: #0b0d12; }
+  .shotview-img { display: block; flex: 1 1 auto; min-height: 0; width: 100%; height: auto; max-height: 100%; padding: 16px; object-fit: contain; background: #0b0d12; }
   footer {
     text-align: center;
     margin-top: 56px;
@@ -588,9 +588,15 @@
         var r = img.getBoundingClientRect();
         var nw = img.naturalWidth, nh = img.naturalHeight;
         if (!nw || !nh) return false;
-        var s = Math.min(r.width / nw, r.height / nh);
+        var cs = getComputedStyle(img);
+        var pl = parseFloat(cs.paddingLeft) || 0, pr = parseFloat(cs.paddingRight) || 0;
+        var pt = parseFloat(cs.paddingTop) || 0, pb = parseFloat(cs.paddingBottom) || 0;
+        var bw = r.width - pl - pr, bh = r.height - pt - pb;
+        if (bw <= 0 || bh <= 0) return false;
+        var bx = r.left + pl, by = r.top + pt;
+        var s = Math.min(bw / nw, bh / nh);
         var w = nw * s, h = nh * s;
-        var x = r.left + (r.width - w) / 2, y = r.top + (r.height - h) / 2;
+        var x = bx + (bw - w) / 2, y = by + (bh - h) / 2;
         return e.clientX < x || e.clientX > x + w || e.clientY < y || e.clientY > y + h;
       }
       dlg.addEventListener('click', function (e) { if (e.target === dlg || (e.target === img && outsidePainted(e))) dlg.close(); });
