@@ -1,6 +1,6 @@
 ---
 layout: default
-date: "2026-09-18"
+date: "2026-09-23"
 title: "Indicators — September 2026"
 ---
 
@@ -45,3 +45,15 @@ An indicator built from standard OHLCV bars, so it does not need order flow data
 The buy and sell pressure layer is a bar-direction proxy, and the liquidation bands are estimates. Neither is a real order book, and the indicator is labeled that way. The same analytics run in a separate script, so a backtest and the chart agree on the same numbers. The script has its own test suite and the indicator compiles clean.
 
 A first test of the obvious strategy, trading a sweep that reclaims its level, found no standalone edge on NQ. The heatmap is therefore a context tool. It shows where liquidity sits. It does not say to trade it.
+
+## September 23 — FlowEdge: the same order flow, dressed to be read at a glance
+
+FlowEdge already carried a delta heatmap with absorption, divergence and sweep detection. What it lacked was the reading experience of a professional order-flow chart, so we added a look layer on top of the existing analytics.
+
+Four new things draw on price now. A volume-intensity color mode shades each price row by how much traded there rather than which side was pressing, so a cold yellow climbs to orange and then red as volume concentrates. A session VWAP comes with standard-deviation bands, which give the day's mean price and how far a move has stretched from it. A fast moving average is drawn in red as a short-term trend reference. Unusually busy bars get a translucent bubble, green or red by direction, sized by how much traded. A cumulative-delta strip runs along the bottom of the panel with a per-bar histogram and a dashed running total.
+
+None of that changes what the indicator claims to do. It marks where volume concentrated and which side absorbed it. It places no orders, and no strategy is attached to it. The color mode is a volume measure, not a signal, and the trend line is decoration until someone tests it.
+
+Two defects turned up while adding the layers, and both were worth more than the cosmetic work. The heatmap was rebuilding itself on every incoming tick instead of once per bar, which inflated the picture and the delta statistics along with it. And the drawing pass was reading price data directly, which is unsafe once a chart reloads and the indicator and the chart briefly disagree about how many bars exist; that drew a repeating error instead of a chart. The renderer now reads only values captured while bars are processed.
+
+The indicator compiles clean in NinjaTrader and runs on a chart. How well the new layers read at a glance, and whether the band widths and bubble sizes want tuning, is still being looked at.
