@@ -226,6 +226,18 @@
   .pipeline li::before { counter-increment: step; content: counter(step, decimal-leading-zero); display: block; margin-bottom: 6px; color: var(--blue-dim); font-size: 0.8rem; }
   .pipeline li:not(:last-child)::after { content: "\203A"; position: absolute; right: -7px; top: 50%; transform: translateY(-50%); color: var(--blue); font-size: 1rem; z-index: 1; }
   .pipe-note { margin: 14px 0 0; color: var(--text-dim); font-size: 0.86rem; }
+  .pipe-h3 { margin: 22px 0 10px; color: var(--silver); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; }
+  .stages { list-style: none; margin: 0; padding: 0; }
+  .stages li { display: grid; grid-template-columns: minmax(120px, 1fr) 1fr 150px; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.86rem; color: var(--text); }
+  .stages li:last-child { border-bottom: none; }
+  .stages .bar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .stages .bar i { height: 6px; border-radius: 2px; background: color-mix(in oklab, var(--blue) 14%, transparent); }
+  .stages .bar i.on { background: var(--blue); box-shadow: 0 0 6px rgba(59, 139, 255, 0.55); }
+  .stages .bar i.now { background: var(--blue-hi); box-shadow: 0 0 9px rgba(140, 198, 255, 0.9); }
+  .stages .lbl { color: var(--blue-dim); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-align: right; }
+  .bar-list { margin: 0; padding-left: 18px; color: var(--text); font-size: 0.86rem; }
+  .bar-list li { margin-bottom: 4px; }
+  .bar-list b { color: var(--silver); }
   table.flog { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
   .flog th { text-align: left; padding: 6px 8px; color: var(--text-dim); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
   .flog td { padding: 9px 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
@@ -284,6 +296,8 @@
     .markets { gap: 6px; font-size: 0.7rem; }
     .logo-stage img { width: 130px; height: 130px; }
     .flog th:nth-child(4), .flog td:nth-child(4) { display: none; }
+    .stages li { grid-template-columns: 1fr 1fr; }
+    .stages .lbl { grid-column: 1 / -1; text-align: left; margin-top: -4px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
@@ -468,6 +482,22 @@
           <li>Idea</li><li>Hypothesis</li><li>Prototype</li><li>Backtest</li><li>Forward test</li><li>Break / refine</li><li>Document</li>
         </ol>
         <p class="pipe-note">Every step is checked against a random-entry control and out-of-sample data, and we correct our own numbers in public when we find a mistake.</p>
+        <h3 class="pipe-h3">Where the work is now</h3>
+        <ul class="stages">
+          <li><span>Exhaustion Coil</span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="lbl">04 Backtest</span></li>
+          <li><span>EMA50 Chandelier</span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Forward test</span></li>
+          <li><span>MarketCoach V3.4.1</span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Forward test</span></li>
+          <li><span>CSC / Attrition Break</span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 By hand, Sim</span></li>
+          <li><span>NYLowSweep</span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Checking fills</span></li>
+          <li><span>FlowEdge</span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i></span><span class="lbl">06 Refined Sep 23</span></li>
+        </ul>
+        <h3 class="pipe-h3">What passing means</h3>
+        <ul class="bar-list">
+          <li><b>Enough trades</b> to mean something: roughly 300 or more signals a year.</li>
+          <li><b>Beats random entry</b> taken with the same stops, targets and timing.</li>
+          <li><b>Survives real costs</b>: commissions and slippage included, not added later.</li>
+          <li><b>Holds out of sample</b>, on data the rules never saw.</li>
+        </ul>
       </div>
       <div class="panel">
         <h2>Backtest vs. forward test</h2>
