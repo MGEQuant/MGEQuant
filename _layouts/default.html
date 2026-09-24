@@ -270,12 +270,20 @@
   .shot:hover .shot-cap { color: var(--blue-dim); }
 
   /* ---------- chart lightbox (tiny blue arrow, no-JS safe) ---------- */
-  .shotview { position: relative; width: fit-content; max-width: 96vw; max-height: 92vh; margin: auto; padding: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--bg); color: var(--text); }
+  .shotview { position: relative; width: fit-content; max-width: 96vw; max-height: 92vh; margin: auto; padding: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--bg); color: var(--text); isolation: isolate; }
   .shotview::backdrop { background: rgba(4, 7, 14, 0.9); }
   .shotview[open] { display: flex; flex-direction: column; }
+  .shotview::before { content: ""; position: absolute; inset: -60px; z-index: 0; pointer-events: none; background: radial-gradient(44% 36% at 20% 20%, var(--aurora-a), transparent 70%), radial-gradient(40% 32% at 82% 16%, var(--aurora-a), transparent 72%), radial-gradient(52% 42% at 50% 104%, var(--aurora-c), transparent 74%), radial-gradient(34% 30% at 74% 60%, var(--aurora-d), transparent 76%); animation: shotview-drift 14s ease-in-out infinite alternate; }
+  @keyframes shotview-drift { from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.7; } to { transform: translate3d(0, 22px, 0) scale(1.05); opacity: 1; } }
+  .shotview-scroll, .shotview-bar { position: relative; z-index: 1; }
   .shotview-back { position: absolute; top: 12px; left: 12px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; background: rgba(6, 7, 10, 0.8); color: var(--blue-dim); font: inherit; font-size: 0.9rem; line-height: 1; text-decoration: none; cursor: pointer; }
   .shotview-back:hover { border-color: var(--blue); color: var(--blue-hi); background: rgba(6, 7, 10, 0.95); }
   .shotview-back:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .shotview-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--border); border-radius: 50%; background: rgba(6, 7, 10, 0.8); color: var(--blue-dim); font: inherit; font-size: 0.9rem; line-height: 1; text-decoration: none; cursor: pointer; padding: 0; }
+  .shotview-nav:hover { border-color: var(--blue); color: var(--blue-hi); background: rgba(6, 7, 10, 0.95); }
+  .shotview-nav:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .shotview-prev { left: 12px; }
+  .shotview-next { right: 12px; }
   .shotview-scroll { flex: 0 1 auto; min-height: 0; min-width: 0; max-width: 100%; max-height: 100%; overflow: auto; margin: 0 auto; background: #0b0d12; }
   .shotview-img { display: block; width: auto; max-width: none; height: auto; max-height: none; margin: 0 auto; padding: 16px; background: #0b0d12; }
   .shotview-bar { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 8px 16px; background: var(--bg-panel); }
@@ -545,6 +553,8 @@
       <span class="shotview-cap" data-cap></span>
     </div>
     <button class="shotview-back" type="button" data-close aria-label="Back to charts">&larr;</button>
+    <button class="shotview-nav shotview-prev" type="button" data-step="-1" aria-label="Previous chart">&lsaquo;</button>
+    <button class="shotview-nav shotview-next" type="button" data-step="1" aria-label="Next chart">&rsaquo;</button>
   </dialog>
 
   <script>
@@ -554,34 +564,53 @@
       var img = dlg.querySelector('.shotview-img');
       var cap = dlg.querySelector('[data-cap]');
       var back = dlg.querySelector('.shotview-back');
+      var prev = dlg.querySelector('.shotview-prev');
+      var next = dlg.querySelector('.shotview-next');
       var last = null;
-      document.querySelectorAll('a.shot').forEach(function (a) {
+      var shots = Array.prototype.slice.call(document.querySelectorAll('a.shot'));
+      function fill(a) {
+        last = a;
+        img.src = a.getAttribute('href');
+        var thumb = a.querySelector('img');
+        img.alt = thumb ? thumb.getAttribute('alt') || '' : '';
+        cap.textContent = '';
+        var label = a.querySelector('figcaption, .shot-cap');
+        if (label) {
+          var b = label.querySelector('b');
+          var clone = label.cloneNode(true);
+          var drop = clone.querySelectorAll('.fired, b');
+          for (var i = 0; i < drop.length; i++) drop[i].parentNode.removeChild(drop[i]);
+          var desc = clone.textContent.replace(/\s+/g, ' ').trim();
+          if (b) { var t = document.createElement('b'); t.textContent = b.textContent.trim(); cap.appendChild(t); }
+          if (desc) { var d = document.createElement('span'); d.textContent = desc; cap.appendChild(d); }
+        }
+      }
+      function step(dir) {
+        if (!shots.length) return;
+        var i = shots.indexOf(last);
+        var n = (i + dir + shots.length) % shots.length;
+        fill(shots[n]);
+      }
+      shots.forEach(function (a) {
         a.addEventListener('click', function (e) {
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
           var href = a.getAttribute('href');
           if (!href) return;
           e.preventDefault();
-          last = a;
-          var thumb = a.querySelector('img');
-          var label = a.querySelector('figcaption, .shot-cap');
-          img.src = href;
-          img.alt = thumb ? thumb.getAttribute('alt') || '' : '';
-          cap.textContent = '';
-          if (label) {
-            var b = label.querySelector('b');
-            var clone = label.cloneNode(true);
-            var drop = clone.querySelectorAll('.fired, b');
-            for (var i = 0; i < drop.length; i++) drop[i].parentNode.removeChild(drop[i]);
-            var desc = clone.textContent.replace(/\s+/g, ' ').trim();
-            if (b) { var t = document.createElement('b'); t.textContent = b.textContent.trim(); cap.appendChild(t); }
-            if (desc) { var d = document.createElement('span'); d.textContent = desc; cap.appendChild(d); }
-          }
+          fill(a);
           document.documentElement.style.overflow = 'hidden';
           dlg.showModal();
           back.focus();
         });
       });
       dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+      dlg.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        step(e.key === 'ArrowLeft' ? -1 : 1);
+      });
+      if (prev) prev.addEventListener('click', function () { step(-1); });
+      if (next) next.addEventListener('click', function () { step(1); });
       back.addEventListener('click', function () { dlg.close(); });
       dlg.addEventListener('close', function () {
         document.documentElement.style.overflow = '';
