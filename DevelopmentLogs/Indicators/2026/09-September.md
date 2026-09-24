@@ -54,6 +54,14 @@ Four new things draw on price now. A volume-intensity color mode shades each pri
 
 None of that changes what the indicator claims to do. It marks where volume concentrated and which side absorbed it. It places no orders, and no strategy is attached to it. The color mode is a volume measure, not a signal, and the trend line is decoration until someone tests it.
 
-Two defects turned up while adding the layers, and both were worth more than the cosmetic work. The heatmap was rebuilding itself on every incoming tick instead of once per bar, which inflated the picture and the delta statistics along with it. And the drawing pass was reading price data directly, which is unsafe once a chart reloads and the indicator and the chart briefly disagree about how many bars exist; that drew a repeating error instead of a chart. The renderer now reads only values captured while bars are processed.
+Two defects turned up while adding the layers. The heatmap was adding a new row on every incoming tick instead of once per bar, and the drawing pass read price data directly, which fails when a chart reloads and the indicator and the chart briefly disagree about how many bars exist. Both were patched the same day.
 
-The indicator compiles clean in NinjaTrader and runs on a chart. How well the new layers read at a glance, and whether the band widths and bubble sizes want tuning, is still being looked at.
+Those patches did not make it right. Checked on the live chart that evening, the indicator was still wrong in five ways, and the chart showed it: every delta bar in the strip was identical, and most of the new layers were drawn in empty space to the right of the last candle.
+
+1. Every heatmap row was built from the first bar loaded on the chart, not the current one. The code asked for "bar number N" where the platform reads "N bars ago", so the whole heatmap, the delta strip and the cumulative delta were copies of one old bar. Divergence detection had the same mistake.
+2. The layers were spread evenly across the panel instead of being placed at each bar's own position, so they did not move with the candles when the chart scrolled or zoomed, and the newest bars were never drawn.
+3. On a live chart, the session VWAP added the current bar's volume again on every tick, the trend line stepped once per tick instead of once per bar, and absorption, divergence and sweep checks ran on every tick.
+4. The first tick of each new bar has no range yet. That tick added no row, so the next tick deleted the previous, finished bar instead.
+5. Live buy and sell counts classified trades before a bid and ask were known, so early prints all counted as buying.
+
+All five are fixed. Everything that accumulates now updates once per closed bar, every layer is drawn at its own bar, and the dashboard labels its live delta as counted since the chart loaded and its cumulative delta as an estimate. It compiles clean and was re-checked on the same chart. The buy and sell split is still an estimate from bar direction, not real order flow, and the divergence count runs high for that reason. It is a reading tool, not a signal.
