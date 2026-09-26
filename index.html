@@ -217,6 +217,23 @@
   .gallery figcaption .fired { display: inline-block; margin-bottom: 6px; color: #3ddc84; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
   .gallery-note { margin: 6px 0 0; color: var(--text-dim); font-size: 0.8rem; }
 
+  /* ---------- MGEQuant Notes (weekly newsletter) ---------- */
+  .notes { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 260px)); gap: 14px; }
+  .note { overflow: hidden; display: flex; flex-direction: column; }
+  .note > a.cover { display: block; aspect-ratio: 9 / 16; max-height: 420px; overflow: hidden; background: #0b0d12; border-bottom: 1px solid var(--border); }
+  .note > a.cover img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.35s ease; }
+  .note:hover > a.cover img { transform: scale(1.03); }
+  .note-body { padding: 12px 14px 14px; font-size: 0.84rem; color: var(--text-dim); }
+  .note-body time { display: block; margin-bottom: 4px; color: var(--blue); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .note-body b { display: block; margin-bottom: 4px; color: var(--silver); font-size: 0.86rem; letter-spacing: 0.02em; }
+  .note-body a.b-link { color: inherit; }
+  .note-body a.b-link:hover b { color: var(--blue-hi); }
+  .note-listen { margin: 10px 0 0; }
+  .note-listen summary::-webkit-details-marker { display: none; }
+  .note-listen summary { list-style: none; cursor: pointer; color: var(--blue-dim); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .note-listen video { display: block; width: 100%; margin-top: 8px; border-radius: 8px; background: #000; }
+  .notes-note { margin: 10px 0 0; color: var(--text-dim); font-size: 0.8rem; }
+
   /* ---------- chart viewer (full screen, solid backdrop) ---------- */
   .viewer { position: fixed; inset: 0; z-index: 100; display: none; flex-direction: column; background: #05070b; color: var(--text); }
   .viewer.open { display: flex; }
@@ -350,6 +367,7 @@
       <div class="links">
         <a href="DevelopmentLogs/">Research</a>
         <a href="#charts">Charts</a>
+        <a href="#notes">Notes</a>
         <a href="Screenshots/">Screenshots</a>
         <a href="mgequant-propfirm-calculator.html">Tools</a>
         <a href="Mission%20and%20Vision/">Mission</a>
@@ -555,6 +573,34 @@
       </div>
     </section>
 
+    <section id="notes">
+      <div class="sec-head">
+        <div><h2>MGEQuant Notes</h2><p>One free email a week: how a tool works, or what failed and why.</p></div>
+        <a class="sec-link" href="https://mgequantnotes.substack.com" target="_blank" rel="noopener">Subscribe on Substack &rarr;</a>
+      </div>
+      <div class="notes">
+        <article class="panel hov note">
+          <a class="cover" href="https://mgequantnotes.substack.com/p/a-news-panel-that-admits-when-it" target="_blank" rel="noopener"><img src="assets/img/notes/2026-09-23-news-panel.jpg" alt="Story card: A news panel that admits when it is blind, with the News Wire panel on an NQ chart" loading="lazy" width="540" height="960"></a>
+          <div class="note-body">
+            <time datetime="2026-09-23">Sep 23, 2026 &middot; How it works</time>
+            <a class="b-link" href="https://mgequantnotes.substack.com/p/a-news-panel-that-admits-when-it" target="_blank" rel="noopener"><b>A news panel that admits when it is blind</b></a>
+            A broken feed looks exactly like a quiet market. We built the panel to tell the difference.
+            <details class="note-listen"><summary>&#9654; Listen (38 s)</summary><video controls preload="none" playsinline src="assets/video/notes/2026-09-23-news-panel.mp4"></video></details>
+          </div>
+        </article>
+        <article class="panel hov note">
+          <a class="cover" href="https://mgequantnotes.substack.com/p/a-passing-walk-forward-test-that" target="_blank" rel="noopener"><img src="assets/img/notes/2026-09-21-walk-forward.jpg" alt="Story card: A passing walk-forward test that failed once the data was corrected" loading="lazy" width="540" height="960"></a>
+          <div class="note-body">
+            <time datetime="2026-09-21">Sep 21, 2026 &middot; What failed</time>
+            <a class="b-link" href="https://mgequantnotes.substack.com/p/a-passing-walk-forward-test-that" target="_blank" rel="noopener"><b>A passing walk-forward test that failed once the data was corrected</b></a>
+            Both configurations got worse once the data was fixed. What we changed, and what stayed.
+            <details class="note-listen"><summary>&#9654; Listen (25 s)</summary><video controls preload="none" playsinline src="assets/video/notes/2026-09-21-walk-forward.mp4"></video></details>
+          </div>
+        </article>
+      </div>
+      <p class="notes-note">Educational only. No signals, no performance claims.</p>
+    </section>
+
     <section class="three">
       <a class="panel" href="mgequant-propfirm-calculator.html">
         <h2>Prop-firm calculator</h2>
@@ -588,6 +634,7 @@
       <nav>
         <a href="DevelopmentLogs/">Research</a>
         <a href="#charts">Charts</a>
+        <a href="#notes">Notes</a>
         <a href="Screenshots/">Screenshots</a>
         <a href="mgequant-propfirm-calculator.html">Tools</a>
         <a href="Mission%20and%20Vision/">Mission</a>
