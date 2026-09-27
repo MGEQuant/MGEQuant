@@ -3,24 +3,12 @@ layout: default
 title: "Vision"
 ---
 
-I'd love this to become more than just three NinjaTrader indicators — and it already has. New indicators, new strategies, and more in the pipeline, built for whatever market has the structure they're looking for: other indices, forex, crypto, or stocks, not just NQ futures.
+# What we want a trader to see
 
-Imagine a new trader opening the platform.
-
-Instead of seeing twenty indicators, flashing arrows, and conflicting opinions, 
-
-## They see:
-
-What the market is doing.
-
-Why it is doing it.
-
-Whether there is an edge.
-
-Whether patience is required.
-
-When the opportunity has matured.
-
-When it's time to stand aside.
-
-That's the kind of guidance that helps people learn to think independently rather than blindly follow signals.
+<div class="mv-panel">
+  <span class="mv-eyebrow">Vision</span>
+  <p class="mv-open">Fewer signals. More honesty about what each one has actually earned.</p>
+  <p>Open most trading platforms and you'll find twenty indicators, flashing arrows, and confident calls that never mention the losing trades. We want the opposite.</p>
+  <p>What we're building shows what the market is doing, what's been tested, what passed, and &mdash; just as clearly &mdash; what didn't. Not certainty. A clearer basis for the decision that's still yours to make.</p>
+  <p>Wherever there's enough structure to read it &mdash; futures, forex, crypto, equities &mdash; the same standard applies: nothing gets called a result until it survives being tested against being wrong.</p>
+</div>
