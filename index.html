@@ -215,6 +215,18 @@
   .gallery figcaption { padding: 12px 14px 14px; font-size: 0.84rem; color: var(--text-dim); max-height: 10.6em; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); mask-image: linear-gradient(180deg, #000 72%, transparent); }
   .gallery figcaption b { display: block; margin-bottom: 4px; color: var(--silver); font-size: 0.84rem; letter-spacing: 0.04em; }
   .gallery figcaption .fired { display: inline-block; margin-bottom: 6px; color: #3ddc84; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .strat { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+  .strat .clipbox { margin: 0; overflow: hidden; }
+  .strat video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; border-bottom: 1px solid var(--border); }
+  .strat .cap { padding: 12px 14px 14px; font-size: 0.86rem; color: var(--text-dim); }
+  .strat .cap b { display: block; margin-bottom: 4px; color: var(--silver); letter-spacing: 0.04em; }
+  .strat .tagline { display: inline-block; margin-bottom: 6px; color: #f5a524; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .strat .disc { padding: 16px 18px; border-left: 3px solid #f5a524; font-size: 0.82rem; color: var(--text-dim); }
+  .strat .disc h3 { margin: 0 0 10px; color: #f5a524; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; }
+  .strat .disc p { margin: 0 0 9px; }
+  .strat .disc p:last-child { margin-bottom: 0; }
+  .strat .disc b { color: var(--silver); }
+  @media (max-width: 860px) { .strat { grid-template-columns: 1fr; } }
   .gallery-cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; }
   .gallery-note { margin: 6px 0 0; color: var(--text-dim); font-size: 0.8rem; }
 
@@ -536,6 +548,26 @@
       </div>
       <p class="gallery-note">A signal firing shows the machinery works; it does not show an edge.</p>
       <p class="gallery-cta"><a class="btn btn-solid" href="in-action.html">&#9654; Watch them in action</a> <a class="btn btn-ghost" href="in-action.html#notes">Read the weekly notes</a></p>
+    </section>
+
+    <section id="strategy">
+      <div class="sec-head">
+        <div><h2>A strategy in action</h2><p>CSC / AB Trader, our automated breakout strategy, recorded in playback on a simulation account.</p></div>
+      </div>
+      <div class="strat">
+        <figure class="panel clipbox">
+          <video controls playsinline preload="none" poster="assets/img/strategy-in-action/cscab-trader.jpg" src="assets/video/strategy-in-action/cscab-trader.mp4" aria-label="CSC/AB Trader replayed on a 5-minute MNQ chart: signals marked, a target and a stop placed, the stop moved by hand"></video>
+          <figcaption class="cap"><span class="tagline">Simulation &middot; playback</span><b>CSC / AB Trader</b>It marks Attrition Break and Confirmed Structural Continuation signals, places its target and stop, and trails the stop after the first target. In this recording the trader also moves the stop and closes the trade by hand. The panel's win/loss and R tallies and the open-position P&amp;L come from a simulated account: they are not an account statement and not results you can expect.</figcaption>
+        </figure>
+        <aside class="panel disc" aria-label="Disclaimer">
+          <h3>Read before you watch</h3>
+          <p><b>This is a recording of a simulated account. It is not a trade signal, not advice and not a track record.</b></p>
+          <p>Any wins, losses, R multiples or profit figures visible in the recording are simulated. They are not results you can expect.</p>
+          <p>Hypothetical or simulated performance results have certain limitations. Unlike an actual performance record, simulated results do not represent actual trading. Also, since the trades have not been executed, the results may have under- or over-compensated for the impact, if any, of certain market factors, such as lack of liquidity. Simulated trading programs in general are also subject to the fact that they are designed with the benefit of hindsight. No representation is being made that any account will or is likely to achieve profits or losses similar to those shown.</p>
+          <p>Our mechanical backtest of the coded rules did not find an edge after costs. The strategy is forward testing on simulation only, and a handful of trades proves nothing either way.</p>
+          <p>An automated strategy places real orders on the account it runs on. Trading futures involves substantial risk of loss. Never run one on a live or funded account before testing on simulation and reading your broker's or prop firm's rules on automation. Educational content only, not investment advice.</p>
+        </aside>
+      </div>
     </section>
 
     <section class="two">
