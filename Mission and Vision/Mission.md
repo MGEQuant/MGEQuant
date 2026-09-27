@@ -3,18 +3,17 @@ layout: default
 title: "Mission"
 ---
 
-### The Three Musketeers — the starting point
+# Why MGEQuant exists
 
-Built by traders, refined through real market experience.
-
-MarketCoach observes the market.
-
-QAX (QuadAlignX) validates the structure.
-
-TradePilot protects execution.
-
-That's where MGEQuant started, and it's still being built out. It hasn't stayed at three: new indicators and new strategies are already live, with more in active development, and none of it is locked to one instrument. The same read on structure and exhaustion applies wherever there's enough price structure to read it — other indices, forex, crypto, or stocks, not just NQ futures.
-
-Together they teach traders to think in probabilities, respect market structure, and execute with discipline—not emotion.
-
-Our goal is not to promise perfect trades. Our goal is to help build traders who can consistently make better decisions.
+<div class="mv-panel">
+  <span class="mv-eyebrow">Mission</span>
+  <p class="mv-open">It started with three tools built for our own trading. Two of them didn't hold up.</p>
+  <p>MarketCoach was built to read the market, QAX to validate structure, TradePilot to protect execution. That's on the record too, because the test we hold every idea to now is the same one we should have held those to from the start.</p>
+  <p>Every indicator and strategy since goes through the same pipeline: idea, backtest against a random control, forward test on a live account &mdash; and only then does it count as anything. Most don't make it that far. We publish the ones that fail as openly as the ones that survive, because an honest record is worth more than a claim we can't back up.</p>
+  <p>The goal was never a perfect trade. It's a process that tells the truth about itself, trade after trade.</p>
+  <div class="stat-row">
+    <div class="stat"><div class="v">8</div><div class="k">tools built and tracked in the open</div></div>
+    <div class="stat"><div class="v">2</div><div class="k">retired after failing their own test</div></div>
+    <div class="stat"><div class="v">0</div><div class="k">have cleared every evidence test, so far</div></div>
+  </div>
+</div>
