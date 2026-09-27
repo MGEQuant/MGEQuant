@@ -110,8 +110,10 @@
   /* ---------- nav ---------- */
   .site-nav { display: flex; align-items: center; gap: 10px 26px; flex-wrap: wrap; padding: 18px 0; border-bottom: 1px solid var(--border); animation: rise 0.5s ease both; }
   .site-nav .brand { display: flex; align-items: center; gap: 10px; margin-right: auto; color: var(--silver); font-weight: 800; font-size: 1.15rem; letter-spacing: 0.03em; }
-  .site-nav .brand img { width: 34px; height: 34px; border-radius: 50%; box-shadow: 0 0 0 1px var(--border), 0 0 14px rgba(59, 139, 255, 0.35); }
+  .site-nav .brand img { width: 46px; height: 46px; border-radius: 50%; box-shadow: 0 0 0 1px var(--border), 0 0 14px rgba(59, 139, 255, 0.35); }
   .site-nav .brand b { color: var(--blue); font-weight: 800; }
+  .site-nav .brand .bt { display: flex; flex-direction: column; line-height: 1.05; }
+  .site-nav .brand .bt small { margin-top: 4px; color: var(--text-dim); font-size: 0.56rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; }
   .site-nav .links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
   .site-nav .links a { color: var(--text-dim); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding-bottom: 3px; border-bottom: 2px solid transparent; }
   .site-nav .links a:hover { color: var(--blue-dim); border-bottom-color: var(--blue); }
@@ -370,7 +372,7 @@
 <body>
   <div class="container">
     <nav class="site-nav">
-      <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt=""><span>MGE<b>QUANT</b></span></a>
+      <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt=""><span class="bt"><span>MGE<b>QUANT</b></span><small>Research &middot; Test &middot; Improve</small></span></a>
       <div class="links">
         <a href="DevelopmentLogs/">Research</a>
         <a href="./#charts">Charts</a>
