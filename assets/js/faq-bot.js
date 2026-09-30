@@ -8,7 +8,7 @@
     },
     {
       q: "Do you sell trade signals or give advice?",
-      a: "No. This site is educational and research content only. Nothing here is investment advice, and no trade signals are sold or given."
+      a: "No trade signals, no personalized advice — that doesn't change. We're in the process of preparing some indicators and strategies as paid software licenses (tools you'd run yourself, not signals), but nothing is for sale yet. This site stays educational and research content only."
     },
     {
       q: "What's the research pipeline?",
