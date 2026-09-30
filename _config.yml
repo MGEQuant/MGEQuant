@@ -1,6 +1,9 @@
 exclude:
   - "Archive"
 
+plugins:
+  - jekyll-seo-tag
+
 defaults:
   - scope:
       path: "DevelopmentLogs"
