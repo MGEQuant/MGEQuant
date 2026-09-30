@@ -2,6 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
+  <script>(function(){try{var t=localStorage.getItem('mgequant-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Model prop firm drawdown, consistency, trading days and payout readiness. Free calculator that runs entirely in your browser.">
   <link rel="icon" href="/assets/img/mgequant-logo.png">
@@ -244,7 +245,7 @@ document.querySelectorAll('[data-preset]').forEach(btn=>btn.addEventListener('cl
 $('calculateBtn').addEventListener('click', calculate);
 $('exampleBtn').addEventListener('click', ()=>applyPreset('apexEOD'));
 $('clearBtn').addEventListener('click', ()=>{ $('pnlInput').value=''; calculate(); });
-(function(){ const btn = document.querySelector('[data-theme-toggle]'); const root = document.documentElement; let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; root.setAttribute('data-theme', theme); btn.addEventListener('click', ()=>{ theme = theme === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', theme); });})();
+(function(){ const KEY='mgequant-theme'; const btn = document.querySelector('[data-theme-toggle]'); const root = document.documentElement; let theme = localStorage.getItem(KEY) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); root.setAttribute('data-theme', theme); btn.addEventListener('click', ()=>{ theme = theme === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', theme); try{localStorage.setItem(KEY, theme);}catch(e){} });})();
 /* Upgrade: instant recalculation + preset pill state. Purely additive; core logic above is untouched. */
 const ruleInputs = ['firmName','accountSize','startingBalance','drawdownAmount','bufferAmount','minTradingDays','qualifyingProfit','minPayoutAmount','payoutCap','splitPercent'];
 ruleInputs.forEach(id => { const el = $(id); if (el) el.addEventListener('input', calculate); });

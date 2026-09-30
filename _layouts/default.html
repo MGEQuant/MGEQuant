@@ -2,6 +2,7 @@
 <html lang="en-US">
 <head>
 <meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem('mgequant-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% if page.title %}{{ page.title }} | MGEQuant{% else %}MGEQuant{% endif %}</title>
@@ -63,7 +64,7 @@
     --color-error: #ef4444;
   }
   @media (prefers-color-scheme: light) {
-    :root {
+    :root:not([data-theme="dark"]) {
       color-scheme: light;
       --bg: #f3f6fb;
       --bg-panel: #ffffff;
@@ -89,6 +90,33 @@
       --vignette: rgba(35, 52, 84, 0.18);
     }
   }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --bg: #f3f6fb;
+    --bg-panel: #ffffff;
+    --border: #dbe1ec;
+    --silver: #161b26;
+    --silver-dim: #464f60;
+    --blue: #1668dc;
+    --blue-dim: #1f66d6;
+    --blue-deep: #1153b4;
+    --blue-hi: #4d86e8;
+    --sheen: #2f6fe0;
+    --text: #3b4351;
+    --text-dim: #5c6575;
+    --link-rule: rgba(22, 104, 220, 0.3);
+    --chip-a: #1668dc;
+    --chip-b: #1e6fff;
+    --chip-c: #4338ca;
+    --aurora-a: rgba(59, 139, 255, 0.24);
+    --aurora-b: rgba(111, 168, 255, 0.28);
+    --aurora-c: rgba(30, 84, 204, 0.20);
+    --aurora-d: rgba(110, 92, 255, 0.16);
+    --grid-line: rgba(9, 22, 46, 0.08);
+    --vignette: rgba(35, 52, 84, 0.18);
+  }
+  .theme-toggle { border: 1px solid var(--border); background: var(--bg-panel); color: var(--text); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; line-height: 1; transition: border-color .18s ease, transform .18s ease; margin-left: auto; }
+  .theme-toggle:hover { border-color: var(--blue); transform: translateY(-1px); }
   * { box-sizing: border-box; }
   html, body {
     margin: 0;
@@ -467,6 +495,7 @@
     <a href="/Screenshots/"{% if page.url contains "/Screenshots" %} class="active"{% endif %}>Screenshots</a>
     <a href="/Mission%20and%20Vision/"{% if page.url contains "/Mission" %} class="active"{% endif %}>Mission</a>
     <a href="/mgequant-propfirm-calculator.html"{% if page.url contains "calculator" %} class="active"{% endif %}>Calculator</a>
+    <button class="theme-toggle" data-theme-toggle aria-label="Switch light/dark theme" type="button">&#9788;</button>
   </nav>
   <div class="wrap">
     {% if page.url contains '/DevelopmentLogs/' and page.url != '/DevelopmentLogs/' %}
@@ -686,6 +715,27 @@
 })();
 </script>
 {% endif %}
+<script>
+(function() {
+  var KEY = 'mgequant-theme';
+  var root = document.documentElement;
+  var btn = document.querySelector('[data-theme-toggle]');
+  if (!btn) return;
+  function isDark() {
+    var explicit = root.getAttribute('data-theme');
+    if (explicit) return explicit === 'dark';
+    return !window.matchMedia('(prefers-color-scheme: light)').matches;
+  }
+  function paintIcon() { btn.innerHTML = isDark() ? '&#9788;' : '&#9789;'; }
+  paintIcon();
+  btn.addEventListener('click', function() {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch (e) {}
+    paintIcon();
+  });
+})();
+</script>
 <script src="/assets/js/faq-bot.js" defer></script>
 </body>
 </html>
