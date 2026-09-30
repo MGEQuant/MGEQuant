@@ -38,6 +38,29 @@
     --aurora-d: rgba(110, 92, 255, 0.16);
     --grid-line: rgba(130, 170, 255, 0.05);
     --vignette: rgba(4, 7, 14, 0.55);
+
+    /* Devlog-page token bridge: these aren't part of the site's own scale above,
+       added for the DevelopmentLogs redesign. Spacing/radius/size are theme-independent,
+       so they live only here; the color aliases are re-pointed per theme below. */
+    --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px;
+    --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px;
+    --radius-sm: 6px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 18px; --radius-full: 999px;
+    --text-xs: 0.75rem; --text-sm: 0.85rem; --text-base: 1rem; --text-lg: 1.15rem;
+    --transition: .18s ease;
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, .35);
+    --color-border: var(--border);
+    --color-divider: var(--border);
+    --color-text: var(--silver);
+    --color-text-muted: var(--text-dim);
+    --color-text-faint: var(--text-dim);
+    --color-primary: var(--blue);
+    --color-primary-highlight: var(--link-rule);
+    --color-blue: var(--blue);
+    --color-surface: var(--bg-panel);
+    --color-surface-2: var(--bg-panel);
+    --color-success: #22c55e;
+    --color-warning: #eab308;
+    --color-error: #ef4444;
   }
   @media (prefers-color-scheme: light) {
     :root {
