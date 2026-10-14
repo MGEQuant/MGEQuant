@@ -145,6 +145,8 @@
   .site-nav .links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
   .site-nav .links a { color: var(--text-dim); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding-bottom: 3px; border-bottom: 2px solid transparent; }
   .site-nav .links a:hover { color: var(--blue-dim); border-bottom-color: var(--blue); }
+  .site-nav .links a.labs-link { color: var(--blue); font-weight: 700; border-bottom-color: var(--blue); }
+  .site-nav .links a.labs-link:hover { color: var(--blue-hi); }
   .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--blue); transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease; }
   .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(59, 139, 255, 0.8); }
   .btn-solid { background: var(--blue); color: #fff; }
@@ -403,6 +405,7 @@
     <nav class="site-nav">
       <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt=""><span class="bt"><span>MGE<b>QUANT</b></span><small>Research &middot; Test &middot; Improve</small></span></a>
       <div class="links">
+        <a class="labs-link" href="https://journal.mgequant.com/" title="MGE Labs: our trade journal and AI desk (private beta)">MGE Labs &middot; Enter here &rarr;</a>
         <a href="DevelopmentLogs/">Research</a>
         <a href="./#charts">Charts</a>
         <a href="in-action.html" aria-current="page">In action</a>
@@ -500,6 +503,7 @@
         <a href="Screenshots/">Screenshots</a>
         <a href="mgequant-propfirm-calculator.html">Tools</a>
         <a href="Mission%20and%20Vision/">Mission</a>
+        <a href="https://journal.mgequant.com/">MGE Labs</a>
       </nav>
       <div class="social">
         <a href="https://x.com/MGEQuant" target="_blank" rel="noopener noreferrer" aria-label="MGEQuant on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg></a>
