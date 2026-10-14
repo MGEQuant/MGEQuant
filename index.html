@@ -150,8 +150,6 @@
   .site-nav .links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
   .site-nav .links a { color: var(--text-dim); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding-bottom: 3px; border-bottom: 2px solid transparent; }
   .site-nav .links a:hover { color: var(--blue-dim); border-bottom-color: var(--blue); }
-  .site-nav .links a.labs-link { color: var(--blue); font-weight: 700; border-bottom-color: var(--blue); }
-  .site-nav .links a.labs-link:hover { color: var(--blue-hi); }
   .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--blue); transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease; }
   .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(59, 139, 255, 0.8); }
   .btn-solid { background: var(--blue); color: #fff; }
@@ -292,6 +290,9 @@
   .hero-visual .logo-stage { left: 21%; top: 52%; }
   .hero-visual .logo-stage img { width: 156px; height: 156px; }
   .hero-visual .mountain { object-position: 70% 100%; }
+  /* light theme: the chart artwork is drawn for a dark sky; deepen it so the white ridge and candles stay visible */
+  :root[data-theme="light"] .hero-visual .mountain { filter: brightness(.62) saturate(1.6) contrast(1.15); }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .hero-visual .mountain { filter: brightness(.62) saturate(1.6) contrast(1.15); } }
   .gallery-cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; }
   .gallery-note { margin: 6px 0 0; color: var(--text-dim); font-size: 0.8rem; }
 
@@ -436,15 +437,32 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   }
+  /* MGE Labs strip above the header (Labs + weekly notes live here, not in the menu) */
+  .site-nav .theme-toggle { margin-left: 4px; }
+  @keyframes labs-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(59,139,255,.55); } 50% { box-shadow: 0 0 0 6px rgba(59,139,255,0); } }
+  .labs-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); animation: labs-pulse 2.2s ease-in-out infinite; flex-shrink: 0; }
+  .labs-strip { display: flex; align-items: center; justify-content: space-between; gap: 10px 18px; flex-wrap: wrap; margin-top: 12px; padding: 8px 14px; border: 1px solid color-mix(in oklab, var(--blue) 45%, transparent); border-radius: 999px; background: linear-gradient(90deg, color-mix(in oklab, var(--blue) 16%, transparent), transparent 70%); font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; animation: rise .5s ease both; }
+  .labs-strip a { display: inline-flex; align-items: center; gap: 8px; color: var(--silver); }
+  .labs-strip b { color: var(--blue); }
+  .labs-strip .ls-sep, .labs-strip .ls-dim { color: var(--text-dim); }
+  .labs-strip .ls-go { color: var(--blue-hi); font-weight: 700; margin-left: 4px; }
+  .labs-strip a:hover .ls-go { text-decoration: underline; }
+  .labs-strip a.labs-strip-notes { color: var(--text-dim); }
+  .labs-strip a.labs-strip-notes:hover { color: var(--blue-hi); }
+  @media (max-width: 640px) { .labs-strip { border-radius: 14px; } .labs-strip .ls-dim, .labs-strip .ls-sep { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .labs-dot { animation: none; } }
 </style>
 <link rel="stylesheet" href="/assets/css/faq-bot.css">
 </head>
 <body>
   <div class="container">
+    <div class="labs-strip">
+      <a class="labs-strip-main" href="https://journal.mgequant.com/"><span class="labs-dot" aria-hidden="true"></span><b>MGE Labs</b><span class="ls-sep">&middot;</span><span class="ls-dim">Trade journal + AI desk &middot; private beta</span><span class="ls-go">Enter here &rarr;</span></a>
+      <a class="labs-strip-notes" href="https://mgequantnotes.substack.com" target="_blank" rel="noopener noreferrer">Weekly notes &rarr;</a>
+    </div>
     <nav class="site-nav">
       <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt=""><span class="bt"><span>MGE<b>QUANT</b></span><small>Research &middot; Test &middot; Improve</small></span></a>
       <div class="links">
-        <a class="labs-link" href="https://journal.mgequant.com/" title="MGE Labs: our trade journal and AI desk (private beta)">MGE Labs &middot; Enter here &rarr;</a>
         <a href="DevelopmentLogs/">Research</a>
         <a href="#charts">Charts</a>
         <a href="in-action.html">In action</a>
@@ -453,7 +471,6 @@
         <a href="mgequant-propfirm-calculator.html">Tools</a>
         <a href="Mission%20and%20Vision/">Mission</a>
       </div>
-      <a class="btn btn-ghost" href="https://mgequantnotes.substack.com" target="_blank" rel="noopener noreferrer">Weekly notes &rarr;</a>
       <button class="theme-toggle" data-theme-toggle aria-label="Switch light/dark theme" type="button">&#9788;</button>
     </nav>
 
@@ -470,7 +487,7 @@
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
-        <img class="mountain" src="assets/img/hero-mountain.svg" alt="" width="900" height="520" fetchpriority="high">
+        <img class="mountain" src="assets/img/hero-mountain-equity.svg" alt="" width="900" height="520" fetchpriority="high">
         <span class="logo-stage"><img src="assets/img/mgequant-logo.png" alt=""><span class="logo-orbit"></span><span class="logo-trail"></span></span>
         <div class="markets"><span>NQ</span><span>RTY</span><span>BTC</span><span>ETH</span></div>
         <div class="slogan">Better data.<br>Better questions.<br>Better decisions.</div>
