@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+<meta charset="UTF-8">
+<script>(function(){try{var t=localStorage.getItem('mgequant-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MGEQuant | MGE Labs</title>
+<meta name="description" content="MGE Labs: a private trade journal and an AI desk for NinjaTrader 8. Software only, not investment advice.">
+<meta property="og:title" content="MGEQuant | MGE Labs">
+<meta property="og:url" content="https://mgequant.com/labs.html">
+<meta property="og:image" content="https://mgequant.com/assets/img/mgequant-logo.png">
+<link rel="icon" href="assets/img/mgequant-logo.png">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #06070a;
+    --bg-panel: #0d0f14;
+    --border: #1e222b;
+    --silver: #e6e8ec;
+    --silver-dim: #9aa0ab;
+    --blue: #3b8bff;
+    --blue-dim: #6fa8ff;
+    --blue-deep: #1e6fff;
+    --blue-hi: #8cc6ff;
+    --sheen: #dceaff;
+    --text: #c7cbd4;
+    --text-dim: #7d8390;
+    --link-rule: rgba(111, 168, 255, 0.25);
+    --chip-a: #3b8bff;
+    --chip-b: #7cc4ff;
+    --chip-c: #b9d6ff;
+    --aurora-a: rgba(59, 139, 255, 0.30);
+    --aurora-b: rgba(111, 168, 255, 0.20);
+    --aurora-c: rgba(30, 84, 204, 0.30);
+    --aurora-d: rgba(110, 92, 255, 0.16);
+    --grid-line: rgba(130, 170, 255, 0.05);
+    --vignette: rgba(4, 7, 14, 0.55);
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      color-scheme: light;
+      --bg: #f3f6fb;
+      --bg-panel: #ffffff;
+      --border: #dbe1ec;
+      --silver: #161b26;
+      --silver-dim: #464f60;
+      --blue: #1668dc;
+      --blue-dim: #1f66d6;
+      --blue-deep: #1153b4;
+      --blue-hi: #4d86e8;
+      --sheen: #2f6fe0;
+      --text: #3b4351;
+      --text-dim: #5c6575;
+      --link-rule: rgba(22, 104, 220, 0.3);
+      --chip-a: #1668dc;
+      --chip-b: #1e6fff;
+      --chip-c: #4338ca;
+      --aurora-a: rgba(59, 139, 255, 0.24);
+      --aurora-b: rgba(111, 168, 255, 0.28);
+      --aurora-c: rgba(30, 84, 204, 0.20);
+      --aurora-d: rgba(110, 92, 255, 0.16);
+      --grid-line: rgba(9, 22, 46, 0.08);
+      --vignette: rgba(35, 52, 84, 0.18);
+    }
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --bg: #f3f6fb;
+    --bg-panel: #ffffff;
+    --border: #dbe1ec;
+    --silver: #161b26;
+    --silver-dim: #464f60;
+    --blue: #1668dc;
+    --blue-dim: #1f66d6;
+    --blue-deep: #1153b4;
+    --blue-hi: #4d86e8;
+    --sheen: #2f6fe0;
+    --text: #3b4351;
+    --text-dim: #5c6575;
+    --link-rule: rgba(22, 104, 220, 0.3);
+    --chip-a: #1668dc;
+    --chip-b: #1e6fff;
+    --chip-c: #4338ca;
+    --aurora-a: rgba(59, 139, 255, 0.24);
+    --aurora-b: rgba(111, 168, 255, 0.28);
+    --aurora-c: rgba(30, 84, 204, 0.20);
+    --aurora-d: rgba(110, 92, 255, 0.16);
+    --grid-line: rgba(9, 22, 46, 0.08);
+    --vignette: rgba(35, 52, 84, 0.18);
+  }
+  .theme-toggle { border: 1.5px solid var(--blue); background: var(--bg-panel); color: var(--blue); width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 17px; line-height: 1; box-shadow: 0 1px 6px rgba(59, 139, 255, 0.25); transition: background .18s ease, color .18s ease, transform .18s ease; flex-shrink: 0; }
+  .theme-toggle:hover { background: var(--blue); color: #fff; transform: translateY(-1px); }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  a { color: var(--blue-dim); text-decoration: none; }
+  a:hover { color: var(--blue); }
+  img { max-width: 100%; display: block; }
+  .container { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 44px 0 8px; }
+  .eyebrow { color: var(--blue); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+  .sec-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 24px; margin-bottom: 18px; }
+  .sec-head h2 { margin: 0; color: var(--silver); font-size: 1.25rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .sec-head p { margin: 2px 0 0; color: var(--text-dim); font-size: 0.92rem; }
+  .sec-link { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+
+  /* ---------- background (same aurora + grid as before) ---------- */
+  body::before {
+    content: ""; position: fixed; inset: -12%; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(52% 40% at 50% -4%, var(--aurora-b), transparent 72%),
+      radial-gradient(44% 36% at 14% 14%, var(--aurora-a), transparent 70%),
+      radial-gradient(40% 32% at 86% 10%, var(--aurora-a), transparent 72%),
+      radial-gradient(52% 42% at 50% 104%, var(--aurora-c), transparent 74%),
+      radial-gradient(34% 30% at 72% 58%, var(--aurora-d), transparent 76%);
+    animation: glow-drift 16s ease-in-out infinite alternate;
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+      radial-gradient(130% 100% at 50% 38%, transparent 52%, var(--vignette) 100%);
+    background-size: 46px 46px, 46px 46px, 100% 100%;
+  }
+  @keyframes glow-drift {
+    from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.7; }
+    to { transform: translate3d(0, 26px, 0) scale(1.05); opacity: 1; }
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- nav ---------- */
+  .site-nav { display: flex; align-items: center; gap: 10px 26px; flex-wrap: wrap; padding: 18px 0; border-bottom: 1px solid var(--border); animation: rise 0.5s ease both; }
+  .site-nav .brand { display: flex; align-items: center; gap: 10px; margin-right: auto; color: var(--silver); font-weight: 800; font-size: 1.15rem; letter-spacing: 0.03em; }
+  .site-nav .brand img { width: 46px; height: 46px; border-radius: 50%; box-shadow: 0 0 0 1px var(--border), 0 0 14px rgba(59, 139, 255, 0.35); }
+  .site-nav .brand b { color: var(--blue); font-weight: 800; }
+  .site-nav .brand .bt { display: flex; flex-direction: column; line-height: 1.05; }
+  .site-nav .brand .bt small { margin-top: 4px; color: var(--text-dim); font-size: 0.56rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; }
+  .site-nav .links { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+  .site-nav .links a { color: var(--text-dim); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding-bottom: 3px; border-bottom: 2px solid transparent; }
+  .site-nav .links a:hover { color: var(--blue-dim); border-bottom-color: var(--blue); }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid var(--blue); transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease; }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(59, 139, 255, 0.8); }
+  .btn-solid { background: var(--blue); color: #fff; }
+  .btn-solid:hover { color: #fff; background: var(--blue-deep); }
+  .btn-ghost { color: var(--silver); background: color-mix(in oklab, var(--blue) 8%, transparent); }
+  .btn-ghost:hover { color: var(--silver); }
+  .site-nav .btn { padding: 8px 14px; }
+
+  /* ---------- hero ---------- */
+  .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 28px; align-items: center; padding: 44px 0 36px; }
+  .hero h1 { margin: 0; font-size: clamp(2.4rem, 5.4vw, 3.6rem); line-height: 1.02; letter-spacing: 0.01em; color: var(--silver); animation: rise 0.6s 0.05s ease both; }
+  .hero h1 .accent {
+    background: linear-gradient(105deg, var(--blue-deep), var(--blue) 28%, var(--blue-hi) 50%, var(--blue) 72%, var(--blue-deep));
+    background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 12px rgba(59, 139, 255, 0.45)); animation: accent-flow 5.5s linear infinite;
+  }
+  @keyframes accent-flow { from { background-position: 0% 50%; } to { background-position: 260% 50%; } }
+  .hero .headline { margin: 12px 0 14px; color: var(--silver); font-size: clamp(1.3rem, 2.6vw, 1.75rem); font-weight: 500; line-height: 1.25; animation: rise 0.6s 0.12s ease both; }
+  .hero .lead { margin: 0 0 16px; max-width: 34em; color: var(--text); animation: rise 0.6s 0.2s ease both; }
+  .hero .dse { margin: 0 0 24px; color: var(--blue-dim); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.22em; animation: rise 0.6s 0.26s ease both; }
+  .hero .dse i { font-style: normal; color: var(--text-dim); margin: 0 10px; }
+  .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; animation: rise 0.6s 0.32s ease both; }
+
+  .hero-visual { position: relative; min-height: 330px; border-radius: 16px; overflow: hidden; animation: rise 0.7s 0.15s ease both; }
+  .hero-visual svg.candles { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.55; }
+  .candles .up { fill: var(--blue); }
+  .candles .dn { fill: color-mix(in oklab, var(--blue) 35%, transparent); }
+  .candles .wk { stroke: color-mix(in oklab, var(--blue) 60%, transparent); stroke-width: 1; fill: none; }
+  .hero-visual::after { content: ""; position: absolute; inset: 0; background: radial-gradient(closest-side at 42% 50%, color-mix(in oklab, var(--bg) 70%, transparent), transparent 85%); pointer-events: none; }
+  .logo-stage { position: absolute; left: 42%; top: 50%; transform: translate(-50%, -50%); z-index: 2; display: inline-flex; }
+  .logo-stage img { width: 168px; height: 168px; border-radius: 50%; box-shadow: 0 0 0 1px var(--border), 0 20px 60px -20px rgba(59, 139, 255, 0.35); animation: logo-pulse 3.5s 0.6s ease-in-out infinite alternate; }
+  .logo-orbit, .logo-trail { position: absolute; inset: -14px; border-radius: 50%; pointer-events: none; animation: logo-orbit 7s linear infinite; }
+  .logo-orbit { background: radial-gradient(circle 7px at 50% 6px, rgba(190, 220, 255, 0.95), rgba(59, 139, 255, 0.55) 55%, rgba(59, 139, 255, 0) 75%); }
+  .logo-trail {
+    background: conic-gradient(rgba(59, 139, 255, 0) 264deg, rgba(59, 139, 255, 0.25) 318deg, rgba(147, 197, 255, 0.75) 360deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 1.5px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 1.5px));
+  }
+  @keyframes logo-orbit { to { transform: rotate(360deg); } }
+  @keyframes logo-pulse {
+    from { box-shadow: 0 0 0 1px var(--border), 0 20px 60px -20px rgba(59, 139, 255, 0.25); }
+    to { box-shadow: 0 0 0 1px rgba(59, 139, 255, 0.55), 0 20px 70px -18px rgba(59, 139, 255, 0.55); }
+  }
+  .markets span, .slogan { text-shadow: 0 0 10px var(--bg), 0 0 4px var(--bg); }
+  .markets { position: absolute; right: 16px; top: 16px; z-index: 2; display: grid; gap: 10px; text-align: right; color: var(--text-dim); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; }
+  .markets span:first-child { color: var(--blue-dim); }
+  .slogan { position: absolute; right: 16px; bottom: 16px; z-index: 2; text-align: right; color: var(--blue-dim); font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; line-height: 1.9; }
+
+  /* ---------- ticker ---------- */
+  .ticker { position: relative; z-index: 1; overflow: hidden; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-panel);
+    -webkit-mask: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+  .ticker-track { display: flex; width: max-content; animation: ticker 96s linear infinite; }
+  .ticker-track span { padding: 11px 0; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ---------- panels / cards ---------- */
+  .panel { position: relative; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 12px; transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; }
+  a.panel { display: block; color: inherit; }
+  a.panel:hover, .panel.hov:hover { border-color: var(--blue); transform: translateY(-3px); box-shadow: 0 14px 30px -18px rgba(59, 139, 255, 0.6); color: inherit; }
+
+  .build { display: grid; grid-template-columns: 1fr 2.6fr; gap: 16px; align-items: stretch; }
+  .build-intro h2 { margin: 10px 0 8px; color: var(--silver); font-size: 1.5rem; letter-spacing: 0.04em; text-transform: uppercase; }
+  .build-intro p { margin: 0; color: var(--text); }
+  .build-intro .bar { width: 28px; height: 3px; border-radius: 2px; background: var(--blue); box-shadow: 0 0 10px rgba(59, 139, 255, 0.7); }
+  .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .pillar { padding: 18px 18px 16px; }
+  .pillar svg { width: 34px; height: 34px; padding: 6px; border-radius: 50%; border: 1px solid color-mix(in oklab, var(--blue) 55%, transparent); color: var(--blue-dim); background: color-mix(in oklab, var(--blue) 10%, transparent); }
+  .pillar h3 { margin: 12px 0 6px; color: var(--silver); font-size: 0.86rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .pillar ul { margin: 0; padding-left: 16px; color: var(--text-dim); font-size: 0.86rem; }
+  .pillar li { margin: 0 0 2px; }
+
+  .research { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .rcard { overflow: hidden; }
+  .rcard .shot { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--border); background: #0b0d12; }
+  .rcard .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s ease; }
+  .rcard:hover .shot img { transform: scale(1.04); }
+  .tag { position: absolute; top: 10px; right: 10px; padding: 3px 8px; border-radius: 5px; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; border: 1px solid currentColor; background: rgba(6, 7, 10, 0.78); }
+  .t-live { color: #3ddc84; } .t-test { color: #f5a524; } .t-ctx { color: #7cc4ff; } .t-fail { color: #ff5a5f; } .t-closed { color: #a0a7b4; } .t-rev { color: #f5a524; }
+  .rcard .body { padding: 14px 16px 16px; }
+  .rcard h3 { margin: 0 0 6px; color: var(--silver); font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .rcard p { margin: 0 0 10px; color: var(--text-dim); font-size: 0.88rem; }
+  .rcard .more { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue-dim); }
+
+  /* ---------- gallery ---------- */
+  .gallery-nav { display: flex; align-items: baseline; gap: 14px; }
+  .gallery-nav button { padding: 0; border: 0; background: none; color: var(--blue-dim); font: inherit; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; cursor: pointer; }
+  .gallery-nav button:hover { color: var(--blue-hi); }
+  .gallery-nav button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 3px; }
+  .gallery { display: grid; align-items: start; grid-auto-flow: column; grid-auto-columns: minmax(280px, calc((100% - 42px) / 4)); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; scrollbar-width: thin; }
+  .gallery figure { margin: 0; scroll-snap-align: start; overflow: hidden; }
+  .gallery .shot { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: #0b0d12; border-bottom: 1px solid var(--border); }
+  .gallery .shot img { width: 100%; height: 100%; object-fit: cover; object-position: left center; }
+  .gallery figcaption { padding: 12px 14px 14px; font-size: 0.84rem; color: var(--text-dim); max-height: 10.6em; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent); mask-image: linear-gradient(180deg, #000 72%, transparent); }
+  .gallery figcaption b { display: block; margin-bottom: 4px; color: var(--silver); font-size: 0.84rem; letter-spacing: 0.04em; }
+  .gallery figcaption .fired { display: inline-block; margin-bottom: 6px; color: #3ddc84; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .gallery-note { margin: 6px 0 0; color: var(--text-dim); font-size: 0.8rem; }
+
+  /* ---------- MGEQuant Notes (weekly newsletter) ---------- */
+  .notes { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 260px)); gap: 14px; }
+  .note { overflow: hidden; display: flex; flex-direction: column; }
+  .note > a.cover { display: block; aspect-ratio: 9 / 16; max-height: 420px; overflow: hidden; background: #0b0d12; border-bottom: 1px solid var(--border); }
+  .note > a.cover img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.35s ease; }
+  .note:hover > a.cover img { transform: scale(1.03); }
+  .note-body { padding: 12px 14px 14px; font-size: 0.84rem; color: var(--text-dim); }
+  .note-body time { display: block; margin-bottom: 4px; color: var(--blue); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .note-body b { display: block; margin-bottom: 4px; color: var(--silver); font-size: 0.86rem; letter-spacing: 0.02em; }
+  .note-body a.b-link { color: inherit; }
+  .note-body a.b-link:hover b { color: var(--blue-hi); }
+  .note-listen { margin: 10px 0 0; }
+  .note-listen summary::-webkit-details-marker { display: none; }
+  .note-listen summary { list-style: none; cursor: pointer; color: var(--blue-dim); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .note-listen video { display: block; width: 100%; margin-top: 8px; border-radius: 8px; background: #000; }
+  .notes-note { margin: 10px 0 0; color: var(--text-dim); font-size: 0.8rem; }
+
+  /* ---------- chart viewer (full screen, solid backdrop) ---------- */
+  .viewer { position: fixed; inset: 0; z-index: 100; display: none; flex-direction: column; background: #05070b; color: var(--text); }
+  .viewer.open { display: flex; }
+  .viewer-top, .viewer-bottom { flex: 0 0 auto; display: flex; align-items: center; gap: 10px 14px; padding: 10px 14px; background: #0b0e14; border-color: #1e222b; border-style: solid; border-width: 0; }
+  .viewer-top { border-bottom-width: 1px; padding-top: max(10px, env(safe-area-inset-top)); }
+  .viewer-bottom { flex-wrap: wrap; border-top-width: 1px; padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+  .viewer-title { flex: 1 1 auto; min-width: 0; color: #e6e8ec; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .viewer-count { color: #7d8390; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; white-space: nowrap; }
+  .viewer-btn { flex: 0 0 auto; min-width: 44px; height: 44px; padding: 0 14px; border: 1px solid #2a3140; border-radius: 10px; background: #111623; color: #cfe1ff; font: inherit; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+  .viewer-btn:hover { border-color: var(--blue); color: #fff; }
+  .viewer-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .viewer-close { font-size: 1.2rem; padding: 0; }
+  .viewer-stage { position: relative; flex: 1 1 auto; min-height: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 12px; }
+  .viewer-stage img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 6px; box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8); }
+  /* upright phone + wide chart: show it tall enough to read, pan sideways */
+  .viewer.pan .viewer-stage { justify-content: flex-start; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+  .viewer.pan .viewer-stage img { max-width: none; max-height: none; height: min(100%, 520px); }
+  .viewer-hint { display: none; position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); padding: 6px 12px; border-radius: 999px; background: rgba(11, 14, 20, 0.9); border: 1px solid #2a3140; color: #9aa0ab; font-size: 0.74rem; white-space: nowrap; pointer-events: none; }
+  .viewer.pan .viewer-hint { display: block; position: fixed; bottom: auto; top: 70px; }
+  .viewer-cap { flex: 1 1 260px; min-width: 0; margin: 0; color: #9aa0ab; font-size: 0.86rem; line-height: 1.45; }
+  .viewer-cap .fired { display: block; margin-bottom: 2px; color: #3ddc84; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+  .viewer-nav { display: flex; gap: 8px; margin-left: auto; }
+  @media (max-width: 640px) {
+    .viewer-cap { flex-basis: 100%; max-height: 7.5em; overflow-y: auto; }
+    .viewer-nav { width: 100%; }
+    .viewer-nav .viewer-btn { flex: 1 1 0; }
+  }
+  /* sideways phone: give the height to the chart */
+  @media (max-height: 500px) {
+    .viewer-top, .viewer-bottom { padding-top: 4px; padding-bottom: 4px; flex-wrap: nowrap; }
+    .viewer-btn { height: 36px; min-width: 36px; font-size: 0.72rem; }
+    .viewer-stage { padding: 4px; }
+    .viewer-cap { flex: 1 1 auto; max-height: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .viewer-cap .fired { display: none; }
+    .viewer-nav { width: auto; margin-left: 0; }
+    .viewer-nav .viewer-btn { flex: 0 0 auto; }
+  }
+
+  /* ---------- pipeline + failure log ---------- */
+  .two { display: grid; grid-template-columns: 1.15fr 1fr; gap: 16px; }
+  .two > .panel { padding: 20px; }
+  .two h2 { margin: 0; color: var(--silver); font-size: 1.05rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .two h2 + p { margin: 2px 0 16px; color: var(--text-dim); font-size: 0.9rem; }
+  .pipeline { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; list-style: none; padding: 0; margin: 0; counter-reset: step; }
+  .pipeline li { position: relative; padding: 14px 4px 12px; text-align: center; border: 1px solid var(--border); border-radius: 8px; background: color-mix(in oklab, var(--blue) 6%, transparent); color: var(--silver); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.3; }
+  .pipeline li::before { counter-increment: step; content: counter(step, decimal-leading-zero); display: block; margin-bottom: 6px; color: var(--blue-dim); font-size: 0.8rem; }
+  .pipeline li:not(:last-child)::after { content: "\203A"; position: absolute; right: -7px; top: 50%; transform: translateY(-50%); color: var(--blue); font-size: 1rem; z-index: 1; }
+  .pipe-note { margin: 14px 0 0; color: var(--text-dim); font-size: 0.86rem; }
+  .pipe-h3 { margin: 22px 0 10px; color: var(--silver); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; }
+  .stages { list-style: none; margin: 0; padding: 0; }
+  .stages li { display: grid; grid-template-columns: minmax(120px, 1fr) 1fr 150px; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.86rem; color: var(--text); }
+  .stages li:last-child { border-bottom: none; }
+  .stages .bar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .stages .bar i { height: 6px; border-radius: 2px; background: color-mix(in oklab, var(--blue) 14%, transparent); }
+  .stages .bar i.on { background: var(--blue); box-shadow: 0 0 6px rgba(59, 139, 255, 0.55); }
+  .stages .bar i.now { background: var(--blue-hi); box-shadow: 0 0 9px rgba(140, 198, 255, 0.9); }
+  .stages .lbl { color: var(--blue-dim); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-align: right; }
+  .bar-list { margin: 0; padding-left: 18px; color: var(--text); font-size: 0.86rem; }
+  .bar-list li { margin-bottom: 4px; }
+  .bar-list b { color: var(--silver); }
+  table.flog { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+  .flog th { text-align: left; padding: 6px 8px; color: var(--text-dim); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+  .flog td { padding: 9px 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text); }
+  .flog td small { display: block; color: var(--text-dim); font-size: 0.78rem; }
+  .flog .st { display: inline-block; padding: 2px 7px; border-radius: 5px; border: 1px solid currentColor; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.4; }
+  .flog td:last-child { white-space: nowrap; color: var(--text-dim); }
+
+  /* ---------- bottom row ---------- */
+  .three { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 16px; }
+  .three > .panel { padding: 20px; }
+  .three h2 { margin: 0 0 6px; color: var(--silver); font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  .three p { margin: 0 0 14px; color: var(--text-dim); font-size: 0.9rem; }
+  .calc-demo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+  .calc-demo div { padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.66rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .calc-demo b { display: block; margin-top: 2px; color: var(--silver); font-size: 0.92rem; letter-spacing: 0; text-transform: none; }
+  .latest { list-style: none; margin: 0; padding: 0; }
+  .latest li { padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .latest li:last-child { border-bottom: none; }
+  .latest time { display: block; color: var(--blue-dim); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .latest a { color: var(--silver); font-weight: 600; }
+  .latest a:hover { color: var(--blue-dim); }
+  .why { background: linear-gradient(160deg, color-mix(in oklab, var(--blue) 14%, var(--bg-panel)), var(--bg-panel) 70%); }
+  .why p { color: var(--text); }
+
+  .disclaimer { margin: 34px 0 0; color: var(--text-dim); font-size: 0.82rem; font-style: italic; }
+  footer { margin-top: 34px; padding: 22px 0 40px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; align-items: center; gap: 14px 26px; }
+  footer .brand { display: flex; align-items: center; gap: 10px; color: var(--silver); font-weight: 800; font-size: 1.05rem; margin-right: auto; }
+  footer .brand img { width: 30px; height: 30px; border-radius: 50%; }
+  footer .brand b { color: var(--blue); }
+  footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+  footer nav a { color: var(--text-dim); font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  footer nav a:hover { color: var(--blue-dim); }
+  .social { display: flex; gap: 12px; }
+  .social a { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 8px; color: var(--silver); }
+  .social a:hover { border-color: var(--blue); color: var(--blue-dim); }
+  .social svg { width: 16px; height: 16px; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { min-height: 280px; }
+    .build { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: repeat(2, 1fr); }
+    .research { grid-template-columns: 1fr 1fr; }
+    .two, .three { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .container { padding: 0 16px; }
+    .site-nav .links { order: 3; width: 100%; }
+    .research { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr 1fr; }
+    .pillar { padding: 14px; }
+    .gallery { grid-auto-columns: 82%; }
+    .pipeline { grid-template-columns: repeat(4, 1fr); }
+    .pipeline li:nth-child(4)::after { display: none; }
+    .markets { gap: 6px; font-size: 0.7rem; }
+    .logo-stage img { width: 130px; height: 130px; }
+    .flog th:nth-child(4), .flog td:nth-child(4) { display: none; }
+    .stages li { grid-template-columns: 1fr 1fr; }
+    .stages .lbl { grid-column: 1 / -1; text-align: left; margin-top: -4px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+  /* MGE Labs strip above the header (Labs + weekly notes live here, not in the menu) */
+  .site-nav .theme-toggle { margin-left: 4px; }
+  @keyframes labs-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(59,139,255,.55); } 50% { box-shadow: 0 0 0 6px rgba(59,139,255,0); } }
+  .labs-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); animation: labs-pulse 2.2s ease-in-out infinite; flex-shrink: 0; }
+  .labs-strip { display: flex; align-items: center; justify-content: space-between; gap: 10px 18px; flex-wrap: wrap; margin-top: 12px; padding: 8px 14px; border: 1px solid color-mix(in oklab, var(--blue) 45%, transparent); border-radius: 999px; background: linear-gradient(90deg, color-mix(in oklab, var(--blue) 16%, transparent), transparent 70%); font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; animation: rise .5s ease both; }
+  .labs-strip a { display: inline-flex; align-items: center; gap: 8px; color: var(--silver); }
+  .labs-strip b { color: var(--blue); }
+  .labs-strip .ls-sep, .labs-strip .ls-dim { color: var(--text-dim); }
+  .labs-strip .ls-go { color: var(--blue-hi); font-weight: 700; margin-left: 4px; }
+  .labs-strip a:hover .ls-go { text-decoration: underline; }
+  .labs-strip a.labs-strip-notes { color: var(--text-dim); }
+  .labs-strip a.labs-strip-notes:hover { color: var(--blue-hi); }
+  @media (max-width: 640px) { .labs-strip { border-radius: 14px; } .labs-strip .ls-dim, .labs-strip .ls-sep { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .labs-dot { animation: none; } }
+</style>
+<style>
+  .page-head { padding: 34px 0 10px; }
+  .page-head h1 { margin: 0 0 6px; color: var(--silver); font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem); letter-spacing: 0.04em; }
+  .page-head p { margin: 0; max-width: 760px; color: var(--text-dim); }
+  .clips { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .clip { margin: 0; overflow: hidden; }
+  .clip video { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; background: #000; border-bottom: 1px solid var(--border); }
+  .clip figcaption { padding: 12px 14px 14px; font-size: 0.86rem; color: var(--text-dim); }
+  .clip figcaption b { display: block; margin-bottom: 4px; color: var(--silver); letter-spacing: 0.04em; }
+  .clip .tagline { display: inline-block; margin-bottom: 6px; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #7cc4ff; }
+  main section { margin-top: 44px; }
+</style>
+<link rel="stylesheet" href="/assets/css/faq-bot.css">
+
+<style>
+  .labs-feature { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:22px; align-items:start; padding:18px; margin-bottom:26px; }
+  @media (max-width: 860px) { .labs-feature { grid-template-columns:minmax(0,1fr); } }
+  .labs-feature video { width:100%; border-radius:10px; border:1px solid var(--border); background:#000; display:block; }
+  .labs-feature h2 { margin:2px 0 8px; }
+  .labs-steps { margin:10px 0 14px; padding-left:20px; color:var(--text); }
+  .labs-steps li { margin:5px 0; }
+  .labs-steps b { color:var(--silver); }
+  .labs-cta { display:inline-block; margin-top:6px; padding:10px 16px; border-radius:10px; background:var(--blue); color:#04101f; font-weight:700; text-decoration:none; }
+  .labs-fine { font-size:12px; color:var(--text-dim); margin-top:10px; }
+  .labs-grid3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin:14px 0 26px; }
+  .labs-grid3 .panel { padding:16px; }
+  .labs-grid3 h3 { margin:0 0 6px; color:var(--silver); font-size:16px; }
+  .labs-num { font:700 12px/1 ui-monospace,Consolas,monospace; color:var(--blue-dim); letter-spacing:.1em; }
+  .labs-price { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin:14px 0 8px; }
+  .labs-price .panel { padding:18px; }
+  .labs-price .amt { font-size:30px; font-weight:800; color:var(--silver); }
+  .labs-price .amt small { font-size:14px; font-weight:600; color:var(--text-dim); }
+  .labs-badge { display:inline-block; font:700 11px/1 ui-monospace,Consolas,monospace; letter-spacing:.08em; padding:4px 8px; border-radius:999px; border:1px solid var(--blue-dim); color:var(--blue-dim); }
+  .labs-isnot { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin:14px 0 26px; }
+  .labs-isnot ul { margin:6px 0 0; padding-left:18px; } .labs-isnot li { margin:4px 0; }
+  details.labs-faq { border:1px solid var(--border); border-radius:10px; padding:10px 14px; margin:8px 0; background:var(--bg-panel); }
+  details.labs-faq summary { cursor:pointer; color:var(--silver); font-weight:700; }
+  .labs-legal { display:flex; flex-wrap:wrap; gap:14px; font-size:13px; margin-top:16px; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="labs-strip">
+      <a class="labs-strip-main" href="https://journal.mgequant.com/" target="_blank" rel="noopener"><span class="labs-dot" aria-hidden="true"></span><b>MGE Labs</b><span class="ls-sep">&middot;</span><span class="ls-dim">Trade journal + AI desk &middot; private beta</span><span class="ls-go">Enter here &rarr;</span></a>
+      <a href="labs.html" class="labs-strip-notes">What is MGE Labs?</a>
+      <a class="labs-strip-notes" href="https://mgequantnotes.substack.com" target="_blank" rel="noopener noreferrer">Weekly notes &rarr;</a>
+    </div>
+    <nav class="site-nav">
+      <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt=""><span class="bt"><span>MGE<b>QUANT</b></span><small>Research &middot; Test &middot; Improve</small></span></a>
+      <div class="links">
+        <a href="DevelopmentLogs/">Research</a>
+        <a href="./#charts">Charts</a>
+        <a href="in-action.html">In action</a>
+        <a href="#notes">Notes</a>
+        <a href="Screenshots/">Screenshots</a>
+        <a href="mgequant-propfirm-calculator.html">Tools</a>
+        <a href="Mission%20and%20Vision/">Mission</a>
+      </div>
+      <button class="theme-toggle" data-theme-toggle aria-label="Switch light/dark theme" type="button">&#9788;</button>
+    </nav>
+  </div>
+  <main class="container">
+    <header class="page-head">
+      <h1>MGE Labs</h1>
+      <p>A private trade journal and an AI desk for NinjaTrader 8. Every closed trade on your PCs lands in one journal, scored in R against the risk you set. The AI desk trades a Sim account first and has to earn a clean record before live trading can be switched on, on that PC only.</p>
+    </header>
+
+    <section id="labs-walkthrough">
+      <div class="panel labs-feature">
+        <video controls playsinline preload="metadata" poster="assets/img/labs/mge-labs-walkthrough.jpg?v=1" src="assets/video/labs/mge-labs-walkthrough.mp4?v=1" aria-label="MGE Labs: sign up, install in NinjaTrader 8 and pair a PC"></video>
+        <div>
+          <span class="labs-badge">WATCH THE WALKTHROUGH</span>
+          <h2>From sign-up to a paired PC in five minutes</h2>
+          <ol class="labs-steps">
+            <li><b>Create an account</b> and turn on two-step sign-in.</li>
+            <li><b>Download</b> the NinjaTrader 8 package (one compiled add-on).</li>
+            <li><b>Import</b> it in NinjaTrader and restart once.</li>
+            <li><b>Pair</b> the PC with a one-time code. Closed trades now sync to your journal.</li>
+          </ol>
+          <a class="labs-cta" href="https://journal.mgequant.com/" target="_blank" rel="noopener">Enter MGE Labs →</a>
+          <p class="labs-fine">Screen recording with music, at normal speed except two compile waits (sped up). Personal details are blurred. Software only; not investment advice.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="sec-head"><div><h2>How it works</h2><p>Nothing to compile and no settings files to edit.</p></div></div>
+      <div class="labs-grid3">
+        <div class="panel"><span class="labs-num">01 · JOURNAL</span><h3>Every trade, every PC</h3><p>A NinjaTrader add-on sends each closed trade to your account. Win rate is only ever shown next to expectancy in R, never alone.</p></div>
+        <div class="panel"><span class="labs-num">02 · AI DESK</span><h3>Your AI, your key, Sim first</h3><p>Bring your own AI key (encrypted in your browser for that PC only). It trades one Sim account inside your session windows and risk limits.</p></div>
+        <div class="panel"><span class="labs-num">03 · SAFETY</span><h3>Live is earned, not toggled</h3><p>Live unlocks only after a clean Sim record, and only on the PC itself. Stop and Flatten always work from the journal.</p></div>
+      </div>
+    </section>
+
+    <section id="is-not">
+      <div class="labs-isnot">
+        <div class="panel" style="padding:16px"><h3 style="margin:0;color:var(--silver)">What it is</h3><ul>
+          <li>A journal that records and scores your own trades.</li><li>Software you run on your own PCs and accounts.</li><li>Two-step sign-in, recovery codes, export to CSV at any time.</li></ul></div>
+        <div class="panel" style="padding:16px"><h3 style="margin:0;color:var(--silver)">What it is not</h3><ul>
+          <li>No signals, no advice, no copy trading.</li><li>No performance promises: backtests and Sim results are hypothetical.</li><li>Not affiliated with NinjaTrader, your broker or any prop firm.</li></ul></div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="sec-head"><div><h2>Pricing</h2><p>Opening after the private beta. Prices in USD; sales tax is added at checkout by Paddle, our payment provider.</p></div></div>
+      <div class="labs-price">
+        <div class="panel"><span class="labs-badge">MONTHLY</span><div class="amt">$39.99 <small>/ month</small></div><p>7 days free, then monthly. Cancel any time; access runs to the end of the month you paid for.</p></div>
+        <div class="panel"><span class="labs-badge">YEARLY · SAVE 15%</span><div class="amt">$407.90 <small>/ year</small></div><p>Works out to $33.99 a month. Full refund on request within 14 days of the yearly charge.</p></div>
+      </div>
+      <p class="labs-fine">AI usage is billed by your own AI provider on your own key, not by MGEQuant. After cancelling, your journal stays readable and exportable.</p>
+    </section>
+
+    <section id="faq">
+      <div class="sec-head"><div><h2>Questions</h2></div></div>
+      <details class="labs-faq"><summary>Do I need to keep the journal open in my browser?</summary><p>No. NinjaTrader must be open on the PC (with its data connection); the journal runs on our servers around the clock.</p></details>
+      <details class="labs-faq"><summary>Which brokers and prop firms?</summary><p>Any account NinjaTrader 8 connects to. You enter your firm's rules yourself (drawdown type, daily loss, flat time); check your firm allows automation before going live.</p></details>
+      <details class="labs-faq"><summary>What if I lose my phone (two-step sign-in)?</summary><p>Each of your 10 recovery codes signs you in once. Then set two-step sign-in up again on the new phone.</p></details>
+      <details class="labs-faq"><summary>Can I take my data with me?</summary><p>Yes: export every trade as a CSV file at any time, including after cancelling.</p></details>
+      <p class="labs-fine">Terms of service, refund policy, privacy policy and the full risk disclaimer are published here before sales open.</p>
+    </section>
+
+    <footer>
+      <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt=""><span>MGE<b>QUANT</b></span></a>
+      <nav>
+        <a href="DevelopmentLogs/">Research</a>
+        <a href="./#charts">Charts</a>
+        <a href="in-action.html">In action</a>
+        <a href="#notes">Notes</a>
+        <a href="Screenshots/">Screenshots</a>
+        <a href="mgequant-propfirm-calculator.html">Tools</a>
+        <a href="Mission%20and%20Vision/">Mission</a>
+        <a href="labs.html">MGE Labs</a>
+      </nav>
+      <div class="social">
+        <a href="https://x.com/MGEQuant" target="_blank" rel="noopener noreferrer" aria-label="MGEQuant on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg></a>
+        <a href="https://www.instagram.com/mgequant/" target="_blank" rel="noopener noreferrer" aria-label="MGEQuant on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></a>
+        <a href="https://mgequantnotes.substack.com" target="_blank" rel="noopener noreferrer" aria-label="MGEQuant weekly notes on Substack"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 3h16v2.4H4zm0 4.6h16V10H4zM4 12.2h16V21l-8-4.4L4 21z"/></svg></a>
+        <a href="https://github.com/MGEQuant" target="_blank" rel="noopener noreferrer" aria-label="MGEQuant on GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+        <a href="https://linktr.ee/mgequant" target="_blank" rel="noopener noreferrer" aria-label="All MGEQuant links on Linktree"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m13.73635 5.85251 4.00467-4.11665 2.3248 2.3808-4.20064 4.00466h5.9085v3.30473h-5.9365l4.22865 4.10766-2.3248 2.3338L12.0005 12.099l-5.74052 5.76852-2.3248-2.3248 4.22864-4.10766h-5.9375V8.12132h5.9085L3.93417 4.11666l2.3248-2.3808 4.00468 4.11665V0h3.4727zm-3.4727 10.30614h3.4727V24h-3.4727z"/></svg></a>
+      </div>
+    </footer>
+  </main>
+<script>
+(function() {
+  var KEY = 'mgequant-theme';
+  var root = document.documentElement;
+  var btn = document.querySelector('[data-theme-toggle]');
+  if (!btn) return;
+  function isDark() {
+    var explicit = root.getAttribute('data-theme');
+    if (explicit) return explicit === 'dark';
+    return !window.matchMedia('(prefers-color-scheme: light)').matches;
+  }
+  function paintIcon() { btn.innerHTML = isDark() ? '&#9788;' : '&#9789;'; }
+  paintIcon();
+  btn.addEventListener('click', function() {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem(KEY, next); } catch (e) {}
+    paintIcon();
+  });
+})();
+</script>
+<script src="/assets/js/faq-bot.js" defer></script>
+</body>
+</html>
