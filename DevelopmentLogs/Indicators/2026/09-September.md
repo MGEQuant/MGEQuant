@@ -1,6 +1,6 @@
 ---
 layout: default
-date: "2026-09-23"
+date: "2026-09-28"
 title: "Indicators — September 2026"
 ---
 
@@ -65,3 +65,15 @@ Those patches did not make it right. Checked on the live chart that evening, the
 5. Live buy and sell counts classified trades before a bid and ask were known, so early prints all counted as buying.
 
 All five are fixed. Everything that accumulates now updates once per closed bar, every layer is drawn at its own bar, and the dashboard labels its live delta as counted since the chart loaded and its cumulative delta as an estimate. It compiles clean and was re-checked on the same chart. The buy and sell split is still an estimate from bar direction, not real order flow, and the divergence count runs high for that reason. It is a reading tool, not a signal.
+
+## September 25 — Bar Structure: what kind of bar is this?
+
+Labels each bar as inside, directional up or down, or outside, names the last few bars as a sequence, and shows a small panel with the same reading across several timeframes and a one-line summary of whether they agree.
+
+It answers a reading question, not a trading one. The mechanical test of these sequences found no tradable result after costs (see Strategies, September 25), and the indicator's guide says so.
+
+## September 28 — PlayCall: Bar Structure's own rule table, drawn live
+
+Bar Structure's guide already states where a sequence's entry, stop and first target sit. PlayCall draws those lines as the sequence forms, using one general rule checked against every row of the guide: entry at the middle bar's break, stop at its other side, first target at the oldest bar's extreme. It skips a plan when the target is not clearly farther away than the stop, as the guide itself says to.
+
+It never places an order, and its panel counts plans, not wins or losses. It carries Bar Structure's disclaimer. The first live session found a real bug: short plans drew an arrow pointing up. It was fixed the same day.

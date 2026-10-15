@@ -1,6 +1,6 @@
 ---
 layout: default
-date: "2026-09-12"
+date: "2026-09-26"
 title: "Platform — September 2026"
 ---
 
@@ -15,3 +15,7 @@ The repair had in fact been made days earlier and was sitting in the cloud copy.
 Three fixes landed. The offending files were quarantined outside the tree and the compile went green in 25 seconds, advancing an assembly that had been frozen since August and was missing sixteen strategy files. The NinjaTrader data folder was moved out of OneDrive entirely, since a trading platform writing a live SQLite database into a sync folder is how the install was corrupted in the first place. And the automation that drives compiles was repaired twice: it had been calling Invoke on a submenu parent that only supports Expand, and its data directory was hardcoded to the old path, so a deploy would have written to the abandoned tree and then reported success by reading the old assembly.
 
 That last one is the pattern worth keeping. Four separate things reported success while doing nothing: the compile tooling, the log writer, the posting scheduler, and the status check. Exit code zero is not evidence.
+
+## September 26 — Clean chart titles
+
+NinjaTrader prints an indicator's name followed by every parameter value at the top of the chart, so every screenshot and video carried our settings, and any setting holding a file path would also have shown the Windows username. Every MGE indicator and strategy now overrides its display name with a short product name and no parameters, and the title is checked after each compile.
