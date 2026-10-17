@@ -316,6 +316,8 @@
   /* ---------- chart viewer (full screen, solid backdrop) ---------- */
   .viewer { position: fixed; inset: 0; z-index: 100; display: none; flex-direction: column; background: #05070b; color: var(--text); }
   .viewer.open { display: flex; }
+  /* the FAQ chat bubble sits above everything; while a chart is open full screen it would cover NEXT, so it steps aside */
+  body:has(.viewer.open) .mge-chat-btn, body:has(.viewer.open) .mge-chat-panel { display: none !important; }
   .viewer-top, .viewer-bottom { flex: 0 0 auto; display: flex; align-items: center; gap: 10px 14px; padding: 10px 14px; background: #0b0e14; border-color: #1e222b; border-style: solid; border-width: 0; }
   .viewer-top { border-bottom-width: 1px; padding-top: max(10px, env(safe-area-inset-top)); }
   .viewer-bottom { flex-wrap: wrap; border-top-width: 1px; padding-bottom: max(10px, env(safe-area-inset-bottom)); }
