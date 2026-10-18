@@ -1,3 +1,3 @@
-[📊 Apex 250K PA Payout Calculator](https://mgequant.github.io/MGEQuant/apex-250k.html)
+[📊 MGEQuant prop firm payout calculator](https://mgequant.com/mgequant-propfirm-calculator.html)
 
-[📊 MGEQuant Propfirm account calculator](https://mgequant.github.io/MGEQuant/mgequant-propfirm-calculator.html)
+Works for any account size. Presets are example rule sets, including a 250K account with a floor lock and payout gate ([open with that preset](https://mgequant.com/mgequant-propfirm-calculator.html?preset=p250g)).
