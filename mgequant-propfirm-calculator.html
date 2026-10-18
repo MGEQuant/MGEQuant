@@ -7,166 +7,193 @@
   <meta name="description" content="Model prop firm drawdown, consistency, trading days and payout readiness. Free calculator that runs entirely in your browser.">
   <link rel="icon" href="/assets/img/mgequant-logo.png">
   <meta name="theme-color" content="#06070a">
-  <title>MGEQuant Propfirm account calculator</title>
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <title>MGEQuant Prop firm payout calculator</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
   <style>
+    /* Layout 2026-10-17: numbered setup steps on the left (A), verdict + key numbers + balance/floor chart + rule check +
+       day table on the right (A + B). The calculation is the same as before. */
     :root, [data-theme="light"] {
-      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
-      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2rem);
-      --space-1: .25rem; --space-2: .5rem; --space-3: .75rem; --space-4: 1rem; --space-5: 1.25rem; --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem;
       color-scheme: light;
-      --color-bg:#f2f4f8; --color-surface:#ffffff; --color-surface-2:#f6f8fb; --color-surface-offset:#eef1f6; --color-border:#d5dae3; --color-divider:#e3e7ee;
-      --color-text:#171a21; --color-text-muted:#596070; --color-text-faint:#8b919e; --color-text-inverse:#ffffff;
-      --color-primary:#1668dc; --color-primary-hover:#1155c4; --color-primary-highlight:#e3edfd;
-      --color-success:#208a3c; --color-warning:#b45309; --color-error:#c2255c; --color-blue:#1668dc;
-      --glow: rgba(59,139,255,0.20);
-      --radius-sm:.375rem; --radius-md:.5rem; --radius-lg:.875rem; --radius-xl:1rem;
-      --shadow-sm:0 1px 2px oklch(0.2 0.01 80 / 0.06); --shadow-md:0 6px 18px oklch(0.2 0.01 80 / 0.08); --shadow-lg:0 12px 32px oklch(0.2 0.01 80 / 0.12);
-      --font-body:'Satoshi', Inter, sans-serif;
+      --bg:#f2f4f8; --surface:#ffffff; --surface-2:#f6f8fb; --inset:#eef1f6; --border:#d5dae3; --divider:#e3e7ee;
+      --text:#171a21; --muted:#596070; --faint:#8b919e;
+      --blue:#1668dc; --blue-hi:#1155c4; --blue-soft:#e3edfd;
+      --good:#1d8a43; --good-soft:#e2f4e8; --warn:#b45309; --warn-soft:#fdf0e1; --bad:#c2255c; --bad-soft:#fbe4ec;
+      --hero-a:#e3edfd; --hero-b:#ffffff; --grid-line:#e6e9ef; --axis:#7c8392;
+      --glow: rgba(59,139,255,0.16);
+      --shadow:0 6px 18px rgba(20,30,50,.08);
+      --font:'Satoshi', Inter, 'Segoe UI', sans-serif; --mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
     }
     [data-theme="dark"] {
       color-scheme: dark;
-      --color-bg:#06070a; --color-surface:#0d0f14; --color-surface-2:#11141b; --color-surface-offset:#0f1218; --color-border:#1e222b; --color-divider:#1a1e27;
-      --color-text:#c7cbd4; --color-text-muted:#7d8390; --color-text-faint:#565c69; --color-text-inverse:#0d0f14;
-      --color-primary:#3b8bff; --color-primary-hover:#2f7bef; --color-primary-highlight:rgba(59,139,255,0.16);
-      --color-success:#4cc06a; --color-warning:#e0903f; --color-error:#e2609f; --color-blue:#3b8bff;
+      --bg:#06070a; --surface:#0d0f14; --surface-2:#11141b; --inset:#0a0c11; --border:#1e222b; --divider:#1a1e27;
+      --text:#d3d7df; --muted:#8a90a0; --faint:#5d6371;
+      --blue:#3b8bff; --blue-hi:#6fa8ff; --blue-soft:rgba(59,139,255,.14);
+      --good:#4cc06a; --good-soft:rgba(76,192,106,.13); --warn:#e0a43a; --warn-soft:rgba(224,164,58,.13); --bad:#e2609f; --bad-soft:rgba(226,96,159,.13);
+      --hero-a:rgba(29,53,99,.85); --hero-b:#0d0f14; --grid-line:#1a1f29; --axis:#6f7686;
       --glow: rgba(59,139,255,0.18);
-      --shadow-sm:0 1px 2px rgba(0,0,0,.4); --shadow-md:0 6px 18px rgba(0,0,0,.5); --shadow-lg:0 12px 32px rgba(0,0,0,.6);
+      --shadow:0 10px 26px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box;margin:0;padding:0}
-    body{min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);line-height:1.6;background:var(--color-bg);color:var(--color-text)}
-    body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(560px 300px at 50% -60px, var(--glow), transparent 70%);animation:glow-drift 12s ease-in-out infinite alternate}
-    ::selection{background:color-mix(in oklab,var(--color-blue) 35%,transparent);color:#fff}
-    @keyframes glow-drift{from{transform:translateY(0);opacity:.7}to{transform:translateY(24px);opacity:1}}
-    @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-    @keyframes brand-live{0%,100%{opacity:.55;box-shadow:0 0 3px rgba(59,139,255,.5)}50%{opacity:1;box-shadow:0 0 9px rgba(111,168,255,.95)}}
-    .rise-1,.rise-2,.rise-3{animation:rise .55s ease backwards}
-    .rise-2{animation-delay:.07s}
-    .rise-3{animation-delay:.14s}
-    .wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:var(--space-6) var(--space-6) var(--space-10)}
-    .topbar{display:flex;justify-content:space-between;gap:var(--space-4);align-items:flex-start;margin-bottom:var(--space-8)}
-    .home-link{display:inline-flex;align-items:center;gap:.35rem;margin-bottom:.7rem;font-size:var(--text-sm);color:var(--color-blue);text-decoration:none;transition:gap .2s ease,color .2s ease}
-    .home-link:hover{gap:.6rem;color:var(--color-primary);text-decoration:none}
-    .brand-chip{display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .7rem;margin-bottom:.7rem;border:1px solid var(--color-border);border-radius:999px;background:var(--color-surface);font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--color-text-muted);box-shadow:var(--shadow-sm)}
-    .live-dot{width:8px;height:8px;border-radius:50%;background:var(--color-blue);animation:brand-live 2.4s ease-in-out infinite}
-    h1{font-size:var(--text-xl);line-height:1.1;max-width:18ch;color:var(--color-text)}
-    h1 .accent{color:var(--color-blue)}
-    .sub{color:var(--color-text-muted);max-width:70ch;margin-top:var(--space-3)}
-    .theme-btn{border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text);padding:.75rem 1rem;border-radius:999px;cursor:pointer;min-width:44px;min-height:44px;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
-    .theme-btn:hover{transform:translateY(-2px);border-color:var(--color-blue);box-shadow:0 8px 20px -10px rgba(59,139,255,.7)}
-    .grid{display:grid;grid-template-columns:360px 1fr;gap:var(--space-6);align-items:start}
-    .panel{position:relative;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);overflow:hidden;transition:border-color .25s ease,box-shadow .25s ease}
-    .panel::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in oklab,var(--color-blue) 65%,transparent),transparent);opacity:.75;pointer-events:none}
-    .panel:hover{border-color:color-mix(in oklab,var(--color-blue) 40%,var(--color-border));box-shadow:0 14px 34px -20px rgba(59,139,255,.55)}
-    .panel-inner{padding:var(--space-5)}
-    .section-title{font-size:var(--text-sm);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:var(--space-4);display:flex;align-items:center;gap:.55rem}
-    .section-title::before{content:"";width:14px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--color-blue),transparent)}
-    .stack{display:grid;gap:var(--space-4)}
-    .field{display:grid;gap:.45rem}
-    label{font-size:var(--text-sm);color:var(--color-text-muted)}
-    input,select,textarea{width:100%;border:1px solid var(--color-border);background:var(--color-surface-2);color:var(--color-text);border-radius:var(--radius-md);padding:.85rem .9rem;font:inherit;transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
-    input:hover,select:hover,textarea:hover{border-color:color-mix(in oklab,var(--color-blue) 45%,var(--color-border))}
-    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--color-blue);box-shadow:0 0 0 3px color-mix(in oklab,var(--color-blue) 28%,transparent);background:var(--color-surface)}
-    textarea{min-height:160px;resize:vertical;font-variant-numeric:tabular-nums}
-    select{cursor:pointer}
-    label{font-size:var(--text-xs);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted)}
-    .two{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)}
-    .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
-    .btn-row{display:flex;flex-wrap:wrap;gap:var(--space-3)}
-    button{font-family:inherit}
-    a:focus-visible,button:focus-visible{outline:2px solid var(--color-blue);outline-offset:2px}
-    button.action{background:linear-gradient(135deg,var(--color-primary),var(--color-blue));color:#fff;border:none;border-radius:var(--radius-md);padding:.9rem 1.15rem;font-weight:700;cursor:pointer;min-height:44px;box-shadow:0 10px 26px -14px rgba(59,139,255,.85);transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
-    button.action:hover{transform:translateY(-2px);filter:brightness(1.07);box-shadow:0 14px 32px -14px rgba(59,139,255,.95)}
-    button.action:active{transform:translateY(0)}
-    button.ghost{background:transparent;border:1px solid var(--color-border);color:var(--color-text);border-radius:var(--radius-md);padding:.9rem 1.1rem;cursor:pointer;min-height:44px;transition:border-color .18s ease,color .18s ease,transform .18s ease}
-    button.ghost:hover{border-color:var(--color-blue);color:var(--color-blue);transform:translateY(-2px)}
-    button.ghost:active{transform:translateY(0)}
-    .presets{display:flex;flex-wrap:wrap;gap:.55rem}
-    .chip{border:1px solid var(--color-border);background:var(--color-surface-2);padding:.6rem .8rem;border-radius:999px;cursor:pointer;color:var(--color-text-muted);font-size:var(--text-sm);font-weight:600;transition:transform .18s ease,border-color .18s ease,color .18s ease,background .18s ease,box-shadow .18s ease}
-    .chip:hover{transform:translateY(-2px);border-color:var(--color-blue);color:var(--color-text);box-shadow:0 6px 16px -10px rgba(59,139,255,.75)}
-    .chip:active{transform:translateY(0) scale(.97)}
-    .chip.is-active{background:linear-gradient(135deg,var(--color-primary),var(--color-blue));border-color:transparent;color:#fff;box-shadow:0 8px 20px -10px rgba(59,139,255,.85)}
-    .content{display:grid;gap:var(--space-6)}
-    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
-    .card{position:relative;background:linear-gradient(180deg,var(--color-surface-2),var(--color-surface));border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4);min-height:124px;overflow:hidden;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
-    .card::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--color-blue),transparent 65%);opacity:.55;transition:opacity .22s ease}
-    .card:hover{transform:translateY(-4px);border-color:color-mix(in oklab,var(--color-blue) 45%,var(--color-border));box-shadow:0 16px 34px -20px rgba(59,139,255,.7)}
-    .card:hover::after{opacity:1}
-    .k{font-size:var(--text-xs);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-faint)}
-    .v{font-size:clamp(1.5rem,1rem + 1.5vw,2.3rem);font-weight:700;margin-top:.45rem;letter-spacing:.01em;transition:color .3s ease,text-shadow .3s ease}
-    .v.good{color:var(--color-success);text-shadow:0 0 22px color-mix(in oklab,var(--color-success) 45%,transparent)}
-    .v.bad{color:var(--color-error);text-shadow:0 0 22px color-mix(in oklab,var(--color-error) 40%,transparent)}
-    .good{color:var(--color-success)} .bad{color:var(--color-error)} .warn{color:var(--color-warning)}
-    #dayTable span.bad,#dayTable span.good,#dayTable span.warn{display:inline-block;padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.04em;border:1px solid currentColor;background:color-mix(in oklab,currentColor 12%,transparent)}
-    table{width:100%;border-collapse:collapse;font-size:var(--text-sm)}
-    thead th{font-size:var(--text-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);background:var(--color-surface-2);border-bottom:1px solid var(--color-border);padding:.7rem .85rem}
-    th,td{padding:.85rem;border-bottom:1px solid var(--color-divider);text-align:left;vertical-align:top}
-    th{color:var(--color-text-muted);font-weight:600}
-    tbody tr{transition:background .15s ease}
-    tbody tr:hover{background:color-mix(in oklab,var(--color-blue) 7%,transparent)}
-    tbody tr:nth-child(even){background:color-mix(in oklab,var(--color-text) 3.5%,transparent)}
-    tbody tr:nth-child(even):hover{background:color-mix(in oklab,var(--color-blue) 9%,transparent)}
-    #ruleTable th{width:34%;white-space:nowrap}
-    .table-wrap{overflow-x:auto;border-radius:var(--radius-md)}
-    .note{padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in oklab,var(--color-primary) 9%,var(--color-surface));border:1px solid color-mix(in oklab,var(--color-primary) 30%,transparent);border-left:4px solid var(--color-blue);color:var(--color-text);font-size:var(--text-sm)}
-    .note strong{color:var(--color-blue)}
-    .disclaimer{padding:var(--space-4);border-radius:var(--radius-lg);background:color-mix(in oklab,var(--color-warning) 10%,var(--color-surface));border:1px solid color-mix(in oklab,var(--color-warning) 24%,transparent);border-left:4px solid var(--color-warning);color:var(--color-text);font-size:var(--text-sm)}
-    .small{font-size:var(--text-sm);color:var(--color-text-muted);min-height:2.2em}
-    .mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-    .page-foot{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:var(--space-6) var(--space-6) var(--space-8);text-align:center;font-size:var(--text-xs);letter-spacing:.06em;color:var(--color-text-faint);border-top:1px solid var(--color-divider)}
-    @media (max-width: 1080px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width: 720px){.two,.three,.cards{grid-template-columns:1fr}.wrap{padding:var(--space-4) var(--space-4) var(--space-8)}.topbar{flex-direction:column}.page-foot{padding:var(--space-5) var(--space-4)}h1{max-width:none}}
-    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+    body{min-height:100dvh;font-family:var(--font);font-size:15px;line-height:1.55;background:var(--bg);color:var(--text)}
+    body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(620px 320px at 50% -80px, var(--glow), transparent 70%)}
+    a{color:var(--blue)}
+    .wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:24px 24px 40px}
+    .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px}
+    .home{display:inline-flex;gap:6px;font-size:14px;text-decoration:none;margin-bottom:10px}
+    .chip-brand{display:inline-flex;align-items:center;gap:8px;margin-left:8px;padding:3px 10px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+    .chip-brand i{width:7px;height:7px;border-radius:50%;background:var(--blue)}
+    h1{font-size:clamp(24px,2.6vw,32px);line-height:1.15;font-weight:900;letter-spacing:-.01em}
+    h1 span{color:var(--blue)}
+    .lead{color:var(--muted);margin-top:6px;max-width:72ch}
+    .theme-btn{border:1px solid var(--border);background:var(--surface);color:var(--text);min-width:44px;min-height:44px;padding:0 14px;border-radius:999px;cursor:pointer;font:inherit}
+    .theme-btn:hover{border-color:var(--blue)}
+
+    .layout{display:grid;grid-template-columns:370px minmax(0,1fr);gap:18px;align-items:start}
+    .side{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;position:sticky;top:14px}
+    .presets{padding:14px 16px;border-bottom:1px solid var(--divider)}
+    .presets .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+    .presets .row{display:flex;flex-wrap:wrap;gap:6px}
+    .preset{background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:9px;padding:6px 10px;font:inherit;font-size:12.5px;cursor:pointer}
+    .preset:hover{border-color:var(--blue)}
+    .preset.on{border-color:var(--blue);background:var(--blue-soft);color:var(--blue-hi);font-weight:700}
+    .presets .note{font-size:11.5px;color:var(--faint);margin-top:8px}
+    details.step{border-bottom:1px solid var(--divider)}
+    details.step:last-of-type{border-bottom:0}
+    details.step summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:13px 16px;font-weight:700;font-size:14px}
+    details.step summary::-webkit-details-marker{display:none}
+    details.step summary:hover{background:var(--surface-2)}
+    .n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue-hi);font-size:12px;flex:none}
+    .sum{margin-left:auto;color:var(--muted);font-weight:500;font-size:12px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55%}
+    .chev{color:var(--faint);transition:transform .2s ease;font-size:12px}
+    details[open] .chev{transform:rotate(90deg)}
+    details[open] .sum{display:none}
+    .fields{padding:2px 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .full{grid-column:1/-1}
+    .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
+    .field input,.field select,.field textarea{width:100%;background:var(--inset);border:1px solid var(--border);border-radius:10px;padding:9px 11px;color:var(--text);font:inherit;font-size:14px}
+    .field input:focus,.field select:focus,.field textarea:focus{outline:2px solid color-mix(in oklab,var(--blue) 55%,transparent);outline-offset:1px;border-color:var(--blue)}
+    .field textarea{min-height:150px;font-family:var(--mono);font-size:13px;resize:vertical}
+    .hint{font-size:11.5px;color:var(--faint);margin-top:4px}
+    .btns{display:flex;gap:8px}
+    .btn{flex:1;border:1px solid var(--border);background:var(--surface-2);color:var(--text);border-radius:10px;padding:9px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+    .btn:hover{border-color:var(--blue)}
+
+    .main{min-width:0;display:flex;flex-direction:column;gap:14px}
+    .verdict{display:flex;align-items:center;gap:16px;border-radius:16px;padding:18px 20px;border:1px solid var(--border);background:var(--surface)}
+    .verdict .ic{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:24px;font-weight:900;flex:none;background:var(--blue-soft);color:var(--blue-hi)}
+    .verdict h2{font-size:20px;line-height:1.25}
+    .verdict p{color:var(--muted);margin-top:2px}
+    .verdict .prog{margin-left:auto;min-width:190px}
+    .verdict .prog .t{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .bar{height:8px;border-radius:99px;background:var(--inset);overflow:hidden;border:1px solid var(--divider)}
+    .bar i{display:block;height:100%;width:0;background:var(--blue);transition:width .3s ease}
+    .verdict.ready{background:linear-gradient(120deg,var(--good-soft),var(--surface) 65%);border-color:color-mix(in oklab,var(--good) 45%,var(--border))}
+    .verdict.ready .ic{background:var(--good-soft);color:var(--good)}.verdict.ready .bar i{background:var(--good)}
+    .verdict.building{background:linear-gradient(120deg,var(--warn-soft),var(--surface) 65%);border-color:color-mix(in oklab,var(--warn) 40%,var(--border))}
+    .verdict.building .ic{background:var(--warn-soft);color:var(--warn)}.verdict.building .bar i{background:var(--warn)}
+    .verdict.breach{background:linear-gradient(120deg,var(--bad-soft),var(--surface) 65%);border-color:color-mix(in oklab,var(--bad) 45%,var(--border))}
+    .verdict.breach .ic{background:var(--bad-soft);color:var(--bad)}.verdict.breach .bar i{background:var(--bad)}
+
+    .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;min-width:0;box-shadow:var(--shadow)}
+    .kpi .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+    .kpi .v{font-size:clamp(19px,2vw,26px);font-weight:900;margin:6px 0 2px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .kpi .s{font-size:12px;color:var(--muted)}
+    .good{color:var(--good)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+
+    .box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);min-width:0}
+    .box h3{font-size:15px}.box .sub{color:var(--muted);font-size:13px;margin:2px 0 12px}
+    .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}
+    .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+    #chart svg{display:block}
+    .ax{fill:var(--axis);font-size:11px;font-family:var(--font)}.gl{stroke:var(--grid-line)}
+    .empty{color:var(--muted);font-size:13px;padding:30px 0;text-align:center}
+
+    .rules{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .rule{display:flex;align-items:center;gap:10px;background:var(--surface-2);border:1px solid var(--divider);border-radius:10px;padding:10px 12px;font-size:13.5px;min-width:0}
+    .rule .m{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;flex:none}
+    .rule.pass .m{background:var(--good-soft);color:var(--good)}.rule.fail .m{background:var(--warn-soft);color:var(--warn)}.rule.off .m{background:var(--inset);color:var(--faint)}
+    .rule.breach .m{background:var(--bad-soft);color:var(--bad)}
+    .rule .d{min-width:0}.rule .d small{display:block;color:var(--muted);font-size:12px}
+    .rule b{margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;min-width:640px}
+    th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--divider);white-space:nowrap}
+    th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+    th:first-child,td:first-child{text-align:left}
+    .tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:99px}
+    .tag.ready{background:var(--good-soft);color:var(--good)}.tag.building{background:var(--warn-soft);color:var(--warn)}.tag.breach{background:var(--bad-soft);color:var(--bad)}
+
+    .disclaimer{font-size:12.5px;color:var(--muted);background:var(--surface-2);border:1px solid var(--divider);border-radius:12px;padding:12px 14px}
+    .page-foot{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:20px 24px 30px;text-align:center;font-size:12px;letter-spacing:.04em;color:var(--faint);border-top:1px solid var(--divider)}
+    @media (max-width: 1000px){.layout{grid-template-columns:1fr}.side{position:static}.kpis{grid-template-columns:1fr 1fr}}
+    @media (max-width: 640px){.wrap{padding:16px 16px 30px}.top{flex-direction:column-reverse}.theme-btn{align-self:flex-end}
+      .rules{grid-template-columns:1fr}.verdict{flex-wrap:wrap}.verdict .prog{margin:0;width:100%}.fields{grid-template-columns:1fr}.chip-brand{margin:6px 0 0}}
+    @media (prefers-reduced-motion: reduce){*{transition:none!important}}
   </style>
-<link rel="stylesheet" href="/assets/css/faq-bot.css">
+  <link rel="stylesheet" href="/assets/css/faq-bot.css">
 </head>
 <body>
   <div class="wrap">
-    <div class="topbar rise-1">
+    <div class="top">
       <div>
-        <a class="home-link" href="/">&larr; MGEQuant home</a>
-        <div class="brand-chip"><span class="live-dot" aria-hidden="true"></span>MGEQuant tool</div>
-        <h1>Propfirm account <span class="accent">calculator</span></h1>
-        <p class="sub">Configure account size, drawdown, consistency, payout, and trading-day rules for any proprietary trading firm — then watch payout readiness update as you type.</p>
+        <a class="home" href="/">&larr; MGEQuant home</a><span class="chip-brand"><i aria-hidden="true"></i>Free tool</span>
+        <h1>Prop firm payout <span>calculator</span></h1>
+        <p class="lead">Set the firm's rules, add your daily results, and see the day you could request a payout, how much, and how much room you have above the drawdown floor. Runs only in your browser.</p>
       </div>
-      <button class="theme-btn" data-theme-toggle aria-label="Switch theme">☀︎ / ☾</button>
+      <button class="theme-btn" data-theme-toggle aria-label="Switch light or dark theme">☀︎ / ☾</button>
     </div>
-    <div class="grid">
-      <aside class="panel rise-2">
-        <div class="panel-inner stack">
-          <div>
-            <h2 class="section-title">Firm setup</h2>
-            <div class="presets">
-              <button class="chip" data-preset="apexLegacy">Apex legacy 30%</button>
-              <button class="chip" data-preset="apexEOD">Apex EOD 50%</button>
-              <button class="chip" data-preset="topstepXFA">Topstep XFA 40%</button>
-              <button class="chip" data-preset="blank">Blank custom</button>
-            </div>
+
+    <div class="layout">
+      <aside class="side" aria-label="Firm rules">
+        <div class="presets">
+          <div class="lbl">Start from a preset</div>
+          <div class="row">
+            <button class="preset" data-preset="p250i">250K · intraday trailing · 30%</button>
+            <button class="preset" data-preset="p50e">50K · EOD trailing · 50%</button>
+            <button class="preset" data-preset="p50s">50K · static · 40%</button>
+            <button class="preset" data-preset="blank">Blank</button>
           </div>
-          <div class="field"><label for="firmName">Firm / model name</label><input id="firmName" value="Custom prop firm" /></div>
-          <div class="two">
-            <div class="field"><label for="accountSize">Starting account size</label><input id="accountSize" type="number" step="100" value="50000" /></div>
-            <div class="field"><label for="startingBalance">Starting balance used for calc</label><input id="startingBalance" type="number" step="100" value="50000" /></div>
+          <p class="note">Example rule sets, not any firm's official rules. Check your firm's current rules and edit the steps below.</p>
+        </div>
+
+        <details class="step" open>
+          <summary><span class="n">1</span>Account<span class="sum" id="sum1"></span><span class="chev" aria-hidden="true">▶</span></summary>
+          <div class="fields">
+            <div class="field full"><label for="firmName">Name for this setup</label><input id="firmName" value="Custom prop firm" /></div>
+            <div class="field"><label for="accountSize">Account size</label><input id="accountSize" type="number" step="100" value="50000" inputmode="decimal" /></div>
+            <div class="field"><label for="startingBalance">Starting balance</label><input id="startingBalance" type="number" step="100" value="50000" inputmode="decimal" /></div>
           </div>
-          <div class="three">
-            <div class="field"><label for="drawdownType">Drawdown type</label><select id="drawdownType"><option>End-of-day trailing drawdown</option><option>Intraday trailing drawdown</option><option>Static drawdown</option><option>No drawdown rule</option></select></div>
-            <div class="field"><label for="drawdownAmount">Drawdown amount</label><input id="drawdownAmount" type="number" step="50" value="2500" /></div>
-            <div class="field"><label for="bufferAmount">Buffer / safety net</label><input id="bufferAmount" type="number" step="50" value="100" /></div>
+        </details>
+        <details class="step">
+          <summary><span class="n">2</span>Drawdown<span class="sum" id="sum2"></span><span class="chev" aria-hidden="true">▶</span></summary>
+          <div class="fields">
+            <div class="field full"><label for="drawdownType">Drawdown type</label><select id="drawdownType"><option>End-of-day trailing drawdown</option><option>Intraday trailing drawdown</option><option>Static drawdown</option><option>No drawdown rule</option></select></div>
+            <div class="field"><label for="drawdownAmount">Drawdown amount</label><input id="drawdownAmount" type="number" step="50" value="2500" inputmode="decimal" /></div>
+            <div class="field"><label for="bufferAmount">Safety buffer</label><input id="bufferAmount" type="number" step="50" value="100" inputmode="decimal" /><div class="hint">Kept above the floor before a payout.</div></div>
           </div>
-          <div class="three">
-            <div class="field"><label for="consistencyRule">Consistency rule</label><select id="consistencyRule"><option value="none">No consistency rule</option><option value="30">30% consistency rule</option><option value="40">40% consistency rule</option><option value="50">50% consistency rule</option></select></div>
-            <div class="field"><label for="minTradingDays">Minimum trading days</label><input id="minTradingDays" type="number" step="1" value="5" /></div>
-            <div class="field"><label for="qualifyingProfit">Min profit per qualifying day</label><input id="qualifyingProfit" type="number" step="1" value="0" /></div>
+        </details>
+        <details class="step">
+          <summary><span class="n">3</span>Consistency &amp; days<span class="sum" id="sum3"></span><span class="chev" aria-hidden="true">▶</span></summary>
+          <div class="fields">
+            <div class="field full"><label for="consistencyRule">Consistency rule</label><select id="consistencyRule"><option value="none">No consistency rule</option><option value="30">30% (best day under 30% of profit)</option><option value="40">40% (best day under 40% of profit)</option><option value="50">50% (best day under 50% of profit)</option></select></div>
+            <div class="field"><label for="minTradingDays">Minimum trading days</label><input id="minTradingDays" type="number" step="1" value="5" inputmode="numeric" /></div>
+            <div class="field"><label for="qualifyingProfit">Min profit for a day to count</label><input id="qualifyingProfit" type="number" step="1" value="0" inputmode="decimal" /></div>
           </div>
-          <div class="three">
-            <div class="field"><label for="minPayoutAmount">Minimum payout request</label><input id="minPayoutAmount" type="number" step="50" value="500" /></div>
-            <div class="field"><label for="payoutCap">Payout cap this cycle</label><input id="payoutCap" type="number" step="50" value="3000" /></div>
-            <div class="field"><label for="splitPercent">Trader payout split %</label><input id="splitPercent" type="number" step="1" value="100" /></div>
+        </details>
+        <details class="step">
+          <summary><span class="n">4</span>Payout rules<span class="sum" id="sum4"></span><span class="chev" aria-hidden="true">▶</span></summary>
+          <div class="fields">
+            <div class="field"><label for="minPayoutAmount">Minimum payout request</label><input id="minPayoutAmount" type="number" step="50" value="500" inputmode="decimal" /></div>
+            <div class="field"><label for="payoutCap">Payout cap this cycle</label><input id="payoutCap" type="number" step="50" value="3000" inputmode="decimal" /><div class="hint">0 = no cap.</div></div>
+            <div class="field"><label for="splitPercent">Your payout split %</label><input id="splitPercent" type="number" step="1" value="100" inputmode="numeric" /></div>
           </div>
-          <div class="field"><label for="pnlInput">Daily net P&amp;L numbers</label><textarea id="pnlInput" placeholder="Enter one number per line, or comma-separated.">350
+        </details>
+        <details class="step" open>
+          <summary><span class="n">5</span>Daily results<span class="sum" id="sum5"></span><span class="chev" aria-hidden="true">▶</span></summary>
+          <div class="fields">
+            <div class="field full"><label for="pnlInput">Net P&amp;L per day, one per line (or comma-separated)</label><textarea id="pnlInput" spellcheck="false">350
 420
 280
 510
@@ -174,42 +201,74 @@
 600
 190
 340</textarea></div>
-          <div class="btn-row"><button class="action" id="calculateBtn">Calculate</button><button class="ghost" id="exampleBtn">Load example</button><button class="ghost" id="clearBtn">Clear P&amp;L</button></div>
-        </div>
+            <div class="btns full"><button class="btn" id="exampleBtn" type="button">Load example</button><button class="btn" id="clearBtn" type="button">Clear results</button></div>
+          </div>
+        </details>
       </aside>
-      <main class="content rise-3">
-        <section class="note"><strong>How this works:</strong> Choose the firm model, adjust the rules, then enter your actual daily trading results. The calculator estimates drawdown threshold, consistency pass/fail, qualifying trading days, payout readiness, and a projected payout based on your settings.</section>
-        <section class="cards" aria-live="polite">
-          <div class="card"><div class="k">Payout-ready day</div><div class="v mono" id="readyDay">—</div><div class="small" id="readyDayNote">Not eligible yet.</div></div>
-          <div class="card"><div class="k">Current consistency</div><div class="v mono" id="consistencyValue">—</div><div class="small" id="consistencyNote">No data yet.</div></div>
-          <div class="card"><div class="k">Estimated payout now</div><div class="v mono" id="payoutValue">—</div><div class="small" id="payoutNote">Based on cap and split.</div></div>
-          <div class="card"><div class="k">Current drawdown floor</div><div class="v mono" id="ddFloor">—</div><div class="small" id="ddNote">Computed from selected drawdown type.</div></div>
+
+      <main class="main" aria-live="polite">
+        <section class="verdict" id="verdict">
+          <div class="ic" id="vIcon">…</div>
+          <div><h2 id="vTitle">Add your daily results</h2><p id="vText">The verdict updates as you type.</p></div>
+          <div class="prog"><div class="t" id="vProg">Rules passed</div><div class="bar"><i id="vBar"></i></div></div>
         </section>
-        <section class="panel"><div class="panel-inner"><h2 class="section-title">Rule check</h2><table><tbody id="ruleTable"></tbody></table></div></section>
-        <section class="panel"><div class="panel-inner"><h2 class="section-title">Trading days</h2><div class="table-wrap"><table><thead><tr><th>Day</th><th>Daily P&amp;L</th><th>Running profit</th><th>Balance</th><th>Best day</th><th>Consistency</th><th>Qualifying days</th><th>Status</th></tr></thead><tbody id="dayTable"></tbody></table></div></div></section>
-        <section class="disclaimer"><strong>Disclaimer:</strong> This calculator is an independent planning tool. Prop firm rules may change and may differ by account type. Always verify current requirements directly with the prop firm before trading or requesting a payout. This is important because some firms use: End-of-day trailing drawdown, Intraday trailing drawdown, Static drawdown, No consistency rule, 30% consistency rule, 40% or 50% consistency rule, Different minimum trading days, and Different payout caps.</section>
+
+        <section class="kpis">
+          <div class="kpi"><div class="k">Payout now</div><div class="v" id="kPayout">—</div><div class="s" id="kPayoutS"></div></div>
+          <div class="kpi"><div class="k">Profit so far</div><div class="v" id="kProfit">—</div><div class="s" id="kProfitS"></div></div>
+          <div class="kpi"><div class="k">Drawdown floor</div><div class="v" id="kFloor">—</div><div class="s" id="kFloorS"></div></div>
+          <div class="kpi"><div class="k">Consistency</div><div class="v" id="kCons">—</div><div class="s" id="kConsS"></div></div>
+        </section>
+
+        <section class="box">
+          <h3>Balance vs drawdown floor</h3>
+          <p class="sub">The gap between the two lines is the room you have before the account fails.</p>
+          <div id="chart"></div>
+        </section>
+
+        <section class="box">
+          <h3>Rule check</h3>
+          <p class="sub" id="ruleSub"></p>
+          <div class="rules" id="rules"></div>
+        </section>
+
+        <section class="box">
+          <h3>Trading days</h3>
+          <p class="sub">Day by day: balance, floor, room left, and when every enabled rule first passes.</p>
+          <div class="table-wrap"><table><thead><tr><th>Day</th><th>Daily P&amp;L</th><th>Profit</th><th>Balance</th><th>Floor</th><th>Room</th><th>Consistency</th><th>Days counted</th><th>Status</th></tr></thead><tbody id="dayTable"></tbody></table></div>
+        </section>
+
+        <section class="disclaimer"><strong>Planning tool only.</strong> Prop firm rules change and differ by account type: drawdown style (end-of-day, intraday or static), consistency %, minimum days, payout minimums and caps. Always check the firm's current rules before trading or requesting a payout. Not financial advice.</section>
       </main>
     </div>
   </div>
-  <footer class="page-foot">Calculations run 100% locally in your browser — no data ever leaves your device.</footer>
+  <footer class="page-foot">Calculations run 100% locally in your browser. No data ever leaves your device.</footer>
 <script>
 const $ = (id) => document.getElementById(id);
-const fmt = (n) => Number(n).toLocaleString(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2});
+const fmt = (n) => Number(n).toLocaleString('en-US',{style:'currency',currency:'USD',minimumFractionDigits: Number.isInteger(Number(n)) ? 0 : 2,maximumFractionDigits:2});
+const fmt0 = (n) => (n < 0 ? '−' : '') + '$' + Math.abs(Math.round(n)).toLocaleString('en-US');
+const signed = (n) => (n > 0 ? '+' : '') + fmt0(n);
 const pct = (n) => isFinite(n) ? `${n.toFixed(1)}%` : '—';
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// Example rule sets (not any firm's official rules).
 const presets = {
-  apexLegacy: {firmName:'Apex legacy PA', accountSize:250000, startingBalance:250000, drawdownType:'Intraday trailing drawdown', drawdownAmount:6500, bufferAmount:100, consistencyRule:'30', minTradingDays:8, qualifyingProfit:0, minPayoutAmount:500, payoutCap:3000, splitPercent:100, pnl:[500,450,620,700,400,530,610,580]},
-  apexEOD: {firmName:'Apex EOD PA', accountSize:50000, startingBalance:50000, drawdownType:'End-of-day trailing drawdown', drawdownAmount:2500, bufferAmount:100, consistencyRule:'50', minTradingDays:5, qualifyingProfit:100, minPayoutAmount:500, payoutCap:3000, splitPercent:100, pnl:[350,420,280,510,250,600]},
-  topstepXFA: {firmName:'Topstep Express Funded Account', accountSize:50000, startingBalance:50000, drawdownType:'Static drawdown', drawdownAmount:2000, bufferAmount:0, consistencyRule:'40', minTradingDays:3, qualifyingProfit:0, minPayoutAmount:0, payoutCap:5000, splitPercent:100, pnl:[900,1100,700,800,400]},
+  p250i: {firmName:'250K intraday trailing', accountSize:250000, startingBalance:250000, drawdownType:'Intraday trailing drawdown', drawdownAmount:6500, bufferAmount:100, consistencyRule:'30', minTradingDays:8, qualifyingProfit:0, minPayoutAmount:500, payoutCap:3000, splitPercent:100, pnl:[500,450,620,700,400,530,610,580]},
+  p50e: {firmName:'50K end-of-day trailing', accountSize:50000, startingBalance:50000, drawdownType:'End-of-day trailing drawdown', drawdownAmount:2500, bufferAmount:100, consistencyRule:'50', minTradingDays:5, qualifyingProfit:100, minPayoutAmount:500, payoutCap:3000, splitPercent:100, pnl:[350,420,280,510,250,600]},
+  p50s: {firmName:'50K static', accountSize:50000, startingBalance:50000, drawdownType:'Static drawdown', drawdownAmount:2000, bufferAmount:0, consistencyRule:'40', minTradingDays:3, qualifyingProfit:0, minPayoutAmount:0, payoutCap:5000, splitPercent:100, pnl:[900,1100,700,800,400]},
   blank: {firmName:'Custom prop firm', accountSize:50000, startingBalance:50000, drawdownType:'End-of-day trailing drawdown', drawdownAmount:2500, bufferAmount:100, consistencyRule:'none', minTradingDays:5, qualifyingProfit:0, minPayoutAmount:500, payoutCap:0, splitPercent:100, pnl:[]}
 };
-function applyPreset(name){const p = presets[name]; if(!p) return; $('firmName').value=p.firmName; $('accountSize').value=p.accountSize; $('startingBalance').value=p.startingBalance; $('drawdownType').value=p.drawdownType; $('drawdownAmount').value=p.drawdownAmount; $('bufferAmount').value=p.bufferAmount; $('consistencyRule').value=p.consistencyRule; $('minTradingDays').value=p.minTradingDays; $('qualifyingProfit').value=p.qualifyingProfit; $('minPayoutAmount').value=p.minPayoutAmount; $('payoutCap').value=p.payoutCap; $('splitPercent').value=p.splitPercent; $('pnlInput').value=p.pnl.join('\n'); calculate();}
-function parsePnl(){return $('pnlInput').value.split(/[\n,]+/).map(s=>s.trim()).filter(Boolean).map(Number).filter(n=>!Number.isNaN(n));}
+const FIELDS = ['firmName','accountSize','startingBalance','drawdownType','drawdownAmount','bufferAmount','consistencyRule','minTradingDays','qualifyingProfit','minPayoutAmount','payoutCap','splitPercent'];
+function applyPreset(name){ const p = presets[name]; if(!p) return; FIELDS.forEach((k) => { $(k).value = p[k]; }); $('pnlInput').value = p.pnl.join('\n'); markPreset(name); calculate(); }
+function markPreset(key){ document.querySelectorAll('[data-preset]').forEach((b) => { const on = b.dataset.preset === key; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); }
+function parsePnl(){ return $('pnlInput').value.split(/[\n,]+/).map((s) => s.trim().replace(/[$\s]/g, '')).filter(Boolean).map(Number).filter((n) => !Number.isNaN(n)); }
+
 function calculate(){
   const startingBalance = Number($('startingBalance').value||0), drawdownAmount = Number($('drawdownAmount').value||0), bufferAmount = Number($('bufferAmount').value||0), minDays = Number($('minTradingDays').value||0), qualifyingProfit = Number($('qualifyingProfit').value||0), minPayoutAmount = Number($('minPayoutAmount').value||0), payoutCap = Number($('payoutCap').value||0), splitPercent = Number($('splitPercent').value||100), consistencyRule = $('consistencyRule').value, ddType = $('drawdownType').value, pnls = parsePnl();
-  let runningProfit = 0, balance = startingBalance, bestDay = 0, qualifyingDays = 0, readyDay = null, floor = startingBalance - drawdownAmount, trailingPeak = startingBalance; const rows = [];
+  const trailing = ddType === 'End-of-day trailing drawdown' || ddType === 'Intraday trailing drawdown';
+  let runningProfit = 0, balance = startingBalance, bestDay = 0, qualifyingDays = 0, readyDay = null, floor = ddType === 'No drawdown rule' ? -Infinity : startingBalance - drawdownAmount, trailingPeak = startingBalance, breachDay = null; const rows = [];
   for(let i=0;i<pnls.length;i++){
     const dayPnl = pnls[i]; runningProfit += dayPnl; balance = startingBalance + runningProfit; bestDay = Math.max(bestDay, dayPnl); if(dayPnl >= qualifyingProfit && dayPnl !== 0) qualifyingDays++;
-    if(ddType === 'End-of-day trailing drawdown' || ddType === 'Intraday trailing drawdown'){ trailingPeak = Math.max(trailingPeak, balance); floor = trailingPeak - drawdownAmount; }
+    if(trailing){ trailingPeak = Math.max(trailingPeak, balance); floor = trailingPeak - drawdownAmount; }
     else if(ddType === 'Static drawdown'){ floor = startingBalance - drawdownAmount; } else { floor = -Infinity; }
     const consistency = runningProfit > 0 ? (bestDay / runningProfit) * 100 : Infinity;
     const consistencyPass = consistencyRule === 'none' ? true : consistency < Number(consistencyRule);
@@ -219,44 +278,101 @@ function calculate(){
     const payoutPass = estimatedPayout >= minPayoutAmount;
     const daysPass = qualifyingDays >= minDays;
     const breached = balance <= floor;
-    const eligible = !breached && daysPass && consistencyPass && payoutPass;
+    if(breached && breachDay === null) breachDay = i + 1;
+    const eligible = breachDay === null && daysPass && consistencyPass && payoutPass;
     if(eligible && readyDay === null) readyDay = i + 1;
-    rows.push({day:i+1, dayPnl, runningProfit, balance, bestDay, consistency, qualifyingDays, eligible, breached});
+    rows.push({day:i+1, dayPnl, runningProfit, balance, floor, bestDay, consistency, qualifyingDays, eligible, breached: breachDay !== null});
   }
   const last = rows[rows.length - 1];
   const currentConsistency = last ? last.consistency : NaN;
   const consistencyPassNow = consistencyRule === 'none' ? true : currentConsistency < Number(consistencyRule);
   const payoutBaseNow = last ? Math.max(0, last.balance - Math.max(floor + bufferAmount, startingBalance)) : 0;
-  const estimatedPayoutNow = Math.max(0, (payoutCap > 0 ? Math.min(payoutBaseNow, payoutCap) : payoutBaseNow) * (splitPercent/100));
-  $('readyDay').textContent = readyDay ? `Day ${readyDay}` : 'No';
-  $('readyDayNote').textContent = readyDay ? 'First day that all enabled rules pass.' : 'Keep adding profit or more qualifying days.';
-  $('consistencyValue').textContent = consistencyRule === 'none' ? 'Off' : pct(currentConsistency);
-  $('consistencyValue').className = `v mono ${consistencyPassNow ? 'good' : 'bad'}`;
-  $('consistencyNote').textContent = consistencyRule === 'none' ? 'No consistency rule selected.' : `Must stay below ${consistencyRule}%.`;
-  $('payoutValue').textContent = fmt(estimatedPayoutNow);
-  $('payoutNote').textContent = payoutCap > 0 ? `Capped at ${fmt(payoutCap)} with ${splitPercent}% split.` : `No payout cap applied, ${splitPercent}% split.`;
-  $('ddFloor').textContent = isFinite(floor) ? fmt(floor) : 'None';
-  $('ddNote').textContent = ddType;
-  const ruleRows = [['Firm model', $('firmName').value, ''], ['Drawdown', ddType, isFinite(floor) ? `Current floor ${fmt(floor)}` : 'No drawdown floor'], ['Consistency', consistencyRule === 'none' ? 'No consistency rule' : `${consistencyRule}% rule`, consistencyRule === 'none' ? 'Disabled' : (consistencyPassNow ? 'Passing now' : 'Not passing yet')], ['Trading days', `${last ? last.qualifyingDays : 0} / ${minDays} qualifying days`, `Daily threshold ${fmt(qualifyingProfit)}`], ['Minimum payout', fmt(minPayoutAmount), estimatedPayoutNow >= minPayoutAmount ? 'Reached' : 'Not reached'], ['Payout cap', payoutCap > 0 ? fmt(payoutCap) : 'No cap', `${splitPercent}% trader split`]];
-  $('ruleTable').innerHTML = ruleRows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('');
-  $('dayTable').innerHTML = rows.map(r=>`<tr><td>${r.day}</td><td class="mono ${r.dayPnl >= 0 ? 'good' : 'bad'}">${fmt(r.dayPnl)}</td><td class="mono">${fmt(r.runningProfit)}</td><td class="mono">${fmt(r.balance)}</td><td class="mono">${fmt(r.bestDay)}</td><td class="mono">${isFinite(r.consistency) ? pct(r.consistency) : '—'}</td><td class="mono">${r.qualifyingDays}</td><td>${r.breached ? '<span class="bad">Drawdown breach</span>' : r.eligible ? '<span class="good">Payout-ready</span>' : '<span class="warn">Building</span>'}</td></tr>`).join('') || '<tr><td colspan="8" class="small">Add daily P&amp;L values to see results.</td></tr>';
+  const estimatedPayoutNow = breachDay ? 0 : Math.max(0, (payoutCap > 0 ? Math.min(payoutBaseNow, payoutCap) : payoutBaseNow) * (splitPercent/100));
+  const room = last && isFinite(floor) ? last.balance - floor : (isFinite(floor) ? startingBalance - floor : Infinity);
+
+  // Step summaries (shown while a step is folded)
+  $('sum1').textContent = fmt0(Number($('accountSize').value||0));
+  $('sum2').textContent = ddType === 'No drawdown rule' ? 'None' : `${ddType.replace(' drawdown','').replace('End-of-day','EOD')} · ${fmt0(drawdownAmount)}`;
+  $('sum3').textContent = `${consistencyRule === 'none' ? 'No consistency' : consistencyRule + '%'} · ${minDays} days`;
+  $('sum4').textContent = `${fmt0(minPayoutAmount)} min · ${payoutCap > 0 ? fmt0(payoutCap) + ' cap' : 'no cap'} · ${splitPercent}%`;
+  $('sum5').textContent = `${rows.length} day${rows.length === 1 ? '' : 's'}`;
+
+  // Rule check
+  const rules = [];
+  if(minDays > 0) rules.push({name:`At least ${minDays} trading days`, note: qualifyingProfit > 0 ? `A day counts at ${fmt0(qualifyingProfit)}+ profit` : 'Any day with a result counts', state: (last ? last.qualifyingDays : 0) >= minDays ? 'pass' : 'fail', val: `${last ? last.qualifyingDays : 0} / ${minDays}`});
+  if(isFinite(floor)) rules.push({name:'Above the drawdown floor', note: ddType, state: breachDay ? 'breach' : 'pass', val: breachDay ? `Breached day ${breachDay}` : `${fmt0(room)} room`});
+  if(minPayoutAmount > 0) rules.push({name:`Payout of at least ${fmt0(minPayoutAmount)}`, note: payoutCap > 0 ? `Capped at ${fmt0(payoutCap)}, ${splitPercent}% split` : `No cap, ${splitPercent}% split`, state: estimatedPayoutNow >= minPayoutAmount ? 'pass' : 'fail', val: fmt0(estimatedPayoutNow)});
+  if(consistencyRule !== 'none') rules.push({name:`Consistency under ${consistencyRule}%`, note:'Best day as a share of total profit', state: consistencyPassNow ? 'pass' : 'fail', val: pct(currentConsistency)});
+  else rules.push({name:'Consistency rule', note:'Not used in this setup', state:'off', val:'Off'});
+  const enabled = rules.filter((r) => r.state !== 'off'), passed = enabled.filter((r) => r.state === 'pass').length;
+  const mark = {pass:'✓', fail:'!', breach:'✕', off:'–'};
+  $('rules').innerHTML = rules.map((r) => `<div class="rule ${r.state}"><span class="m" aria-hidden="true">${mark[r.state]}</span><div class="d">${esc(r.name)}<small>${esc(r.note)}</small></div><b>${esc(r.val)}</b></div>`).join('');
+  $('ruleSub').textContent = `${$('firmName').value || 'This setup'}: ${passed} of ${enabled.length} rules pass right now.`;
+
+  // Verdict
+  const v = $('verdict');
+  v.className = 'verdict ' + (!rows.length ? '' : breachDay ? 'breach' : readyDay ? 'ready' : 'building');
+  if(!rows.length){ $('vIcon').textContent = '…'; $('vTitle').textContent = 'Add your daily results'; $('vText').textContent = 'Type one day\'s net P&L per line in step 5. The verdict updates as you type.'; }
+  else if(breachDay){ $('vIcon').textContent = '✕'; $('vTitle').textContent = `Drawdown floor breached on day ${breachDay}`; $('vText').textContent = 'With these rules the account would have failed. No payout is possible after a breach.'; }
+  else if(readyDay){ $('vIcon').textContent = '✓'; $('vTitle').textContent = `Payout ready since day ${readyDay}`; $('vText').textContent = `All enabled rules pass. You could request ${fmt0(estimatedPayoutNow)} now.`; }
+  else { $('vIcon').textContent = '!'; $('vTitle').textContent = 'Not payout ready yet'; $('vText').textContent = `${passed} of ${enabled.length} rules pass. Check the rules marked ! below.`; }
+  $('vProg').textContent = `Rules passed ${passed} / ${enabled.length}`;
+  $('vBar').style.width = enabled.length ? `${(passed / enabled.length) * 100}%` : '0%';
+
+  // Key numbers
+  $('kPayout').textContent = fmt0(estimatedPayoutNow);
+  $('kPayoutS').textContent = payoutCap > 0 ? `Cap ${fmt0(payoutCap)} · ${splitPercent}% split` : `No cap · ${splitPercent}% split`;
+  $('kProfit').textContent = signed(last ? last.runningProfit : 0);
+  $('kProfit').className = 'v ' + (last && last.runningProfit > 0 ? 'good' : last && last.runningProfit < 0 ? 'bad' : '');
+  $('kProfitS').textContent = `${rows.length} trading day${rows.length === 1 ? '' : 's'}`;
+  $('kFloor').textContent = isFinite(floor) ? fmt0(floor) : 'None';
+  $('kFloorS').textContent = isFinite(floor) ? (breachDay ? 'Breached' : `Room left ${fmt0(room)}`) : 'No drawdown rule';
+  $('kCons').textContent = consistencyRule === 'none' ? 'Off' : pct(currentConsistency);
+  $('kCons').className = 'v ' + (consistencyRule === 'none' ? '' : consistencyPassNow ? 'good' : 'warn');
+  $('kConsS').textContent = consistencyRule === 'none' ? 'No rule selected' : `Must stay under ${consistencyRule}%`;
+
+  // Day table
+  $('dayTable').innerHTML = rows.map((r) => `<tr><td>Day ${r.day}</td><td class="${r.dayPnl >= 0 ? 'good' : 'bad'}">${signed(r.dayPnl)}</td><td>${signed(r.runningProfit)}</td><td>${fmt(r.balance)}</td><td>${isFinite(r.floor) ? fmt(r.floor) : '—'}</td><td>${isFinite(r.floor) ? fmt0(r.balance - r.floor) : '—'}</td><td>${isFinite(r.consistency) ? pct(r.consistency) : '—'}</td><td>${r.qualifyingDays}</td><td>${r.breached ? '<span class="tag breach">Breached</span>' : r.eligible ? '<span class="tag ready">Payout ready</span>' : '<span class="tag building">Building</span>'}</td></tr>`).join('') || '<tr><td colspan="9" style="text-align:center;color:var(--muted)">Add daily results in step 5 to see each day.</td></tr>';
+
+  drawChart(rows, startingBalance, ddType === 'No drawdown rule' ? -Infinity : startingBalance - drawdownAmount);
 }
-document.querySelectorAll('[data-preset]').forEach(btn=>btn.addEventListener('click',()=>applyPreset(btn.dataset.preset)));
-$('calculateBtn').addEventListener('click', calculate);
-$('exampleBtn').addEventListener('click', ()=>applyPreset('apexEOD'));
-$('clearBtn').addEventListener('click', ()=>{ $('pnlInput').value=''; calculate(); });
-(function(){ const KEY='mgequant-theme'; const btn = document.querySelector('[data-theme-toggle]'); const root = document.documentElement; let theme = localStorage.getItem(KEY) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); root.setAttribute('data-theme', theme); btn.addEventListener('click', ()=>{ theme = theme === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', theme); try{localStorage.setItem(KEY, theme);}catch(e){} });})();
-/* Upgrade: instant recalculation + preset pill state. Purely additive; core logic above is untouched. */
-const ruleInputs = ['firmName','accountSize','startingBalance','drawdownAmount','bufferAmount','minTradingDays','qualifyingProfit','minPayoutAmount','payoutCap','splitPercent'];
-ruleInputs.forEach(id => { const el = $(id); if (el) el.addEventListener('input', calculate); });
-['drawdownType','consistencyRule'].forEach(id => { const el = $(id); if (el) el.addEventListener('change', calculate); });
+
+// Balance vs floor chart (plain SVG, no library)
+function drawChart(rows, start, startFloor){
+  const el = $('chart');
+  if(!rows.length){ el.innerHTML = '<div class="empty">The chart appears once you add daily results.</div>'; return; }
+  const pts = [{label:'Start', bal:start, floor:startFloor}, ...rows.map((r) => ({label:'D' + r.day, bal:r.balance, floor:r.floor}))];
+  const hasFloor = pts.some((p) => isFinite(p.floor));
+  const W = Math.max(320, el.clientWidth || 640), H = 240, L = 62, R = 14, T = 12, B = 28;
+  const vals = pts.flatMap((p) => isFinite(p.floor) ? [p.bal, p.floor] : [p.bal]);
+  let lo = Math.min(...vals), hi = Math.max(...vals); const pad = Math.max(200, (hi - lo) * 0.12); lo -= pad; hi += pad;
+  const x = (i) => L + (pts.length === 1 ? 0 : (i * (W - L - R)) / (pts.length - 1));
+  const y = (v) => T + ((hi - v) * (H - T - B)) / (hi - lo);
+  const path = (k) => pts.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p[k]).toFixed(1)}`).join('');
+  const ticks = [0, 0.5, 1].map((f) => { const v = lo + pad * 0.5 + f * (hi - lo - pad); return `<line class="gl" x1="${L}" x2="${W - R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}"/><text class="ax" x="${L - 8}" y="${(y(v) + 4).toFixed(1)}" text-anchor="end">${fmt0(Math.round(v / 50) * 50)}</text>`; }).join('');
+  const step = Math.ceil(pts.length / 12);
+  const labels = pts.map((p, i) => (i % step === 0 || i === pts.length - 1) ? `<text class="ax" x="${x(i).toFixed(1)}" y="${H - 8}" text-anchor="middle">${p.label}</text>` : '').join('');
+  const area = `${path('bal')}L${x(pts.length - 1).toFixed(1)},${(H - B).toFixed(1)}L${x(0).toFixed(1)},${(H - B).toFixed(1)}Z`;
+  const blue = getComputedStyle(document.documentElement).getPropertyValue('--blue').trim() || '#3b8bff';
+  const red = getComputedStyle(document.documentElement).getPropertyValue('--bad').trim() || '#e2609f';
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" height="${H}" role="img" aria-label="Account balance and drawdown floor by day">
+    <defs><linearGradient id="calcArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${blue}" stop-opacity=".28"/><stop offset="1" stop-color="${blue}" stop-opacity="0"/></linearGradient></defs>
+    ${ticks}${labels}<path d="${area}" fill="url(#calcArea)"/>
+    ${hasFloor ? `<path d="${path('floor')}" fill="none" stroke="${red}" stroke-width="2" stroke-dasharray="6 5"/>` : ''}
+    <path d="${path('bal')}" fill="none" stroke="${blue}" stroke-width="2.5" stroke-linejoin="round"/>
+    ${pts.map((p, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(p.bal).toFixed(1)}" r="3.2" fill="${blue}"><title>${p.label}: ${fmt(p.bal)}${isFinite(p.floor) ? ' · floor ' + fmt(p.floor) : ''}</title></circle>`).join('')}
+  </svg><div class="legend"><span><i style="background:${blue}"></i>Balance</span>${hasFloor ? `<span><i style="background:${red}"></i>Drawdown floor (${esc($('drawdownType').value.replace(' drawdown',''))})</span>` : ''}</div>`;
+}
+
+document.querySelectorAll('[data-preset]').forEach((btn) => btn.addEventListener('click', () => applyPreset(btn.dataset.preset)));
+$('exampleBtn').addEventListener('click', () => applyPreset('p50e'));
+$('clearBtn').addEventListener('click', () => { $('pnlInput').value = ''; calculate(); $('pnlInput').focus(); });
+FIELDS.forEach((id) => { const el = $(id); el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => { markPreset(''); calculate(); }); });
 $('pnlInput').addEventListener('input', calculate);
-ruleInputs.forEach(id => { const el = $(id); if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); calculate(); } }); });
-const presetBtns = document.querySelectorAll('[data-preset]');
-function markPreset(key) { presetBtns.forEach(b => b.classList.toggle('is-active', b.dataset.preset === key)); }
-presetBtns.forEach(b => b.addEventListener('click', () => markPreset(b.dataset.preset)));
-$('exampleBtn').addEventListener('click', () => markPreset('apexEOD'));
-$('clearBtn').addEventListener('click', () => markPreset(''));
+let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(calculate, 150); });
+(function(){ const KEY='mgequant-theme'; const btn = document.querySelector('[data-theme-toggle]'); const root = document.documentElement; let theme; try { theme = localStorage.getItem(KEY); } catch(e) {} theme = theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); root.setAttribute('data-theme', theme); btn.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', theme); try { localStorage.setItem(KEY, theme); } catch(e) {} calculate(); }); })();
+// Narrow screens: start with only the daily-results step open.
+if (matchMedia('(max-width: 640px)').matches) document.querySelectorAll('details.step').forEach((d, i, all) => { d.open = i === all.length - 1; });
 calculate();
 </script>
 <script src="/assets/js/faq-bot.js" defer></script>
