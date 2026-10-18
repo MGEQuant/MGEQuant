@@ -4,8 +4,6 @@ date: "2026-09-26"
 title: "Strategies — September 2026"
 ---
 
-# Strategies - September 2026
-
 Strategies and rule sets, whether coded or read by hand. A rule appearing here does not mean it works. Each entry says how far it has been tested.
 
 ## September 15 — Two discretionary setups, and what the mechanical test said

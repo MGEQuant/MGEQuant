@@ -4,8 +4,6 @@ date: "2026-10-04"
 title: "Strategies — October 2026"
 ---
 
-# Strategies - October 2026
-
 Strategies and rule sets, whether coded or read by hand. A rule appearing here does not mean it works. Each entry says how far it has been tested.
 
 ## October 4 — A 90-minute bias with a one-minute trigger: the bias carried no information
