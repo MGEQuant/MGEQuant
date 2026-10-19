@@ -456,9 +456,11 @@
   @media (max-width: 640px) { .labs-strip { border-radius: 14px; } .labs-strip .ls-dim, .labs-strip .ls-sep { display: none; } }
   @media (prefers-reduced-motion: reduce) { .labs-dot { animation: none; } }
 </style>
+<link rel="stylesheet" href="/assets/css/site.css">
 <link rel="stylesheet" href="/assets/css/faq-bot.css">
 </head>
 <body>
+  <div class="site-aurora"><div class="site-orb a"></div><div class="site-orb b"></div><div class="site-orb c"></div></div>
   <div class="container">
     <div class="labs-strip">
       <a class="labs-strip-main" href="https://journal.mgequant.com/" target="_blank" rel="noopener"><span class="labs-dot" aria-hidden="true"></span><b>MGE Labs</b><span class="ls-sep">&middot;</span><span class="ls-dim">Trade journal for NinjaTrader 8 &middot; private beta</span><span class="ls-go">Enter here &rarr;</span></a>
@@ -480,7 +482,7 @@
     </nav>
 
     <header class="hero">
-      <div>
+      <div class="reveal reveal--stagger">
         <p class="eyebrow">Quantitative trading research &middot; built in the open</p>
         <h1>MGE<span class="accent">QUANT</span></h1>
         <p class="headline">We build trading models.<br>Then we try to break them.</p>
@@ -492,6 +494,7 @@
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
+        <div class="hero-glow"></div>
         <img class="mountain" src="assets/img/hero-mountain-equity.svg" alt="" width="900" height="520" fetchpriority="high">
         <span class="logo-stage"><img src="assets/img/mgequant-logo.png" alt=""><span class="logo-orbit"></span><span class="logo-trail"></span></span>
         <div class="markets"><span>NQ</span><span>RTY</span><span>BTC</span><span>ETH</span></div>
@@ -511,8 +514,8 @@
 
   <main class="container">
 
-    <section id="pipeline" class="solo">
-      <div class="panel">
+    <section id="pipeline" class="solo reveal">
+      <div class="panel glass">
         <h2>The MGE research pipeline</h2>
         <p>Most ideas don't survive the pipeline. That is the point of it.</p>
         <ol class="pipeline">
@@ -522,8 +525,8 @@
       </div>
     </section>
 
-    <section id="evidence" class="two ev">
-      <div class="panel">
+    <section id="evidence" class="two ev reveal">
+      <div class="panel glass">
         <h2>What counts as evidence?</h2>
         <p>Passing the backtest is not the finish line. It is permission to test further.</p>
         <ul class="bar-list">
@@ -534,7 +537,7 @@
         </ul>
         <p class="pipe-note">Fail any one of the four and the result is usually luck, costs or a bug, not an edge.</p>
       </div>
-      <div class="panel" id="status">
+      <div class="panel glass" id="status">
         <h2>Research status</h2>
         <p>Last updated Sep 26, 2026. This shows how far each idea has got, not how well it did. It is not a result.</p>
         <ul class="stages">
@@ -550,12 +553,12 @@
       </div>
     </section>
 
-    <section id="charts">
+    <section id="charts" class="reveal">
       <div class="sec-head">
         <div><h2>Built on real charts</h2><p>Our tools on real NQ charts, the good calls and the bad ones. No mock-ups.</p></div>
         <div class="gallery-nav"><button type="button" data-dir="-1" aria-label="Previous charts">&lsaquo; Prev</button><button type="button" data-dir="1" aria-label="Next charts">Next &rsaquo;</button></div>
       </div>
-      <div class="gallery" id="gallery">
+      <div class="gallery reveal" id="gallery">
         <figure class="panel hov">
           <a class="shot" href="assets/img/home/flowedge.jpg" target="_blank" rel="noopener"><img src="assets/img/home/flowedge.jpg" alt="FlowEdge on a 5-minute NQ chart" loading="lazy" style="object-position: 40% 30%"></a>
           <figcaption><span class="fired">&#9679; On an NQ chart</span><b>FlowEdge</b>Delta heatmap, session VWAP bands, pressure bubbles and a cumulative delta strip, drawn bar by bar on the candles.</figcaption>
@@ -601,8 +604,8 @@
       <p class="gallery-cta"><a class="btn btn-solid" href="in-action.html">&#9654; Watch them in action</a> <a class="btn btn-ghost" href="in-action.html#notes">Read the weekly notes</a></p>
     </section>
 
-    <section id="backtest" class="solo">
-      <div class="panel">
+    <section id="backtest" class="solo reveal">
+      <div class="panel glass">
         <h2>Backtest &ne; proof</h2>
         <p>Historical test vs. current state. A mechanical backtest tests one fixed version of a rule. It can find no edge while the same tool stays useful in a trader's hands, read their own way. We publish both sides.</p>
         <table class="flog">
@@ -619,7 +622,7 @@
       </div>
     </section>
 
-    <section id="strategy">
+    <section id="strategy" class="reveal">
       <div class="sec-head">
         <div><h2>A strategy in action</h2><p>CSC / AB Trader, our automated breakout strategy, recorded in playback on a simulation account.</p></div>
       </div>
@@ -628,7 +631,7 @@
           <video controls playsinline preload="none" poster="assets/img/strategy-in-action/cscab-trader.jpg" src="assets/video/strategy-in-action/cscab-trader.mp4" aria-label="CSC/AB Trader replayed on a 5-minute MNQ chart: signals marked, a target and a stop placed, the stop moved by hand"></video>
           <figcaption class="cap"><span class="tagline">Simulation &middot; playback</span><b>CSC / AB Trader</b>It marks Attrition Break and Confirmed Structural Continuation signals, places its target and stop, and trails the stop after the first target. In this recording the trader also moves the stop and closes the trade by hand. The panel's win/loss and R tallies and the open-position P&amp;L come from a simulated account: they are not an account statement and not results you can expect. <a class="sec-link" href="DevelopmentLogs/Strategies/2026/09-September.html">Read the dev log &rarr;</a></figcaption>
         </figure>
-        <aside class="panel disc" aria-label="Disclaimer">
+        <aside class="panel disc glass" aria-label="Disclaimer">
           <h3>Read before you watch</h3>
           <p><b>This is a recording of a simulated account. It is not a trade signal, not advice and not a track record.</b></p>
           <p>Any wins, losses, R multiples or profit figures visible in the recording are simulated. They are not results you can expect.</p>
@@ -639,8 +642,8 @@
       </div>
     </section>
 
-    <section id="stack" class="solo">
-      <div class="panel">
+    <section id="stack" class="solo reveal">
+      <div class="panel glass">
         <h2>The MGE Quant stack</h2>
         <p>How an idea moves from raw data to a tested rule.</p>
         <div class="stack-flow">
@@ -847,6 +850,7 @@
   });
 })();
 </script>
+<script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/faq-bot.js" defer></script>
 </body>
 </html>
