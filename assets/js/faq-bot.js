@@ -1,6 +1,12 @@
 (function () {
   "use strict";
 
+  // Switches for the two support channels. Both stay OFF (greyed, "coming soon") until the owner turns them on:
+  //   AI_ON    - "Ask anything": answers from an AI that only knows this site (needs the site chat route + an AI key).
+  //   HUMAN_ON - "Talk to a human": the message lands in the MGE support inbox; the reply comes by email.
+  var AI_ON = false;
+  var HUMAN_ON = false;
+
   var FAQ = [
     {
       q: "What is MGEQuant?",
@@ -62,10 +68,36 @@
     head.appendChild(closeBtn);
 
     var body = el("div", "mge-chat-body");
-    var foot = el("div", "mge-chat-foot", "Scripted answers, not an AI assistant — and not trade advice.");
+    var foot = el("div", "mge-chat-foot", AI_ON ? "AI answers can be wrong. Never trade advice." : "Scripted answers, not an AI assistant — and not trade advice.");
+
+    // Ask anything (AI) + Talk to a human. Shown greyed out until switched on above.
+    var ask = el("form", "mge-chat-ask" + (AI_ON ? "" : " is-off"));
+    var askInput = el("input");
+    askInput.type = "text";
+    askInput.maxLength = 300;
+    askInput.placeholder = AI_ON ? "Ask anything about MGEQuant…" : "Ask anything (coming soon)";
+    askInput.setAttribute("aria-label", "Ask a question");
+    askInput.disabled = !AI_ON;
+    var askBtn = el("button", null, "&#10148;");
+    askBtn.type = "submit";
+    askBtn.setAttribute("aria-label", "Send");
+    askBtn.disabled = !AI_ON;
+    ask.appendChild(askInput);
+    ask.appendChild(askBtn);
+    ask.addEventListener("submit", function (e) { e.preventDefault(); });
+
+    var human = el("button", "mge-chat-human" + (HUMAN_ON ? "" : " is-off"),
+      "&#128100; Talk to a human" + (HUMAN_ON ? "" : " <small>coming soon</small>"));
+    human.type = "button";
+    human.disabled = !HUMAN_ON;
+
+    var extra = el("div", "mge-chat-extra");
+    extra.appendChild(ask);
+    extra.appendChild(human);
 
     panel.appendChild(head);
     panel.appendChild(body);
+    panel.appendChild(extra);
     panel.appendChild(foot);
 
     function showMenu() {

@@ -108,3 +108,49 @@
   color: var(--text-dim, #7d8390);
   text-align: center;
 }
+
+/* Ask anything (AI) and Talk to a human: greyed out ("coming soon") until switched on in faq-bot.js. */
+.mge-chat-extra {
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--border, #1e222b);
+  display: grid;
+  gap: 8px;
+}
+.mge-chat-ask { display: flex; gap: 6px; margin: 0; }
+.mge-chat-ask input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bg, #06070a);
+  border: 1px solid var(--border, #1e222b);
+  border-radius: 9px;
+  color: var(--text, #c7cbd4);
+  padding: 9px 11px;
+  font-size: 0.84rem;
+}
+.mge-chat-ask input:focus { outline: none; border-color: var(--blue, #3b8bff); }
+.mge-chat-ask button {
+  flex: none;
+  width: 38px;
+  border: none;
+  border-radius: 9px;
+  background: var(--blue, #3b8bff);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.mge-chat-human {
+  width: 100%;
+  border: 1px solid var(--border, #1e222b);
+  background: transparent;
+  color: var(--blue-dim, #6fa8ff);
+  border-radius: 9px;
+  padding: 8px 12px;
+  font-size: 0.84rem;
+  cursor: pointer;
+  text-align: center;
+}
+.mge-chat-human:hover:not(:disabled) { border-color: var(--blue, #3b8bff); }
+.mge-chat-human small { margin-left: 6px; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim, #7d8390); }
+.mge-chat-ask.is-off, .mge-chat-human.is-off { opacity: 0.45; cursor: not-allowed; }
+.mge-chat-ask.is-off input, .mge-chat-ask.is-off button { cursor: not-allowed; }
+.mge-chat-ask.is-off button { background: var(--border, #1e222b); color: var(--text-dim, #7d8390); }
