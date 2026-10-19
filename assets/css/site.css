@@ -90,10 +90,48 @@
   box-shadow: 0 0 0 1px rgba(59, 139, 255, 0.25), 0 0 26px var(--site-glow);
 }
 
-/* ------------------------------------------------------------- hero scene
-   Animated trader + candlestick chart (inline SVG, no image assets). */
-.hero-scene { width: 100%; height: 100%; display: block; }
-.hero-logo { position: absolute; right: 10%; bottom: 12%; left: auto; top: auto; transform: none; z-index: 2; }
+/* ------------------------------------------------------------- workstation
+   Hero: an animated trading desk (inline SVG, no image files). Candles form one by one, keys light up,
+   the coffee steams. Everything stops for visitors who turn motion off. */
+.hero-visual.ws::after { display: none; }
+.ws-scene { position: absolute; inset: 0; width: 100%; height: calc(100% - 72px); }   /* the slogan gets its own strip below the desk */
+.ws-frame { fill: #0a0e16; stroke: rgba(140, 180, 255, 0.28); stroke-width: 1.2; }
+.ws-screen { fill: #04070d; }
+.ws-grid { stroke: rgba(120, 160, 255, 0.09); stroke-width: 1; }
+.ws-label { fill: #7d8390; font: 600 7.5px system-ui, sans-serif; letter-spacing: 0.06em; }
+.ws-wick { stroke: #9aa0ab; stroke-width: 1.3; stroke-linecap: round; opacity: 0.8; }
+.ws-up { fill: #3b8bff; }
+.ws-dn { fill: rgba(111, 168, 255, 0.28); stroke: rgba(111, 168, 255, 0.55); stroke-width: 0.8; }
+.ws-equity { fill: none; stroke: #8cc6ff; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.ws-desk { fill: #0b1018; }
+.ws-desk-edge { stroke: rgba(140, 180, 255, 0.35); stroke-width: 1.2; }
+.ws-stand { fill: #121a28; }
+.wsb-c { animation: wsb-grow 6.4s ease-out infinite both; }
+@keyframes wsb-grow { 0% { transform: scaleY(0); opacity: 0; } 5% { transform: scaleY(1); opacity: 1; } 88% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+.wsb-line { stroke-dasharray: 330; stroke-dashoffset: 330; animation: wsb-line 6.4s ease-out infinite; opacity: 0.85; }
+@keyframes wsb-line { 0% { stroke-dashoffset: 330; } 80%, 88% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+.wsb-logo { animation: ws-blink 3.5s ease-in-out infinite; }
+@keyframes ws-blink { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.45; } }
+.wsb-bar { fill: rgba(59, 139, 255, 0.55); }
+.wsb-kb { fill: #0d1320; stroke: rgba(140, 180, 255, 0.22); stroke-width: 1; }
+.wsb-keys rect { fill: rgba(111, 168, 255, 0.22); animation: wsb-key 3.3s steps(1) infinite; }
+@keyframes wsb-key { 0%, 92% { fill: rgba(111, 168, 255, 0.22); } 93%, 100% { fill: #8cc6ff; } }
+.wsb-mug { fill: #121a28; stroke: rgba(140, 180, 255, 0.3); stroke-width: 1; }
+.wsb-handle { fill: none; stroke: rgba(140, 180, 255, 0.3); stroke-width: 5; }
+.wsb-steam { fill: none; stroke: rgba(200, 220, 255, 0.45); stroke-width: 2.2; stroke-linecap: round; animation: wsb-steam 3.2s ease-in-out infinite; }
+@keyframes wsb-steam { 0% { opacity: 0; transform: translateY(6px); } 40% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(-14px); } }
+@media (prefers-reduced-motion: reduce) {
+  .ws-scene * { animation: none !important; }
+  .wsb-c { opacity: 1; transform: none; }
+  .wsb-line { stroke-dashoffset: 0; }
+}
+/* Phones: the desk on top, markets and slogan in a strip underneath (no text over the picture). */
+@media (max-width: 760px) {
+  .hero-visual.ws { aspect-ratio: auto; min-height: 360px; }
+  .hero-visual.ws .ws-scene { height: calc(100% - 78px); }
+  .hero-visual.ws .markets { top: auto; right: auto; left: 16px; bottom: 18px; display: flex; gap: 14px; }
+  .hero-visual.ws .slogan { bottom: 12px; font-size: 0.66rem; line-height: 1.7; }
+}
 
 /* ------------------------------------------------------------- hero
    Soft glow behind the hero visual. */
