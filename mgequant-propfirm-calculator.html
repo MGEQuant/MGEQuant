@@ -133,7 +133,7 @@
       .rules{grid-template-columns:1fr}.verdict{flex-wrap:wrap}.verdict .prog{margin:0;width:100%}.fields{grid-template-columns:1fr}.chip-brand{margin:6px 0 0}}
     @media (prefers-reduced-motion: reduce){*{transition:none!important}}
   </style>
-  <link rel="stylesheet" href="/assets/css/faq-bot.css">
+  <link rel="stylesheet" href="/assets/css/faq-bot.css?v=2">
 </head>
 <body>
   <div class="wrap">
@@ -385,6 +385,6 @@ if (matchMedia('(max-width: 640px)').matches) document.querySelectorAll('details
 const qp = new URLSearchParams(location.search).get('preset');
 if (qp && presets[qp]) { applyPreset(qp); document.querySelectorAll('details.step').forEach((d) => { d.open = d.querySelector('#pnlInput') !== null || d.querySelector('#payoutGate') !== null; }); } else calculate();
 </script>
-<script src="/assets/js/faq-bot.js" defer></script>
+<script src="/assets/js/faq-bot.js?v=2" defer></script>
 </body>
 </html>
