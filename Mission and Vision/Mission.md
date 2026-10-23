@@ -17,3 +17,12 @@ title: "Mission"
     <div class="stat"><div class="v">0</div><div class="k">have cleared every evidence test, so far</div></div>
   </div>
 </div>
+
+<div class="mv-panel">
+  <span class="mv-eyebrow">What MGE stands for here</span>
+  <p class="mv-open">Three principles every idea is held to.</p>
+  <p><b>M: Methodology.</b> A systematic process. Every strategy starts with a hypothesis, follows defined rules, and is judged on evidence rather than intuition.</p>
+  <p><b>G: Grounded Research.</b> We challenge assumptions, measure performance, expose weaknesses, and stay honest about what the data can and cannot prove.</p>
+  <p><b>E: Evidence-Driven Rules.</b> Research has to become disciplined rules, controlled risk and a repeatable process. A signal alone is never enough.</p>
+  <p>MGE Quant is not about finding winning trades. It is about building a research process that can tell a promising idea from a reliable model, and recognizing when a model fails.</p>
+</div>
