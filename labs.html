@@ -412,6 +412,7 @@
   main section { margin-top: 44px; }
 </style>
 <link rel="stylesheet" href="/assets/css/faq-bot.css?v=2">
+<link rel="stylesheet" href="/assets/css/labs-cards.css?v=1">
 
 <style>
   .labs-feature { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:22px; align-items:start; padding:18px; margin-bottom:26px; }
@@ -464,7 +465,33 @@
     <header class="page-head">
       <h1>MGE Labs</h1>
       <p>A private trade journal for NinjaTrader 8. Every closed trade on your PCs lands in one journal, scored in R against the risk you set. An AI desk is in development and is not part of the subscription today.</p>
+      <div class="lx-cta-row"><a class="labs-cta" href="#journal">See why it's worth having</a><a class="labs-cta lx-ghost" href="https://journal.mgequant.com/" target="_blank" rel="noopener">Enter MGE Labs &rarr;</a></div>
     </header>
+
+    <section id="journal" class="lx">
+      <div class="sec-head"><div><h2>Why it's worth having</h2><p>Scroll: the journal opens, then try each demo. Sample numbers only.</p></div></div>
+      <div class="lx-static">
+        <div class="panel"><span class="labs-num">01 · JOURNAL</span><h3>Every trade, every PC, without typing</h3><p>You trade on more than one PC or account. This gives you one record that fills itself in.</p></div>
+        <div class="panel"><span class="labs-num">02 · EDGE CHECK</span><h3>Know whether a setup is doing anything</h3><p>A good week doesn't tell you if a setup works. Edge check compares each one with random entries taken at the same moments.</p></div>
+        <div class="panel"><span class="labs-num">03 · PAYOUT GUARD</span><h3>See your prop-firm rules before they cost you</h3><p>Drawdown, consistency and payout rules are easy to lose track of across accounts. It tracks them and tells you when to stop and request a payout.</p></div>
+        <div class="panel"><span class="labs-num">04 · PROP LEDGER</span><h3>What your accounts actually cost and paid</h3><p>Fees, resets and payouts in one place, so you can see where you really stand.</p></div>
+        <div class="panel"><span class="labs-num">05 · YOUR PCs</span><h3>Pair a PC once, then forget it</h3><p>It keeps syncing while NinjaTrader is open. The journal runs on our servers, so you never keep a browser open.</p></div>
+        <div class="panel"><span class="labs-num">06 · YOUR DATA</span><h3>Yours to keep</h3><p>Two-step sign-in and recovery codes protect the account. Take everything with you whenever you want.</p></div>
+      </div>
+      <div class="lx-track" id="lx-track" hidden>
+        <div class="lx-stage">
+          <div class="lx-card" id="lx-card">
+            <div class="lx-pill" id="lx-pill"><div>MGE Labs Journal<small>scroll, or click, to open</small></div></div>
+            <div class="lx-inner" id="lx-inner"><nav class="lx-rail" id="lx-rail" aria-label="What MGE Labs does"></nav><div class="lx-pane" id="lx-pane" aria-live="polite"></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="labs-fine">The demos use made-up numbers. They are not results. MGE Labs is software only and does not provide investment advice.</p>
+    </section>
+
+    <section id="ai-soon">
+      <div class="panel lx-soon"><span class="labs-badge">IN DEVELOPMENT</span><div><h3 style="margin:0 0 4px;color:var(--silver)">AI desk</h3><p style="margin:0">Not included in the subscription today, and no release date is promised. Subscribers will be told first if it opens.</p></div></div>
+    </section>
 
     <section id="labs-walkthrough">
       <div class="panel labs-feature">
@@ -484,14 +511,6 @@
       </div>
     </section>
 
-    <section id="how">
-      <div class="sec-head"><div><h2>How it works</h2><p>Nothing to compile and no settings files to edit.</p></div></div>
-      <div class="labs-grid3">
-        <div class="panel"><span class="labs-num">01 · JOURNAL</span><h3>Every trade, every PC</h3><p>Journals any strategy and any indicator you trade by hand, each scored separately. Label hand trades with your own setup names to compare them. Win rate is only ever shown next to expectancy in R, never alone.</p></div>
-        <div class="panel"><span class="labs-num">02 · YOUR DATA</span><h3>Yours to keep</h3><p>Two-step sign-in and recovery codes protect the account. Export every trade to CSV at any time, including after you cancel.</p></div>
-        <div class="panel"><span class="labs-num">03 · COMING LATER</span><h3>AI desk, in development</h3><p>Not included in the subscription today, and no release date is promised. Subscribers will be told first if it opens.</p></div>
-      </div>
-    </section>
 
     <section id="is-not">
       <div class="labs-isnot">
@@ -563,6 +582,7 @@
   });
 })();
 </script>
+<script src="/assets/js/labs-cards.js?v=1" defer></script>
 <script src="/assets/js/faq-bot.js?v=2" defer></script>
 </body>
 </html>
