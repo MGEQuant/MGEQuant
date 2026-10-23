@@ -28,7 +28,7 @@
     { t: '10:40', s: 'Setup A', pc: 'Laptop', pnl: -80 }
   ];
   var S = {
-    journal: { pc: 'All', risk: 200, open: -1 }, edge: { n: 12 }, payout: { bal: 99200, loss: 300 },
+    journal: { pc: 'All', risk: 200, open: -1 }, edge: { n: 12 }, payout: { bal: 99200, loss: 300, view: 'one', f: 'ACT', q: '' },
     ledger: { fees: 550, pay: 380 },
     pcs: { list: [{ n: 'Desktop', on: true }, { n: 'Laptop', on: true }, { n: 'Office PC', on: false }], code: null },
     data: { two: true }
@@ -72,20 +72,54 @@
         el.querySelector('#en').oninput = function (e) { S.edge.n = +e.target.value; self.mount(el); focusKeep(el, '#en'); };
       } },
     { tag: 'PAYOUT GUARD', title: 'See your prop-firm rules before they cost you',
-      why: 'Drawdown, consistency and payout rules are easy to lose track of across accounts. It tracks them and tells you when to stop and request a payout.',
-      det: ['Shows your room above the floor on each account.', 'Warns when a rule you set is about to be broken. It never places or cancels orders.', 'Counts payouts per cycle, for example payout 2 of 6.'],
-      tip: 'Move the balance toward the floor and raise today’s loss.',
+      why: 'Drawdown, consistency and payout rules are easy to lose track of across accounts. It tracks them and tells you when to stop and request a payout, even with dozens of accounts.',
+      det: ['One searchable list of every account on every PC, those that need you first.', 'Warns when a rule you set is about to be broken. It never places or cancels orders.', 'Counts payouts per cycle, for example payout 2 of 6.'],
+      tip: 'Move the balance, then open all accounts.',
+      pgSeg: function () {
+        var v = S.payout.view;
+        return '<div class="lx-seg" id="pgv" style="margin-bottom:10px"><button type="button" class="' + (v === 'one' ? 'on' : '') + '" data-v="one">One account</button><button type="button" class="' + (v === 'all' ? 'on' : '') + '" data-v="all">All accounts</button></div>';
+      },
+      pgWire: function (el) {
+        var self = this;
+        [].forEach.call(el.querySelectorAll('#pgv button'), function (b) { b.onclick = function () { S.payout.view = b.getAttribute('data-v'); self.mount(el); }; });
+      },
+      mountAll: function (el) {
+        var self = this, p = S.payout;
+        var kinds = { READY: ['PAYOUT READY', 'win', 0], PASSED: ['PASSED', 'win', 1], BREACHED: ['BREACHED', 'loss', 2], BUILDING: ['BUILDING', '', 3] };
+        var A = [];
+        for (var i = 0; i < 36; i++) {
+          var k = i % 9 === 0 ? 'READY' : i % 13 === 5 ? 'PASSED' : i === 17 ? 'BREACHED' : 'BUILDING';
+          A.push({ n: (i % 2 ? '100K-' : '50K-') + String(i + 1).padStart(2, '0'), k: k, room: k === 'BREACHED' ? 0 : 450 + ((i * 197) % 3300), pc: i % 3 ? 'Desktop' : 'Laptop' });
+        }
+        var need = function (a) { return a.k !== 'BUILDING'; };
+        var list = A.filter(function (a) { return (p.f === 'ALL' || need(a)) && (!p.q || (a.n + ' ' + a.pc).toLowerCase().indexOf(p.q) > -1); })
+          .sort(function (a, b) { return kinds[a.k][2] - kinds[b.k][2] || a.room - b.room; });
+        var nn = A.filter(need).length;
+        el.innerHTML = '<div class="lx-cap"><span>EVERY ACCOUNT &middot; <span class="lx-try">TRY IT</span></span><span>SAMPLE DATA</span></div>' + this.pgSeg() +
+          '<div class="lx-seg" id="pgf" style="margin-left:8px"><button type="button" class="' + (p.f === 'ACT' ? 'on' : '') + '" data-f="ACT">Needs action ' + nn + '</button><button type="button" class="' + (p.f === 'ALL' ? 'on' : '') + '" data-f="ALL">All ' + A.length + '</button></div>' +
+          '<input id="pgq" type="search" placeholder="Search account" aria-label="Search accounts" autocomplete="off" value="' + p.q + '" style="margin-top:8px;width:100%;padding:6px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg-panel);color:var(--text);font:inherit">' +
+          '<div style="margin-top:8px">' + list.slice(0, 4).map(function (a) {
+            var kd = kinds[a.k];
+            return '<div class="lx-row" style="grid-template-columns:1fr auto auto;cursor:default"><span><b>' + a.n + '</b> <span class="lx-chip">' + a.pc + '</span></span><span class="' + (kd[1] ? 'lx-' + kd[1] : '') + '" style="font-size:11px;font-weight:700">' + kd[0] + '</span><span class="' + (a.room < 800 && a.k !== 'BREACHED' ? 'lx-warn' : '') + '">' + money(a.room) + '</span></div>';
+          }).join('') + (list.length ? '' : '<p class="lx-fine">Nothing matches.</p>') + '</div>' +
+          '<p class="lx-fine" style="margin-top:8px">' + (list.length > 4 ? 'Top 4 of ' + list.length + ' matches shown here, type to narrow.' : list.length + ' of ' + A.length + ' accounts. ')+ '</p>';
+        this.pgWire(el);
+        [].forEach.call(el.querySelectorAll('#pgf button'), function (b) { b.onclick = function () { p.f = b.getAttribute('data-f'); self.mount(el); }; });
+        el.querySelector('#pgq').oninput = function (e) { p.q = e.target.value.trim().toLowerCase(); self.mount(el); var q = el.querySelector('#pgq'); q.focus(); q.setSelectionRange(q.value.length, q.value.length); };
+      },
       mount: function (el) {
         var self = this, p = S.payout, floor = 97000, lim = 750, room = p.bal - floor, pct = Math.round(p.loss / lim * 100);
+        if (p.view === 'all') { return this.mountAll(el); }
         var st = room <= 0 ? ['BELOW THE FLOOR', 'loss'] : room < 600 ? ['CLOSE TO THE FLOOR', 'warn'] : ['ROOM TO TRADE', 'win'];
         var dl = pct >= 100 ? ['Daily loss limit reached: warning (the decision stays yours)', 'loss'] : pct >= 75 ? ['Daily loss at ' + pct + '%: warning', 'warn'] : ['Daily loss at ' + pct + '%', 'win'];
-        el.innerHTML = '<div class="lx-cap"><span>ACCOUNT 100K-A &middot; <span class="lx-try">TRY IT</span></span><span>SAMPLE DATA</span></div>' +
+        el.innerHTML = '<div class="lx-cap"><span>ACCOUNT 100K-A &middot; <span class="lx-try">TRY IT</span></span><span>SAMPLE DATA</span></div>' + this.pgSeg() +
           '<b class="lx-' + st[1] + '">' + st[0] + '</b> <span class="lx-chip">floor ' + money(floor) + '</span>' +
           '<div class="lx-lab"><span>Balance</span><b>' + money(p.bal) + '</b></div><input type="range" id="pb" aria-label="Balance" min="96500" max="103000" step="50" value="' + p.bal + '">' +
           '<div class="lx-lab"><span>Room above the floor</span><b class="lx-' + st[1] + '">' + money(room) + '</b></div>' +
           '<div class="lx-lab" style="margin-top:14px"><span>Today\'s loss (limit ' + money(lim) + ')</span><b>' + money(p.loss) + '</b></div><input type="range" id="pl" aria-label="Today\'s loss" min="0" max="900" step="10" value="' + p.loss + '">' +
           '<div class="lx-bar"><i style="width:' + Math.min(100, pct) + '%;background:var(--lx-' + dl[1] + ')"></i></div><small class="lx-' + dl[1] + '">' + dl[0] + '</small>' +
           '<p class="lx-fine" style="margin-top:10px">Warn mode only: it never places or cancels orders.</p>';
+        this.pgWire(el);
         el.querySelector('#pb').oninput = function (e) { p.bal = +e.target.value; self.mount(el); focusKeep(el, '#pb'); };
         el.querySelector('#pl').oninput = function (e) { p.loss = +e.target.value; self.mount(el); focusKeep(el, '#pl'); };
       } },
@@ -138,7 +172,7 @@
       } }
   ];
   var N = ITEMS.length, cur = -1;
-  rail.innerHTML = ITEMS.map(function (i, k) { return '<button type="button" data-k="' + k + '">' + i.tag + '</button>'; }).join('') + '<div class="lx-prog"><i></i></div><div class="lx-kb">Arrow keys also work.</div>';
+  rail.innerHTML = ITEMS.map(function (i, k) { return '<button type="button" data-k="' + k + '">' + i.tag + '</button>'; }).join('') + '<div class="lx-prog"><i></i></div><div class="lx-kb">Tabs, or the left and right arrow keys.</div>';
 
   function show(k) {
     if (k === cur) return; cur = k; seen[k] = 1;
@@ -149,46 +183,52 @@
     i.mount(pane.querySelector('#lx-vis'));
     var nb = pane.querySelector('.lx-next'); if (nb) nb.onclick = function () { goTo(k + 1); };
   }
-  function range() { var t = track.getBoundingClientRect(); return { top: window.scrollY + t.top, total: track.offsetHeight - window.innerHeight }; }
+  /* No scroll-jacking: the card sits in the normal page flow. It opens once, when it scrolls into view (or when
+     clicked), with a short animation; after that it is an ordinary tabbed panel and the page scrolls as usual. */
+  var dirty = true, isOpen = false, tween = 0;
+  var compact = reduce || window.innerWidth <= 820;   // phones and reduced motion: the card is simply open, at its natural height, with no inner scrolling
+  function setOpen(e) {
+    var W = Math.min(980, window.innerWidth - 36), H = Math.min(Math.max(window.innerHeight - 80, 480), 560);
+    var st = card.parentNode;   // the vars live on the stage so it grows with the card
+    st.style.setProperty('--w', (260 + (W - 260) * e) + 'px'); st.style.setProperty('--h', (86 + (H - 86) * e) + 'px'); st.style.setProperty('--r', (43 - 25 * e) + 'px');
+    st.style.setProperty('--po', String(1 - Math.min(1, e * 2.2))); inner.style.setProperty('--io', String(Math.max(0, (e - 0.55) / 0.45)));
+    card.classList.toggle('lx-isopen', e > 0.5);
+    if (Math.abs(e - openAmt) > 0.004) dirty = true;
+    openAmt = e;
+  }
+  function open() {
+    if (isOpen) return; isOpen = true;
+    if (compact) { setOpen(1); return; }
+    var t0 = performance.now(), D = 650;
+    (function step(now) { var o = Math.min(1, (now - t0) / D); setOpen(o * o * (3 - 2 * o)); if (o < 1) tween = requestAnimationFrame(step); })(t0);
+  }
   function goTo(k) {
     k = Math.max(0, Math.min(N - 1, k));
-    if (reduce) { show(k); return; }
-    var r = range(); var p = 0.3 + 0.7 * ((k + 0.5) / N);
-    window.scrollTo({ top: r.top + r.total * p + 0.5, behavior: 'smooth' });
+    open(); show(k); rail.style.setProperty('--pp', (((k + 1) / N) * 100) + '%');
   }
   rail.addEventListener('click', function (e) { var b = e.target.closest ? e.target.closest('button') : null; if (b) goTo(+b.getAttribute('data-k')); });
   pill.addEventListener('click', function () { goTo(0); });
   document.addEventListener('keydown', function (e) {
-    if (cur < 0 || e.metaKey || e.ctrlKey || e.altKey) return;
-    var r = track.getBoundingClientRect(); if (r.top > 0 || r.bottom < window.innerHeight) return;
+    if (!isOpen || e.metaKey || e.ctrlKey || e.altKey) return;
+    var r = card.getBoundingClientRect(); if (r.bottom < 0 || r.top > window.innerHeight) return;
     var tg = document.activeElement && document.activeElement.tagName; if (tg === 'INPUT' || tg === 'TEXTAREA' || tg === 'SELECT') return;
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(cur + 1); }
-    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur - 1); }
+    if (!card.contains(document.activeElement)) return;   // arrows only steer the card when focus is inside it: the page keeps its own arrow scrolling
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(cur + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur - 1); }
   });
-  function onScroll() {
-    if (reduce) return;
-    var t = track.getBoundingClientRect(), total = track.offsetHeight - window.innerHeight;
-    var p = Math.min(1, Math.max(0, -t.top / total));
-    var o = Math.min(1, p / 0.28), e = o * o * (3 - 2 * o);
-    var W = Math.min(980, window.innerWidth - 36), H = Math.min(window.innerHeight - 60, 560);
-    card.style.setProperty('--w', (260 + (W - 260) * e) + 'px'); card.style.setProperty('--h', (86 + (H - 86) * e) + 'px'); card.style.setProperty('--r', (43 - 25 * e) + 'px');
-    card.style.setProperty('--po', String(1 - Math.min(1, e * 2.2))); inner.style.setProperty('--io', String(Math.max(0, (e - 0.55) / 0.45)));
-    card.classList.toggle('lx-isopen', e > 0.5);
-    openAmt = e;
-    var q = Math.max(0, (p - 0.3) / 0.7);
-    show(Math.min(N - 1, Math.floor(q * N)));
-    rail.style.setProperty('--pp', (q * 100) + '%');
-  }
-  track.hidden = false; section.classList.add('lx-on');
-  if (reduce) { section.classList.add('lx-reduce'); card.style.setProperty('--io', '1'); }
-  window.addEventListener('scroll', onScroll, { passive: true }); window.addEventListener('resize', onScroll);
-  show(0); onScroll();
+  window.addEventListener('resize', function () { if (isOpen) setOpen(1); });
+  track.hidden = false; section.classList.add('lx-on', 'lx-flow');
+  if (compact) section.classList.add('lx-reduce');
+  show(0); rail.style.setProperty('--pp', (100 / N) + '%');
+  if ('IntersectionObserver' in window && !compact) {
+    new IntersectionObserver(function (en, ob) { if (en[0].isIntersecting) { open(); ob.disconnect(); } }, { threshold: 0.6, rootMargin: '0px 0px -30% 0px' }).observe(card);
+  } else { open(); }
 
   /* quiet grid background: dots on the page's own grid lines swell near the cursor; a click sends a ripple */
   var cv = document.createElement('canvas'); cv.id = 'lx-bg'; cv.setAttribute('aria-hidden', 'true'); document.body.insertBefore(cv, document.body.firstChild);
   var cx = cv.getContext('2d'), W2 = 0, H2 = 0, mx = -9999, my = -9999, col = {}, ripples = [], last = 0;
   function colors() { var c = getComputedStyle(document.documentElement); col.dim = c.getPropertyValue('--text-dim').trim() || '#7d8390'; col.hi = c.getPropertyValue('--blue-hi').trim() || '#8cc6ff'; }
-  function size() { var d = Math.min(2, window.devicePixelRatio || 1); W2 = window.innerWidth; H2 = window.innerHeight; cv.width = W2 * d; cv.height = H2 * d; cx.setTransform(d, 0, 0, d, 0, 0); }
+  function size() { var d = 1; dirty = true; W2 = window.innerWidth; H2 = window.innerHeight; cv.width = W2 * d; cv.height = H2 * d; cx.setTransform(d, 0, 0, d, 0, 0); }
   function draw(t) {
     var o = openAmt, sp = 46, al = 1 - o * 0.75;
     ripples = ripples.filter(function (r) { return t - r.t < 1.6; });
@@ -205,12 +245,12 @@
     }
     cx.globalAlpha = 1;
   }
-  function frame(ts) { var t = ts / 1000; if (!document.hidden && (t - last > 0.016)) { last = t; draw(t); } requestAnimationFrame(frame); }
-  window.addEventListener('pointermove', function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
-  document.addEventListener('pointerleave', function () { mx = my = -9999; });
+  function frame(ts) { var t = ts / 1000; if (!document.hidden && (dirty || ripples.length) && (t - last > 0.033)) { last = t; dirty = false; draw(t); } requestAnimationFrame(frame); }
+  window.addEventListener('pointermove', function (e) { mx = e.clientX; my = e.clientY; dirty = true; }, { passive: true });
+  document.addEventListener('pointerleave', function () { mx = my = -9999; dirty = true; });
   window.addEventListener('pointerdown', function (e) { var tg = e.target; if (!reduce && !(tg.closest && tg.closest('button,input,a,.lx-card,.panel,details,nav,footer'))) ripples.push({ x: e.clientX, y: e.clientY, t: performance.now() / 1000 }); });
   window.addEventListener('resize', size);
   colors(); size();
-  try { new MutationObserver(function () { setTimeout(colors, 30); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }); } catch (e) { }
+  try { new MutationObserver(function () { setTimeout(function () { colors(); dirty = true; }, 30); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }); } catch (e) { }
   requestAnimationFrame(frame);
 })();
