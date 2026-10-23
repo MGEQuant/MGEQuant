@@ -412,7 +412,7 @@
   main section { margin-top: 44px; }
 </style>
 <link rel="stylesheet" href="/assets/css/faq-bot.css?v=2">
-<link rel="stylesheet" href="/assets/css/labs-cards.css?v=1">
+<link rel="stylesheet" href="/assets/css/labs-cards.css?v=4">
 
 <style>
   .labs-feature { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(0,1fr); gap:22px; align-items:start; padding:18px; margin-bottom:26px; }
@@ -469,11 +469,11 @@
     </header>
 
     <section id="journal" class="lx">
-      <div class="sec-head"><div><h2>Why it's worth having</h2><p>Scroll: the journal opens, then try each demo. Sample numbers only.</p></div></div>
+      <div class="sec-head"><div><h2>Why it's worth having</h2><p>The journal opens as you reach it. Click through the tabs and try each demo. Sample numbers only.</p></div></div>
       <div class="lx-static">
         <div class="panel"><span class="labs-num">01 · JOURNAL</span><h3>Every trade, every PC, without typing</h3><p>You trade on more than one PC or account. This gives you one record that fills itself in.</p></div>
         <div class="panel"><span class="labs-num">02 · EDGE CHECK</span><h3>Know whether a setup is doing anything</h3><p>A good week doesn't tell you if a setup works. Edge check compares each one with random entries taken at the same moments.</p></div>
-        <div class="panel"><span class="labs-num">03 · PAYOUT GUARD</span><h3>See your prop-firm rules before they cost you</h3><p>Drawdown, consistency and payout rules are easy to lose track of across accounts. It tracks them and tells you when to stop and request a payout.</p></div>
+        <div class="panel"><span class="labs-num">03 · PAYOUT GUARD</span><h3>See your prop-firm rules before they cost you</h3><p>Drawdown, consistency and payout rules are easy to lose track of across accounts. It tracks them and tells you when to stop and request a payout, even with dozens of accounts in one searchable list.</p></div>
         <div class="panel"><span class="labs-num">04 · PROP LEDGER</span><h3>What your accounts actually cost and paid</h3><p>Fees, resets and payouts in one place, so you can see where you really stand.</p></div>
         <div class="panel"><span class="labs-num">05 · YOUR PCs</span><h3>Pair a PC once, then forget it</h3><p>It keeps syncing while NinjaTrader is open. The journal runs on our servers, so you never keep a browser open.</p></div>
         <div class="panel"><span class="labs-num">06 · YOUR DATA</span><h3>Yours to keep</h3><p>Two-step sign-in and recovery codes protect the account. Take everything with you whenever you want.</p></div>
@@ -481,7 +481,7 @@
       <div class="lx-track" id="lx-track" hidden>
         <div class="lx-stage">
           <div class="lx-card" id="lx-card">
-            <div class="lx-pill" id="lx-pill"><div>MGE Labs Journal<small>scroll, or click, to open</small></div></div>
+            <div class="lx-pill" id="lx-pill"><div>MGE Labs Journal<small>opens as you scroll here, or click</small></div></div>
             <div class="lx-inner" id="lx-inner"><nav class="lx-rail" id="lx-rail" aria-label="What MGE Labs does"></nav><div class="lx-pane" id="lx-pane" aria-live="polite"></div></div>
           </div>
         </div>
@@ -490,7 +490,7 @@
     </section>
 
     <section id="ai-soon">
-      <div class="panel lx-soon"><span class="labs-badge">IN DEVELOPMENT</span><div><h3 style="margin:0 0 4px;color:var(--silver)">AI desk</h3><p style="margin:0">Not included in the subscription today, and no release date is promised. Subscribers will be told first if it opens.</p></div></div>
+      <div class="panel lx-soon"><span class="labs-badge">IN DEVELOPMENT</span><div><h3 style="margin:0 0 4px;color:var(--silver)">AI desk</h3><p style="margin:0">Not included in the subscription today, and no release date is promised. It is built to show you the trades it held back and why, so you can judge it before trusting it. Subscribers will be told first if it opens.</p></div></div>
     </section>
 
     <section id="labs-walkthrough">
@@ -582,7 +582,7 @@
   });
 })();
 </script>
-<script src="/assets/js/labs-cards.js?v=1" defer></script>
+<script src="/assets/js/labs-cards.js?v=9" defer></script>
 <script src="/assets/js/faq-bot.js?v=2" defer></script>
 </body>
 </html>

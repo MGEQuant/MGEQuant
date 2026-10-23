@@ -23,7 +23,7 @@
 /* the card that opens */
 .lx-track { height: 430vh; position: relative; }
 .lx-stage { position: sticky; top: 12px; height: calc(100vh - 24px); display: grid; place-items: center; }
-.lx-card { width: var(--w, 260px); height: var(--h, 86px); max-width: 100%; background: var(--lx-panel); border: 1px solid var(--border); border-radius: var(--r, 43px); overflow: hidden; position: relative; box-shadow: 0 18px 60px rgba(0, 0, 0, .28); transition: box-shadow .3s; }
+.lx-card { width: var(--w, 260px); height: var(--h, 86px); max-width: 100%; background: var(--lx-panel); border: 1px solid var(--border); border-radius: var(--r, 43px); overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0, 0, 0, .28); transition: box-shadow .3s; will-change: width, height; contain: layout paint; }
 .lx-pill { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-weight: 700; color: var(--silver); opacity: var(--po, 1); cursor: pointer; }
 .lx-pill small { display: block; font-weight: 400; color: var(--text-dim); font-size: 12px; }
 .lx-card:not(.lx-isopen):hover { box-shadow: 0 0 0 1px var(--blue), 0 18px 60px rgba(59, 139, 255, .22); }
@@ -91,3 +91,9 @@
   .lx-kb { display: none; }
   .lx-soon { grid-template-columns: 1fr; }
 }
+
+/* flow mode: no tall scroll track, no sticky. The stage is as tall as the card (it grows as the card opens). */
+.lx-flow .lx-track { height: auto; }
+.lx-flow .lx-stage { position: static; height: calc(var(--h, 86px) + 24px); display: grid; place-items: center; }
+.lx-reduce.lx-flow .lx-stage { height: auto; }
+.lx-reduce .lx-card { height: auto; max-width: 100%; }
