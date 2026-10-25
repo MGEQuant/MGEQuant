@@ -30,6 +30,7 @@
   var S = {
     journal: { pc: 'All', risk: 200, open: -1 }, edge: { n: 12 }, payout: { bal: 99200, loss: 300, view: 'one', f: 'ACT', q: '' },
     ledger: { fees: 550, pay: 380 },
+    tilt: { cool: 10, streak: 2 },
     pcs: { list: [{ n: 'Desktop', on: true }, { n: 'Laptop', on: true }, { n: 'Office PC', on: false }], code: null },
     data: { two: true }
   };
@@ -122,6 +123,37 @@
         this.pgWire(el);
         el.querySelector('#pb').oninput = function (e) { p.bal = +e.target.value; self.mount(el); focusKeep(el, '#pb'); };
         el.querySelector('#pl').oninput = function (e) { p.loss = +e.target.value; self.mount(el); focusKeep(el, '#pl'); };
+      } },
+    { tag: 'TILT GUARD', title: 'Catch the habits that follow a loss',
+      why: 'The costly trade is often the one right after a loss. Tilt Guard warns you about it in NinjaTrader, and the journal shows how you trade in those minutes.',
+      det: ['Four habit rules: a cooldown after a losing trade, stop after N losses in a row, no bigger size after a loss, too many trades too fast.', 'Warns by default; you choose the limits on the Rules tab.', 'The journal Tilt card shows your trades right after a loss against the rest, by the minute window you pick, in R or dollars.'],
+      tip: 'Move the cooldown and the loss limit and watch which sample trades get flagged.',
+      mount: function (el) {
+        var self = this, s = S.tilt;
+        var T = [
+          { t: '9:31', q: 1, r: 1.2, gap: null, run: 0 },
+          { t: '9:48', q: 1, r: -1, gap: null, run: 0 },
+          { t: '9:53', q: 2, r: -1, gap: 5, run: 1 },
+          { t: '10:04', q: 2, r: -1, gap: 4, run: 2 },
+          { t: '10:41', q: 1, r: 0.8, gap: 37, run: 3 }
+        ];
+        var hits = 0;
+        var rows = T.map(function (x, i) {
+          var f = [];
+          if (x.gap !== null && x.gap < s.cool) f.push('inside cooldown');
+          if (i > 0 && T[i - 1].r < 0 && x.q > T[i - 1].q) f.push('bigger after a loss');
+          if (x.run >= s.streak) f.push(x.run + ' losses in a row');
+          if (f.length) hits++;
+          return '<div class="lx-row"><span>' + x.t + '</span><span>' + x.q + ' contract' + (x.q > 1 ? 's' : '') + (f.length ? ' ' + f.map(function (n) { return '<span class="lx-chip lx-warn">' + n + '</span>'; }).join(' ') : '') + '</span><b class="' + (x.r > 0 ? 'lx-win' : 'lx-loss') + '">' + rfmt(x.r) + '</b></div>';
+        }).join('');
+        el.innerHTML = '<div class="lx-cap"><span>AFTER A LOSS &middot; <span class="lx-try">TRY IT</span></span><span>SAMPLE DATA</span></div>' +
+          '<div class="lx-lab"><span>Cooldown after a loss</span><b>' + s.cool + ' min</b></div><input type="range" id="tc" aria-label="Cooldown minutes" min="5" max="30" step="1" value="' + s.cool + '">' +
+          '<div class="lx-lab"><span>Stop after losses in a row</span><b>' + s.streak + '</b></div><div class="lx-seg" id="ts">' + [2, 3].map(function (n) { return '<button type="button" class="' + (n === s.streak ? 'on' : '') + '" data-n="' + n + '">' + n + '</button>'; }).join('') + '</div>' +
+          rows +
+          '<div class="lx-lab"><span>Trades that would warn you</span><b class="' + (hits ? 'lx-warn' : 'lx-win') + '">' + hits + ' of ' + T.length + '</b></div>' +
+          '<p class="lx-fine" style="margin-top:10px">Warn mode: a pop-up in NinjaTrader, nothing cancelled. The sample is made up, not a result.</p>';
+        el.querySelector('#tc').oninput = function (e) { s.cool = +e.target.value; self.mount(el); focusKeep(el, '#tc'); };
+        [].forEach.call(el.querySelectorAll('#ts button'), function (b) { b.onclick = function () { s.streak = +b.getAttribute('data-n'); self.mount(el); }; });
       } },
     { tag: 'PROP LEDGER', title: 'What your accounts actually cost and paid',
       why: 'Fees, resets and payouts in one place, so you can see where you really stand.',
