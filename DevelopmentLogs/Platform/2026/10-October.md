@@ -12,7 +12,7 @@ On the PC it is one compiled NinjaTrader add-on, paired to the account with a on
 
 Subscriptions were tested end to end in a payment sandbox: a seven-day trial, checkout, a self-service page to change the card or cancel, and access that runs to the end of the paid period and then turns read-only. The test found a real bug. The payment provider timestamps "subscription created" a second before "checkout completed", so the code treated the event carrying the renewal date as stale and dropped it. A completed checkout no longer counts as the newest subscription event, and a test now reproduces that exact order.
 
-An AI desk is in development and is not part of the subscription. Sign-ups stay closed until the business registration and the legal review are done.
+Sign-ups stay closed until the business registration and the legal review are done.
 
 ## October 17–23 — Payout Guard, Prop Ledger, and guards for the habits that follow a loss
 
