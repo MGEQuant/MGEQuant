@@ -246,18 +246,48 @@
   .gallery figcaption .fired { display: inline-block; margin-bottom: 6px; color: #3ddc84; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
   .gallery-note { margin: 6px 0 0; color: var(--text-dim); font-size: 0.8rem; }
 
-  /* ---------- MGEQuant Notes (weekly newsletter) ---------- */
-  .notes { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 260px)); gap: 14px; }
-  .note { overflow: hidden; display: flex; flex-direction: column; }
-  .note > a.cover { display: block; aspect-ratio: 9 / 16; max-height: 420px; overflow: hidden; background: #0b0d12; border-bottom: 1px solid var(--border); }
-  .note > a.cover img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.35s ease; }
-  .note:hover > a.cover img { transform: scale(1.03); }
-  .note-body { padding: 12px 14px 14px; font-size: 0.84rem; color: var(--text-dim); }
-  .note-body time { display: block; margin-bottom: 4px; color: var(--blue); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
-  .note-body b { display: block; margin-bottom: 4px; color: var(--silver); font-size: 0.86rem; letter-spacing: 0.02em; }
-  .note-body a.b-link { color: inherit; }
-  .note-body a.b-link:hover b { color: var(--blue-hi); }
-  .note-listen { margin: 10px 0 0; }
+  /* ---------- MGEQuant Notes (weekly newsletter): newest as a feature, earlier articles as a filterable list ---------- */
+  :root { --c-disc: #5aa2ff; --c-guru: #a58bff; --c-fail: #e0a43a; --c-how: #35c486; }
+  :root[data-theme="light"] { --c-disc: #1c62d6; --c-guru: #6a4bd6; --c-fail: #9a6200; --c-how: #0b7f50; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --c-disc: #1c62d6; --c-guru: #6a4bd6; --c-fail: #9a6200; --c-how: #0b7f50; } }
+  .ncat { display: inline-block; padding: 2px 9px; border: 1px solid currentColor; border-radius: 999px; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .c-disc { color: var(--c-disc); } .c-guru { color: var(--c-guru); } .c-fail { color: var(--c-fail); } .c-how { color: var(--c-how); }
+  .nfeat { display: grid; grid-template-columns: 200px minmax(0, 1fr); overflow: hidden; }
+  .nfeat .cover { display: block; aspect-ratio: 9 / 16; max-height: 340px; overflow: hidden; background: #0b0d12; }
+  .nfeat .cover img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.35s ease; }
+  .nfeat:hover .cover img { transform: scale(1.03); }
+  .nfeat .nbody { padding: 22px 26px; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+  .nfeat .nline { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .nfeat time { color: var(--blue); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+  .nfeat h3 { margin: 0; color: var(--silver); font-size: 1.3rem; line-height: 1.25; }
+  .nsum { margin: 0; color: var(--text-dim); }
+  .nfeat .nread { align-self: flex-start; padding: 8px 16px; border: 1px solid var(--blue); border-radius: 8px; color: var(--silver); text-decoration: none; font-size: 0.82rem; font-weight: 700; }
+  .nfeat .nread:hover { background: rgba(59, 139, 255, 0.16); }
+  .nheading { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin: 26px 0 12px; }
+  .nheading h3 { margin: 0 6px 0 0; color: var(--text-dim); font-size: 0.8rem; font-weight: 600; }
+  .nfilter { display: flex; flex-wrap: wrap; gap: 8px; }
+  .nfilter[hidden] { display: none; }
+  .nfilter button { padding: 6px 14px; border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--text-dim); font: inherit; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
+  .nfilter button:hover { border-color: var(--blue); }
+  .nfilter button[aria-pressed="true"] { border-color: var(--blue); color: var(--silver); background: rgba(59, 139, 255, 0.16); }
+  .note-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .nrow { display: grid; grid-template-columns: 56px 150px minmax(0, 1fr); gap: 6px 14px; align-items: center; padding: 12px 16px; margin: 0; }
+  .nrow[hidden] { display: none; }
+  .nrow .th img { display: block; width: 56px; height: 56px; object-fit: cover; object-position: center top; border-radius: 8px; }
+  .nrow .nmeta { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+  .nrow time { color: var(--blue); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+  .nrow .nmain a.b-link { color: inherit; text-decoration: none; }
+  .nrow .nmain a.b-link:hover b { color: var(--blue-hi); }
+  .nrow b { color: var(--silver); font-size: 0.9rem; }
+  .nrow .nsum { display: block; margin-top: 2px; font-size: 0.82rem; }
+  @media (max-width: 640px) {
+    .nfeat { grid-template-columns: 1fr; }
+    .nfeat .cover { aspect-ratio: 16 / 10; max-height: 240px; }
+    .nfeat .cover img { object-position: center 38%; }
+    .nrow { grid-template-columns: 56px 1fr; }
+    .nrow .nmain { grid-column: 1 / -1; }
+  }
+  .note-listen { margin: 6px 0 0; }
   .note-listen summary::-webkit-details-marker { display: none; }
   .note-listen summary { list-style: none; cursor: pointer; color: var(--blue-dim); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
   .note-listen video { display: block; width: 100%; margin-top: 8px; border-radius: 8px; background: #000; }
@@ -475,72 +505,82 @@
     </section>
 
     <section id="notes">
+      <!-- NOTES MAINTENANCE: a new article becomes the FEATURE (replace the .nfeat block). The previous feature becomes the FIRST row of #nlist
+           (newest first), with its cover jpg as the thumbnail and its topic in data-cat. Topics: Discipline, Guru check, What failed, How it works.
+           The topic buttons and their counts are built by the script below from the rows. Keep a Listen clip with its article. -->
       <div class="sec-head">
         <div><h2>MGEQuant Notes</h2><p>One free email a week: how a tool works, or what failed and why.</p></div>
         <a class="sec-link" href="https://mgequantnotes.substack.com" target="_blank" rel="noopener">Subscribe on Substack &rarr;</a>
       </div>
-      <div class="notes">
-        <article class="panel hov note">
-          <a class="cover" href="https://mgequantnotes.substack.com/p/the-stop-rule-you-write-before-you" target="_blank" rel="noopener"><img src="assets/img/notes/2026-10-28-stop-rule.jpg" alt="Story card: The stop rule you write before you need it, over the MGEQuant logo" loading="lazy" width="540" height="960"></a>
-          <div class="note-body">
-            <time datetime="2026-10-28">Oct 28, 2026 &middot; Discipline</time>
-            <a class="b-link" href="https://mgequantnotes.substack.com/p/the-stop-rule-you-write-before-you" target="_blank" rel="noopener"><b>The stop rule you write before you need it</b></a>
-            Two wins or one loss, then done for the day. Plus what we built and fixed this month.
-          </div>
-        </article>
-        <article class="panel hov note">
-          <a class="cover" href="https://mgequantnotes.substack.com/p/why-a-90-win-rate-can-still-lose" target="_blank" rel="noopener"><img src="assets/img/notes/2026-10-21-win-rate.jpg" alt="Story card: Why a 90% win rate can still lose money, Guru check #1, over the MGEQuant logo" loading="lazy" width="540" height="960"></a>
-          <div class="note-body">
-            <time datetime="2026-10-21">Oct 21, 2026 &middot; Guru check</time>
-            <a class="b-link" href="https://mgequantnotes.substack.com/p/why-a-90-win-rate-can-still-lose" target="_blank" rel="noopener"><b>Why a 90% win rate can still lose money</b></a>
-            The number on the ad is the one number that cannot tell you whether a trader makes money.
-          </div>
-        </article>
-        <article class="panel hov note">
-          <a class="cover" href="https://mgequantnotes.substack.com/p/our-own-test-had-two-bugs-here-is" target="_blank" rel="noopener"><img src="assets/img/notes/2026-10-14-two-bugs.jpg" alt="Story card: Our own test had two bugs. Here is how we caught them." loading="lazy" width="540" height="960"></a>
-          <div class="note-body">
-            <time datetime="2026-10-14">Oct 14, 2026 &middot; What failed</time>
-            <a class="b-link" href="https://mgequantnotes.substack.com/p/our-own-test-had-two-bugs-here-is" target="_blank" rel="noopener"><b>Our own test had two bugs. Here is how we caught them.</b></a>
-            A control that beats the real strategy is a warning sign, not a discovery.
-          </div>
-        </article>
-        <article class="panel hov note">
-          <a class="cover" href="https://mgequantnotes.substack.com/p/zero-wins-out-of-thirty-three-looked" target="_blank" rel="noopener"><img src="assets/img/notes/2026-10-07-zero-wins.jpg" alt="Story card: Zero wins out of thirty-three looked like a disaster, over an NQ chart with the trade-management labels" loading="lazy" width="540" height="960"></a>
-          <div class="note-body">
-            <time datetime="2026-10-07">Oct 7, 2026 &middot; What failed</time>
-            <a class="b-link" href="https://mgequantnotes.substack.com/p/zero-wins-out-of-thirty-three-looked" target="_blank" rel="noopener"><b>Zero wins out of thirty-three looked like a disaster. It was a bug in the counting.</b></a>
-            The scariest number on the screen that day was not a losing trade. It was a bug that had never lost a real one.
-          </div>
-        </article>
-        <article class="panel hov note">
-          <a class="cover" href="https://mgequantnotes.substack.com/p/a-liquidity-map-with-an-honest-legend" target="_blank" rel="noopener"><img src="assets/img/notes/2026-09-30-liquidity-heatmap.jpg" alt="Story card: A liquidity map with an honest legend, with the Liquidity Heatmap sweeps, VWAP and HVN readout on an NQ chart" loading="lazy" width="540" height="960"></a>
-          <div class="note-body">
-            <time datetime="2026-09-30">Sep 30, 2026 &middot; How it works</time>
-            <a class="b-link" href="https://mgequantnotes.substack.com/p/a-liquidity-map-with-an-honest-legend" target="_blank" rel="noopener"><b>A liquidity map with an honest legend</b></a>
-            Where price has already done business, and which parts of the map are only a guess.
-            <details class="note-listen"><summary>&#9654; Listen (17 s)</summary><video controls preload="none" playsinline src="assets/video/notes/2026-09-30-liquidity-heatmap.mp4"></video></details>
-          </div>
-        </article>
-        <article class="panel hov note">
-          <a class="cover" href="https://mgequantnotes.substack.com/p/a-news-panel-that-admits-when-it" target="_blank" rel="noopener"><img src="assets/img/notes/2026-09-23-news-panel.jpg" alt="Story card: A news panel that admits when it is blind, with the News Wire panel on an NQ chart" loading="lazy" width="540" height="960"></a>
-          <div class="note-body">
-            <time datetime="2026-09-23">Sep 23, 2026 &middot; How it works</time>
-            <a class="b-link" href="https://mgequantnotes.substack.com/p/a-news-panel-that-admits-when-it" target="_blank" rel="noopener"><b>A news panel that admits when it is blind</b></a>
-            A broken feed looks exactly like a quiet market. We built the panel to tell the difference.
-            <details class="note-listen"><summary>&#9654; Listen (38 s)</summary><video controls preload="none" playsinline src="assets/video/notes/2026-09-23-news-panel.mp4"></video></details>
-          </div>
-        </article>
-        <article class="panel hov note">
-          <a class="cover" href="https://mgequantnotes.substack.com/p/a-passing-walk-forward-test-that" target="_blank" rel="noopener"><img src="assets/img/notes/2026-09-21-walk-forward.jpg" alt="Story card: A passing walk-forward test that failed once the data was corrected" loading="lazy" width="540" height="960"></a>
-          <div class="note-body">
-            <time datetime="2026-09-21">Sep 21, 2026 &middot; What failed</time>
-            <a class="b-link" href="https://mgequantnotes.substack.com/p/a-passing-walk-forward-test-that" target="_blank" rel="noopener"><b>A passing walk-forward test that failed once the data was corrected</b></a>
-            Both configurations got worse once the data was fixed. What we changed, and what stayed.
-            <details class="note-listen"><summary>&#9654; Listen (25 s)</summary><video controls preload="none" playsinline src="assets/video/notes/2026-09-21-walk-forward.mp4"></video></details>
-          </div>
-        </article>
-      </div>
+      <article class="panel hov nfeat">
+        <a class="cover" href="https://mgequantnotes.substack.com/p/the-stop-rule-you-write-before-you" target="_blank" rel="noopener"><img src="assets/img/notes/2026-10-28-stop-rule.jpg" alt="Story card: The stop rule you write before you need it, over the MGEQuant logo" loading="lazy" width="540" height="960"></a>
+        <div class="nbody">
+          <div class="nline"><time datetime="2026-10-28">Newest &middot; Oct 28, 2026</time><span class="ncat c-disc">Discipline</span></div>
+          <h3>The stop rule you write before you need it</h3>
+          <p class="nsum">Two wins or one loss, then done for the day. Plus what we built and fixed this month.</p>
+          <a class="nread" href="https://mgequantnotes.substack.com/p/the-stop-rule-you-write-before-you" target="_blank" rel="noopener">Read on Substack &rarr;</a>
+        </div>
+      </article>
+      <div class="nheading"><h3>Earlier articles</h3><div class="nfilter" id="nfilter" role="group" aria-label="Show earlier articles by topic" hidden></div></div>
+      <ul class="note-list" id="nlist">
+        <li class="panel hov nrow" data-cat="Guru check">
+          <a class="th" href="https://mgequantnotes.substack.com/p/why-a-90-win-rate-can-still-lose" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/notes/2026-10-21-win-rate.jpg" alt="" loading="lazy" width="56" height="56"></a>
+          <div class="nmeta"><time datetime="2026-10-21">Oct 21, 2026</time><span class="ncat c-guru">Guru check</span></div>
+          <div class="nmain"><a class="b-link" href="https://mgequantnotes.substack.com/p/why-a-90-win-rate-can-still-lose" target="_blank" rel="noopener"><b>Why a 90% win rate can still lose money</b></a><span class="nsum">The number on the ad is the one number that cannot tell you whether a trader makes money.</span></div>
+        </li>
+        <li class="panel hov nrow" data-cat="What failed">
+          <a class="th" href="https://mgequantnotes.substack.com/p/our-own-test-had-two-bugs-here-is" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/notes/2026-10-14-two-bugs.jpg" alt="" loading="lazy" width="56" height="56"></a>
+          <div class="nmeta"><time datetime="2026-10-14">Oct 14, 2026</time><span class="ncat c-fail">What failed</span></div>
+          <div class="nmain"><a class="b-link" href="https://mgequantnotes.substack.com/p/our-own-test-had-two-bugs-here-is" target="_blank" rel="noopener"><b>Our own test had two bugs. Here is how we caught them.</b></a><span class="nsum">A control that beats the real strategy is a warning sign, not a discovery.</span></div>
+        </li>
+        <li class="panel hov nrow" data-cat="What failed">
+          <a class="th" href="https://mgequantnotes.substack.com/p/zero-wins-out-of-thirty-three-looked" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/notes/2026-10-07-zero-wins.jpg" alt="" loading="lazy" width="56" height="56"></a>
+          <div class="nmeta"><time datetime="2026-10-07">Oct 7, 2026</time><span class="ncat c-fail">What failed</span></div>
+          <div class="nmain"><a class="b-link" href="https://mgequantnotes.substack.com/p/zero-wins-out-of-thirty-three-looked" target="_blank" rel="noopener"><b>Zero wins out of thirty-three looked like a disaster. It was a bug in the counting.</b></a><span class="nsum">The scariest number on the screen that day was not a losing trade. It was a bug that had never lost a real one.</span></div>
+        </li>
+        <li class="panel hov nrow" data-cat="How it works">
+          <a class="th" href="https://mgequantnotes.substack.com/p/a-liquidity-map-with-an-honest-legend" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/notes/2026-09-30-liquidity-heatmap.jpg" alt="" loading="lazy" width="56" height="56"></a>
+          <div class="nmeta"><time datetime="2026-09-30">Sep 30, 2026</time><span class="ncat c-how">How it works</span></div>
+          <div class="nmain"><a class="b-link" href="https://mgequantnotes.substack.com/p/a-liquidity-map-with-an-honest-legend" target="_blank" rel="noopener"><b>A liquidity map with an honest legend</b></a><span class="nsum">Where price has already done business, and which parts of the map are only a guess.</span><details class="note-listen"><summary>&#9654; Listen (17 s)</summary><video controls preload="none" playsinline src="assets/video/notes/2026-09-30-liquidity-heatmap.mp4"></video></details></div>
+        </li>
+        <li class="panel hov nrow" data-cat="How it works">
+          <a class="th" href="https://mgequantnotes.substack.com/p/a-news-panel-that-admits-when-it" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/notes/2026-09-23-news-panel.jpg" alt="" loading="lazy" width="56" height="56"></a>
+          <div class="nmeta"><time datetime="2026-09-23">Sep 23, 2026</time><span class="ncat c-how">How it works</span></div>
+          <div class="nmain"><a class="b-link" href="https://mgequantnotes.substack.com/p/a-news-panel-that-admits-when-it" target="_blank" rel="noopener"><b>A news panel that admits when it is blind</b></a><span class="nsum">A broken feed looks exactly like a quiet market. We built the panel to tell the difference.</span><details class="note-listen"><summary>&#9654; Listen (38 s)</summary><video controls preload="none" playsinline src="assets/video/notes/2026-09-23-news-panel.mp4"></video></details></div>
+        </li>
+        <li class="panel hov nrow" data-cat="What failed">
+          <a class="th" href="https://mgequantnotes.substack.com/p/a-passing-walk-forward-test-that" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="assets/img/notes/2026-09-21-walk-forward.jpg" alt="" loading="lazy" width="56" height="56"></a>
+          <div class="nmeta"><time datetime="2026-09-21">Sep 21, 2026</time><span class="ncat c-fail">What failed</span></div>
+          <div class="nmain"><a class="b-link" href="https://mgequantnotes.substack.com/p/a-passing-walk-forward-test-that" target="_blank" rel="noopener"><b>A passing walk-forward test that failed once the data was corrected</b></a><span class="nsum">Both configurations got worse once the data was fixed. What we changed, and what stayed.</span><details class="note-listen"><summary>&#9654; Listen (25 s)</summary><video controls preload="none" playsinline src="assets/video/notes/2026-09-21-walk-forward.mp4"></video></details></div>
+        </li>
+      </ul>
       <p class="notes-note">Educational only. No signals, no performance claims.</p>
+      <script>
+        /* Topic buttons are built from the rows, so a new article only needs a new row. Without JavaScript every row simply stays visible. */
+        (function () {
+          var list = document.getElementById('nlist'), bar = document.getElementById('nfilter');
+          if (!list || !bar) return;
+          var rows = Array.prototype.slice.call(list.children), cats = [];
+          rows.forEach(function (r) { if (cats.indexOf(r.dataset.cat) < 0) cats.push(r.dataset.cat); });
+          if (cats.length < 2) return;
+          var buttons = [];
+          function add(label, cat, n) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.textContent = label + ' (' + n + ')';
+            b.setAttribute('aria-pressed', cat === '' ? 'true' : 'false');
+            b.onclick = function () {
+              buttons.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+              rows.forEach(function (r) { r.hidden = cat !== '' && r.dataset.cat !== cat; });
+            };
+            buttons.push(b);
+            bar.appendChild(b);
+          }
+          add('All', '', rows.length);
+          cats.forEach(function (c) { add(c, c, rows.filter(function (r) { return r.dataset.cat === c; }).length); });
+          bar.hidden = false;
+        })();
+      </script>
     </section>
 
     <p class="disclaimer">Educational and research content only. Not investment advice. No trade signals are sold or given. Trading futures involves substantial risk of loss. Backtested and simulated results are hypothetical and do not represent actual trading.</p>
