@@ -56,7 +56,7 @@
   }
 
   /* ------------------------------------------------------------------ engine */
-  var Engine = { ready: false, failed: false, docs: [], vocab: {}, vocabList: [], types: TYPES, tools: [], waiters: [] };
+  var Engine = { ready: false, failed: false, docs: [], vocab: Object.create(null), vocabList: [], types: TYPES, tools: [], waiters: [] };
 
   function build(data) {
     Engine.docs = data.docs;
@@ -65,7 +65,7 @@
     var vocab = Engine.vocab;
     data.docs.forEach(function (d) {
       var fields = [[d.ti, 6], [(d.tools || []).join(' '), 5], [(d.cat || '') + ' ' + (d.w || '') + ' ' + (d.st || []).join(' '), 2], [d.s, 2.5], [d.x, 1]];
-      var seen = {};
+      var seen = Object.create(null);
       fields.forEach(function (f) {
         var tk = tokens(f[0] || '');
         tk.forEach(function (t) {
@@ -137,12 +137,13 @@
 
   // Returns {hits:[{doc,score}], terms:[...], matched:{token:1}, partial:bool}
   function searchOne(query) {
-    var raw = tokens(query);
+    var raw = tokens(String(query).slice(0, 200));   // at most 200 characters and 12 words are searched
     var terms = raw.filter(function (t) { return !STOP[t]; });
     if (!terms.length) terms = raw;
-    if (!terms.length) return { hits: [], terms: [], matched: {}, partial: false };
+    if (terms.length > 12) terms = terms.slice(0, 12);
+    if (!terms.length) return { hits: [], terms: [], matched: Object.create(null), partial: false };
     var per = terms.map(function (t, i) { return expand(t, i === terms.length - 1); });
-    var matched = {};
+    var matched = Object.create(null);
     var scores = {}; // docId -> {sum, n}
     per.forEach(function (ex, ti) {
       var best = {};
@@ -179,11 +180,12 @@
 
   // "back test" also finds "backtest", "walk forward" also finds "walkforward".
   function search(query) {
+    query = String(query).slice(0, 200);
     var res = searchOne(query);
-    var raw = tokens(query).filter(function (t) { return !STOP[t]; });
+    var raw = tokens(query).filter(function (t) { return !STOP[t]; }).slice(0, 12), pairsUsed = 0;
     for (var i = 0; i + 1 < raw.length; i++) {
       var joined = raw[i] + raw[i + 1];
-      if (!Engine.vocab[joined]) continue;
+      if (!Engine.vocab[joined] || ++pairsUsed > 3) continue;   // at most 3 joined-word retries
       var alt = searchOne(raw.slice(0, i).concat([joined], raw.slice(i + 2)).join(' '));
       var best = {};
       res.hits.forEach(function (h) { best[h.doc.id] = h; });
