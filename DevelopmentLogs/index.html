@@ -31,7 +31,7 @@ title: "Development Logs"
 
 <div class="devlog-stats" id="devlog-stats" aria-live="polite"></div>
 
-<div class="devlog-grid" id="devlog-grid" role="list">
+<div class="devlog-grid" id="devlog-grid">
   {% assign devlog_pages = site.pages | where_exp: "p", "p.url contains '/DevelopmentLogs/'" %}
   {% assign devlog_pages = devlog_pages | where_exp: "p", "p.url != page.url" %}
   {% assign devlog_dated = devlog_pages | where_exp: "p", "p.date != nil" %}
@@ -41,7 +41,7 @@ title: "Development Logs"
 
   {% for p in devlog_pages %}
     {% assign cat = p.url | split: '/' | slice: 2 %}
-    <article class="devlog-card" data-category="{{ cat }}" data-title="{{ p.title | default: p.name | escape }}" data-url="{{ p.url }}" role="listitem">
+    <article class="devlog-card" data-category="{{ cat }}" data-title="{{ p.title | default: p.name | escape }}" data-url="{{ p.url }}">
       <a href="{{ p.url }}" class="devlog-card-link">
         <div class="devlog-card-header">
           <span class="devlog-category">{{ cat }}</span>

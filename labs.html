@@ -443,29 +443,37 @@
   details.labs-faq summary { cursor:pointer; color:var(--silver); font-weight:700; }
   .labs-legal { display:flex; flex-wrap:wrap; gap:14px; font-size:13px; margin-top:16px; }
 </style>
+<link rel="stylesheet" href="/assets/css/option-a.css">
+<link rel="stylesheet" href="/assets/css/search.css">
+<link rel="stylesheet" href="/assets/css/h2.css">
+<script src="/assets/js/h2.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
   <div class="container">
-    <div class="labs-strip">
+    <div class="labs-strip" role="complementary" aria-label="MGE Labs">
       <a class="labs-strip-main" href="https://journal.mgequant.com/" target="_blank" rel="noopener"><span class="labs-dot" aria-hidden="true"></span><b>MGE Labs</b><span class="ls-sep">&middot;</span><span class="ls-dim">Trade journal for NinjaTrader 8 &middot; private beta</span><span class="ls-go">Enter here &rarr;</span></a>
       <a href="labs.html" class="labs-strip-notes">What is MGE Labs?</a>
       <a class="labs-strip-notes" href="https://mgequantnotes.substack.com" target="_blank" rel="noopener noreferrer">Weekly notes &rarr;</a>
     </div>
-    <nav class="site-nav">
+    <nav class="site-nav" aria-label="Main">
       <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt=""><span class="bt"><span>MGE<b>QUANT</b></span><small>Research &middot; Test &middot; Improve</small></span></a>
       <div class="links">
-        <a href="DevelopmentLogs/">Research</a>
+        <a href="research.html">Research</a>
         <a href="./#charts">Charts</a>
         <a href="in-action.html">In action</a>
-        <a href="#notes">Notes</a>
+        <a href="in-action.html#notes">Notes</a>
         <a href="Screenshots/">Screenshots</a>
         <a href="mgequant-propfirm-calculator.html">Tools</a>
         <a href="Mission%20and%20Vision/">Mission</a>
       </div>
-      <button class="theme-toggle" data-theme-toggle aria-label="Switch light/dark theme" type="button">&#9788;</button>
+      <a class="nav-search" href="/search.html" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="ns-label">Search</span><kbd data-kbd>Ctrl K</kbd></a>
+<button class="theme-toggle" data-theme-toggle aria-label="Switch light/dark theme" type="button">&#9788;</button>
     </nav>
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">MGE Labs</li></ol></nav>
   </div>
-  <main class="container">
+  <main class="container" id="main" tabindex="-1">
     <header class="page-head">
       <h1>MGE Labs</h1>
       <p>A private trade journal for NinjaTrader 8. Every closed trade on your PCs lands in one journal, scored in R against the risk you set.</p>
@@ -524,11 +532,11 @@
 
     <footer>
       <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt=""><span>MGE<b>QUANT</b></span></a>
-      <nav>
-        <a href="DevelopmentLogs/">Research</a>
+      <nav aria-label="Footer">
+        <a href="research.html">Research</a>
         <a href="./#charts">Charts</a>
         <a href="in-action.html">In action</a>
-        <a href="#notes">Notes</a>
+        <a href="in-action.html#notes">Notes</a>
         <a href="Screenshots/">Screenshots</a>
         <a href="mgequant-propfirm-calculator.html">Tools</a>
         <a href="Mission%20and%20Vision/">Mission</a>
@@ -567,5 +575,7 @@
 </script>
 <script src="/assets/js/labs-cards.js?v=10" defer></script>
 <script src="/assets/js/faq-bot.js?v=2" defer></script>
+<script src="/assets/js/option-a.js" defer></script>
+<script src="/assets/js/search.js" defer></script>
 </body>
 </html>

@@ -463,19 +463,26 @@
 </style>
 <link rel="stylesheet" href="/assets/css/site.css">
 <link rel="stylesheet" href="/assets/css/faq-bot.css?v=2">
+<link rel="stylesheet" href="/assets/css/option-a.css">
+<link rel="stylesheet" href="/assets/css/search.css">
+<link rel="stylesheet" href="/assets/css/h2.css">
+<script src="/assets/js/h2.js" defer></script>
+<link rel="stylesheet" href="/assets/css/pipeline.css">
 </head>
 <body>
+<a class="skip-link" href="#hero">Skip to main content</a>
+
   <div class="site-aurora"><div class="site-orb a"></div><div class="site-orb b"></div><div class="site-orb c"></div></div>
   <div class="container">
-    <div class="labs-strip">
+    <div class="labs-strip" role="complementary" aria-label="MGE Labs">
       <a class="labs-strip-main" href="https://journal.mgequant.com/" target="_blank" rel="noopener"><span class="labs-dot" aria-hidden="true"></span><b>MGE Labs</b><span class="ls-sep">&middot;</span><span class="ls-dim">Trade journal for NinjaTrader 8 &middot; private beta</span><span class="ls-go">Enter here &rarr;</span></a>
       <a href="labs.html" class="labs-strip-notes">What is MGE Labs?</a>
       <a class="labs-strip-notes" href="https://mgequantnotes.substack.com" target="_blank" rel="noopener noreferrer">Weekly notes &rarr;</a>
     </div>
-    <nav class="site-nav">
+    <nav class="site-nav" aria-label="Main">
       <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt="MGEQuant logo"><span class="bt"><span>MGE<b>QUANT</b></span><small>Research &middot; Test &middot; Improve</small></span></a>
       <div class="links">
-        <a href="DevelopmentLogs/">Research</a>
+        <a href="research.html">Research</a>
         <a href="#charts">Charts</a>
         <a href="in-action.html">In action</a>
         <a href="in-action.html#notes">Notes</a>
@@ -483,56 +490,76 @@
         <a href="mgequant-propfirm-calculator.html">Tools</a>
         <a href="Mission%20and%20Vision/">Mission</a>
       </div>
-      <button class="theme-toggle" data-theme-toggle aria-label="Switch light/dark theme" type="button">&#9788;</button>
+      <a class="nav-search" href="/search.html" data-open-search aria-label="Search the site"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="ns-label">Search</span><kbd data-kbd>Ctrl K</kbd></a>
+<button class="theme-toggle" data-theme-toggle aria-label="Switch light/dark theme" type="button">&#9788;</button>
     </nav>
 
-    <header class="hero">
+    <header class="hero" id="hero" tabindex="-1">
       <div class="reveal reveal--stagger">
         <p class="eyebrow">Quantitative trading research &middot; built in the open</p>
         <h1>MGE<span class="accent">QUANT</span></h1>
         <p class="headline">We build trading models.<br>Then we try to break them.</p>
         <p class="lead">We develop, test, break and refine systematic trading models &mdash; started on NQ futures, now testing across other indices, forex, crypto and equities &mdash; and publish what we find, including what fails.</p>
+        <p class="who"><b>What this is:</b> an open notebook of trading research. <b>Who it is for:</b> anyone learning to read charts and to check trading ideas honestly. <b>Where to click:</b> pick one of the three doors below.</p>
         <p class="dse">DATA<i>&middot;</i>STRUCTURE<i>&middot;</i>EXECUTION</p>
         <div class="ctas">
-          <a class="btn btn-solid" href="DevelopmentLogs/">Explore research &rarr;</a>
-          <a class="btn btn-ghost" href="#charts">See the tools on real charts</a>
+          <a class="btn btn-solid" href="#start-doors">Choose where to start &darr;</a>
+          <a class="btn btn-ghost" href="/search.html" data-open-search>Search the site</a>
         </div>
       </div>
-      <div class="hero-visual ws">
+      <div class="hero-visual hx-wrap" id="hx">
         <div class="hero-glow"></div>
-        <svg class="ws-scene" role="img" aria-label="A trading desk: a monitor with candles forming, a laptop, keyboard and a cup of coffee" viewBox="0 0 640 480" preserveAspectRatio="xMidYMax meet">
-          <defs><radialGradient id="wsSpill" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#3b8bff" stop-opacity="0.3"/><stop offset="1" stop-color="#3b8bff" stop-opacity="0"/></radialGradient></defs>
-          <ellipse cx="300" cy="180" rx="300" ry="160" fill="url(#wsSpill)"/>
-          <polygon class="ws-desk" points="40,326 600,326 640,420 0,420"/>
-          <line class="ws-desk-edge" x1="40" y1="326" x2="600" y2="326"/>
-          <rect class="ws-stand" x="292" y="262" width="16" height="58"/><rect class="ws-stand" x="252" y="318" width="96" height="7" rx="3.5"/>
-          <rect class="ws-frame" x="130" y="64" width="340" height="200" rx="12"/>
-          <rect class="ws-screen" x="140" y="74" width="320" height="180" rx="6"/>
-          <g transform="translate(140,74)">
-            <line class="ws-grid" x1="0" y1="45" x2="320" y2="45"/><line class="ws-grid" x1="0" y1="90" x2="320" y2="90"/><line class="ws-grid" x1="0" y1="135" x2="320" y2="135"/>
-            <image href="assets/img/mgequant-logo.png" x="10" y="8" width="18" height="18"/>
-            <text class="ws-label" x="34" y="21">MNQ &#183; 5 min</text>
-            <g class="wsb-c" style="animation-delay:0.0s;transform-origin:23px 150px"><line class="ws-wick" x1="23" y1="120" x2="23" y2="156"/><rect class="ws-up" x="18" y="128" width="10" height="22" rx="1.5"/></g><g class="wsb-c" style="animation-delay:0.45s;transform-origin:45px 140px"><line class="ws-wick" x1="45" y1="126" x2="45" y2="146"/><rect class="ws-dn" x="40" y="132" width="10" height="8" rx="1.5"/></g><g class="wsb-c" style="animation-delay:0.9s;transform-origin:67px 138px"><line class="ws-wick" x1="67" y1="112" x2="67" y2="142"/><rect class="ws-up" x="62" y="118" width="10" height="20" rx="1.5"/></g><g class="wsb-c" style="animation-delay:1.35s;transform-origin:89px 120px"><line class="ws-wick" x1="89" y1="98" x2="89" y2="126"/><rect class="ws-up" x="84" y="104" width="10" height="16" rx="1.5"/></g><g class="wsb-c" style="animation-delay:1.8s;transform-origin:111px 116px"><line class="ws-wick" x1="111" y1="100" x2="111" y2="122"/><rect class="ws-dn" x="106" y="106" width="10" height="10" rx="1.5"/></g><g class="wsb-c" style="animation-delay:2.25s;transform-origin:133px 112px"><line class="ws-wick" x1="133" y1="86" x2="133" y2="118"/><rect class="ws-up" x="128" y="92" width="10" height="20" rx="1.5"/></g><g class="wsb-c" style="animation-delay:2.7s;transform-origin:155px 96px"><line class="ws-wick" x1="155" y1="74" x2="155" y2="100"/><rect class="ws-up" x="150" y="80" width="10" height="16" rx="1.5"/></g><g class="wsb-c" style="animation-delay:3.15s;transform-origin:177px 92px"><line class="ws-wick" x1="177" y1="78" x2="177" y2="98"/><rect class="ws-dn" x="172" y="84" width="10" height="8" rx="1.5"/></g><g class="wsb-c" style="animation-delay:3.6s;transform-origin:199px 90px"><line class="ws-wick" x1="199" y1="64" x2="199" y2="96"/><rect class="ws-up" x="194" y="70" width="10" height="20" rx="1.5"/></g><g class="wsb-c" style="animation-delay:4.05s;transform-origin:221px 74px"><line class="ws-wick" x1="221" y1="56" x2="221" y2="80"/><rect class="ws-up" x="216" y="62" width="10" height="12" rx="1.5"/></g><g class="wsb-c" style="animation-delay:4.5s;transform-origin:243px 74px"><line class="ws-wick" x1="243" y1="60" x2="243" y2="80"/><rect class="ws-dn" x="238" y="66" width="10" height="8" rx="1.5"/></g><g class="wsb-c" style="animation-delay:4.95s;transform-origin:265px 70px"><line class="ws-wick" x1="265" y1="46" x2="265" y2="76"/><rect class="ws-up" x="260" y="52" width="10" height="18" rx="1.5"/></g>
-            <polyline class="ws-equity wsb-line" points="23,140 45,136 67,128 89,112 111,110 133,102 155,88 177,86 199,80 221,68 243,70 265,60"/>
-          </g>
-          <polygon class="ws-frame" points="452,214 596,214 590,316 458,316"/>
-          <rect class="ws-screen" x="462" y="222" width="126" height="86" rx="3"/>
-          <image class="wsb-logo" href="assets/img/mgequant-logo.png" x="503" y="235" width="44" height="44"/>
-          <rect class="wsb-bar" x="476" y="290" width="98" height="4" rx="2"/>
-          <polygon class="ws-stand" points="440,318 610,318 626,332 424,332"/>
-          <polygon class="wsb-kb" points="214,350 398,350 410,378 202,378"/>
-          <g class="wsb-keys"><rect x="214" y="354" width="10" height="4" rx="1" style="animation-delay:0.0s"/><rect x="228" y="354" width="10" height="4" rx="1" style="animation-delay:2.1s"/><rect x="242" y="354" width="10" height="4" rx="1" style="animation-delay:0.8999999999999999s"/><rect x="256" y="354" width="10" height="4" rx="1" style="animation-delay:3.0s"/><rect x="270" y="354" width="10" height="4" rx="1" style="animation-delay:1.7999999999999998s"/><rect x="284" y="354" width="10" height="4" rx="1" style="animation-delay:0.6s"/><rect x="298" y="354" width="10" height="4" rx="1" style="animation-delay:2.6999999999999997s"/><rect x="312" y="354" width="10" height="4" rx="1" style="animation-delay:1.5s"/><rect x="326" y="354" width="10" height="4" rx="1" style="animation-delay:0.3s"/><rect x="340" y="354" width="10" height="4" rx="1" style="animation-delay:2.4s"/><rect x="354" y="354" width="10" height="4" rx="1" style="animation-delay:1.2s"/><rect x="368" y="354" width="10" height="4" rx="1" style="animation-delay:0.0s"/><rect x="382" y="354" width="10" height="4" rx="1" style="animation-delay:2.1s"/><rect x="211" y="361" width="10" height="4" rx="1" style="animation-delay:0.8999999999999999s"/><rect x="225" y="361" width="10" height="4" rx="1" style="animation-delay:3.0s"/><rect x="239" y="361" width="10" height="4" rx="1" style="animation-delay:1.7999999999999998s"/><rect x="253" y="361" width="10" height="4" rx="1" style="animation-delay:0.6s"/><rect x="267" y="361" width="10" height="4" rx="1" style="animation-delay:2.6999999999999997s"/><rect x="281" y="361" width="10" height="4" rx="1" style="animation-delay:1.5s"/><rect x="295" y="361" width="10" height="4" rx="1" style="animation-delay:0.3s"/><rect x="309" y="361" width="10" height="4" rx="1" style="animation-delay:2.4s"/><rect x="323" y="361" width="10" height="4" rx="1" style="animation-delay:1.2s"/><rect x="337" y="361" width="10" height="4" rx="1" style="animation-delay:0.0s"/><rect x="351" y="361" width="10" height="4" rx="1" style="animation-delay:2.1s"/><rect x="365" y="361" width="10" height="4" rx="1" style="animation-delay:0.8999999999999999s"/><rect x="379" y="361" width="10" height="4" rx="1" style="animation-delay:3.0s"/><rect x="208" y="368" width="10" height="4" rx="1" style="animation-delay:1.7999999999999998s"/><rect x="222" y="368" width="10" height="4" rx="1" style="animation-delay:0.6s"/><rect x="236" y="368" width="10" height="4" rx="1" style="animation-delay:2.6999999999999997s"/><rect x="250" y="368" width="10" height="4" rx="1" style="animation-delay:1.5s"/><rect x="264" y="368" width="10" height="4" rx="1" style="animation-delay:0.3s"/><rect x="278" y="368" width="10" height="4" rx="1" style="animation-delay:2.4s"/><rect x="292" y="368" width="10" height="4" rx="1" style="animation-delay:1.2s"/><rect x="306" y="368" width="10" height="4" rx="1" style="animation-delay:0.0s"/><rect x="320" y="368" width="10" height="4" rx="1" style="animation-delay:2.1s"/><rect x="334" y="368" width="10" height="4" rx="1" style="animation-delay:0.8999999999999999s"/><rect x="348" y="368" width="10" height="4" rx="1" style="animation-delay:3.0s"/><rect x="362" y="368" width="10" height="4" rx="1" style="animation-delay:1.7999999999999998s"/><rect x="376" y="368" width="10" height="4" rx="1" style="animation-delay:0.6s"/></g>
-          <ellipse class="wsb-kb" cx="440" cy="366" rx="11" ry="15"/>
-          <rect class="wsb-mug" x="76" y="290" width="38" height="44" rx="6"/>
-          <path class="wsb-handle" d="M114,300 C128,300 128,322 114,322"/>
-          <path class="wsb-steam" d="M86,282 C80,272 92,264 86,252"/>
-          <path class="wsb-steam" style="animation-delay:-1.2s" d="M96,284 C90,270 102,262 96,246"/>
-          <path class="wsb-steam" style="animation-delay:-2.1s" d="M106,282 C100,272 112,264 106,254"/>
-        </svg>
-        <div class="markets"><span>NQ</span><span>RTY</span><span>BTC</span><span>ETH</span></div>
-        <div class="slogan">Better data.<br>Better questions.<br>Better decisions.</div>
+        <div class="hx-card">
+          <div class="hx-head"><h2>Read a chart bar by bar</h2><span class="hx-sample">Sample data, not market data</span></div>
+          <svg class="hx-svg" viewBox="0 0 640 330" tabindex="0" role="img" aria-label="Interactive sample chart of 16 bars. Each bar is numbered against the one before it. Use the arrow keys or the buttons below to step through them."></svg>
+          <div class="hx-explain" aria-live="polite"></div>
+          <div class="hx-legend"><span><i style="color:#f2c14e">1</i>inside</span><span><i style="color:#34d399">2U</i>broke the high only</span><span><i style="color:#f87171">2D</i>broke the low only</span><span><i style="color:#4da3ff">3</i>broke both</span></div>
+          <div class="hx-controls">
+            <button type="button" data-a="prev" aria-label="Back, previous bar">&#9664; Back</button>
+            <button type="button" data-a="next" aria-label="Next bar">Next &#9654;</button>
+            <button type="button" data-a="play" aria-pressed="false">&#9654; Play</button>
+            <span class="hx-counter" aria-hidden="true"></span>
+            <label><input type="checkbox" data-a="nums" checked> Show numbers</label>
+          </div>
+          <p class="hx-more">A reading aid, not a signal. <a href="https://mgequantnotes.substack.com/p/reading-a-chart-bar-by-bar" target="_blank" rel="noopener">Read the note on Substack &rarr;</a></p>
+        </div>
       </div>
     </header>
+    <section class="doors" id="start-doors" aria-labelledby="doors-h">
+      <h2 id="doors-h">Where do you want to start?</h2>
+      <p>Pick the one that sounds like you. You can always come back and try another.</p>
+      <div class="door-grid">
+        <div class="door">
+          <span class="door-n">Door 1</span>
+          <h3>I&rsquo;m learning to read charts</h3>
+          <p>The weekly notes, and examples of our tools on real charts. Start with the bar-by-bar chart on this page.</p>
+          <div class="door-links"><a class="main" href="in-action.html#notes">Read the notes</a><a href="in-action.html">Tools on real charts</a></div>
+        </div>
+        <div class="door">
+          <span class="door-n">Door 2</span>
+          <h3>I want to see the research</h3>
+          <p>The development logs, how far each idea has got, and the ones that failed. We publish what fails.</p>
+          <div class="door-links"><a class="main" href="DevelopmentLogs/">Open the research logs</a><a href="#status">Research status</a></div>
+        </div>
+        <div class="door">
+          <span class="door-n">Door 3</span>
+          <h3>I want the trade journal</h3>
+          <p>MGE Labs is a trade journal for NinjaTrader 8. It is in private beta, so it is not open to everyone yet. Software only, not advice.</p>
+          <div class="door-links"><a class="main" href="labs.html">What is MGE Labs?</a><a href="brokers.html">Does it support my broker?</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="startpath" id="start" aria-labelledby="start-h">
+      <h2 id="start-h">Start here: three steps</h2>
+      <p>If you are new, this is the order we would read things in.</p>
+      <ol class="steps">
+        <li><h3>Read a chart</h3><p>Step through the sample chart at the top of this page. See what a bar can do compared with the one before it.</p><a class="go" href="#hx">Go to the chart</a></li>
+        <li><h3>Learn how we judge an idea</h3><p>Words you will meet: <a class="gl" href="#g-r" data-term="r">R</a>, <a class="gl" href="#g-edge" data-term="edge">edge</a>, <a class="gl" href="#g-backtest" data-term="backtest">backtest</a>, <a class="gl" href="#g-oos" data-term="oos">out-of-sample</a> and <a class="gl" href="#g-forward" data-term="forward">forward test</a>. Tap any of them for a plain-language meaning.</p><a class="go" href="#evidence">What counts as evidence</a></li>
+        <li><h3>Read what we found</h3><p>Open a research log. Some ideas failed our tests, and we say so.</p><a class="go" href="DevelopmentLogs/Strategies/2026/10-October.html">Read a log, failures included</a></li>
+      </ol>
+    </section>
+
   </div>
 
   <div class="ticker" aria-hidden="true">
@@ -549,85 +576,111 @@
     <section id="pipeline" class="solo reveal">
       <div class="panel glass">
         <h2>The MGE research pipeline</h2>
-        <p>Most ideas don't survive the pipeline. That is the point of it.</p>
-        <ol class="pipeline">
-          <li>Idea</li><li>Hypothesis</li><li>Prototype</li><li>Backtest</li><li>Forward test</li><li>Break / refine</li><li>Document</li>
+        <p>Most ideas don't survive the pipeline. That is the point of it. <span class="pipe-hint">Choose a stage to see what is there.</span></p>
+        <ol class="pipeline" id="pipe-ex">
+          <li><a href="#status" data-stage="1">Idea</a></li><li><a href="#status" data-stage="2">Hypothesis</a></li><li><a href="#status" data-stage="3">Prototype</a></li><li><a href="#status" data-stage="4">Backtest</a></li><li><a href="#status" data-stage="5">Forward test</a></li><li><a href="#status" data-stage="6">Break / refine</a></li><li><a href="#status" data-stage="7">Document</a></li>
         </ol>
-        <p class="pipe-note">Every step is checked against a random-entry control and out-of-sample data, and we correct our own numbers in public when we find a mistake.</p>
+        <div class="pipe-panel" id="pipe-panel" aria-live="polite" hidden></div>
+        <p class="pipe-note">Every step is checked against a <a class="gl" href="#g-control" data-term="control">random-entry control</a> and <a class="gl" href="#g-oos" data-term="oos">out-of-sample</a> data, and we correct our own numbers in public when we find a mistake.</p>
       </div>
     </section>
 
     <section id="evidence" class="two ev reveal">
       <div class="panel glass">
         <h2>What counts as evidence?</h2>
-        <p>Passing the backtest is not the finish line. It is permission to test further.</p>
+        <p>Passing the <a class="gl" href="#g-backtest" data-term="backtest">backtest</a> is not the finish line. It is permission to test further.</p>
         <ul class="bar-list">
           <li><b>Enough trades</b> to mean something: roughly 300 or more signals a year.</li>
           <li><b>Beats random entry</b> taken with the same stops, targets and timing.</li>
           <li><b>Survives real costs</b>: commissions and slippage included, not added later.</li>
-          <li><b>Holds out of sample</b>, on data the rules never saw.</li>
+          <li><b>Holds <a class="gl" href="#g-oos" data-term="oos">out of sample</a></b>, on data the rules never saw.</li>
         </ul>
-        <p class="pipe-note">Fail any one of the four and the result is usually luck, costs or a bug, not an edge.</p>
+        <p class="pipe-note">Fail any one of the four and the result is usually luck, costs or a bug, not an <a class="gl" href="#g-edge" data-term="edge">edge</a>.</p>
       </div>
       <div class="panel glass" id="status">
         <h2>Research status</h2>
         <p>Last updated Sep 26, 2026. This shows how far each idea has got, not how well it did. It is not a result.</p>
         <ul class="stages">
-          <li><span><a href="DevelopmentLogs/Indicators/2026/09-September.html">FlowEdge</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i></span><span class="lbl">06 Refined Sep 23</span></li>
-          <li><span><a href="DevelopmentLogs/Strategies/2026/09-September.html">CSC / AB Trader</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Forward test, Sim</span></li>
-          <li><span><a href="DevelopmentLogs/MarketCoach/2026/09-September.html">MarketCoach V3.4.1</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Forward test</span></li>
-          <li><span><a href="DevelopmentLogs/Strategies/2026/09-September.html">EMA50 Chandelier</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Forward test</span></li>
-          <li><span><a href="DevelopmentLogs/Strategies/2026/09-September.html">NYLowSweep</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Checking fills</span></li>
-          <li><span><a href="DevelopmentLogs/">Exhaustion Coil</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="lbl">04 Backtest</span></li>
-          <li><span><a href="DevelopmentLogs/Indicators/2026/09-September.html">Liquidity Heatmap</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="lbl">04 No standalone edge</span></li>
-          <li><span><a href="DevelopmentLogs/Indicators/2026/09-September.html">Bar Structure</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="lbl">04 No standalone edge</span></li>
+          <li data-stage="6"><span><a href="DevelopmentLogs/Indicators/2026/09-September.html">FlowEdge</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i></span><span class="lbl">06 Refined Sep 23</span></li>
+          <li data-stage="5"><span><a href="DevelopmentLogs/Strategies/2026/09-September.html">CSC / AB Trader</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Forward test, Sim</span></li>
+          <li data-stage="5"><span><a href="DevelopmentLogs/MarketCoach/2026/09-September.html">MarketCoach V3.4.1</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Forward test</span></li>
+          <li data-stage="5"><span><a href="DevelopmentLogs/Strategies/2026/09-September.html">EMA50 Chandelier</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Forward test</span></li>
+          <li data-stage="5"><span><a href="DevelopmentLogs/Strategies/2026/09-September.html">NYLowSweep</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i></span><span class="lbl">05 Checking fills</span></li>
+          <li data-stage="4"><span><a href="DevelopmentLogs/">Exhaustion Coil</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="lbl">04 Backtest</span></li>
+          <li data-stage="4"><span><a href="DevelopmentLogs/Indicators/2026/09-September.html">Liquidity Heatmap</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="lbl">04 No standalone edge</span></li>
+          <li data-stage="4"><span><a href="DevelopmentLogs/Indicators/2026/09-September.html">Bar Structure</a></span><span class="bar" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i class="now"></i><i class=""></i><i class=""></i><i class=""></i></span><span class="lbl">04 No standalone edge</span></li>
         </ul>
       </div>
+    </section>
+
+    <section id="failed" class="reveal">
+      <div class="sec-head">
+        <div><h2>What failed</h2><p>We publish what fails. Most ideas don&rsquo;t survive the pipeline. That is the point of it.</p></div>
+        <a class="sec-link" href="DevelopmentLogs/">Read the write-ups &rarr;</a>
+      </div>
+      <div class="shelf">
+        <article class="panel glass fail-card" id="fail-liquidity-heatmap"><span class="st t-rev">No standalone edge</span><h3>Liquidity Heatmap</h3><p class="fail-sub">sweep-reclaim rule &middot; Sep 18</p><p>Its mechanical sweep-reclaim rule showed no standalone edge in backtest; on the chart it is read as context.</p><p class="fail-now"><b>Now:</b> In use as context</p><a class="sec-link" href="DevelopmentLogs/Indicators/2026/09-September.html">Read the log &rarr;</a></article>
+        <article class="panel glass fail-card" id="fail-ib-25-75"><span class="st t-rev">22 signals in ~7 yrs</span><h3>IB 25/75</h3><p class="fail-sub">retracement rule &middot; Sep 15</p><p>The indicator stays, the strategy was closed.</p><p class="fail-now"><b>Now:</b> Indicator in use as a map</p><a class="sec-link" href="DevelopmentLogs/Indicators/2026/09-September.html">Read the log &rarr;</a></article>
+        <article class="panel glass fail-card" id="fail-marketcoach"><span class="st t-rev">Pass rested on roll gaps</span><h3>MarketCoach</h3><p class="fail-sub">relaxed config &middot; Sep 12</p><p>A passing walk-forward test was resting on roll gaps.</p><p class="fail-now"><b>Now:</b> Original config, forward test</p><a class="sec-link" href="DevelopmentLogs/MarketCoach/2026/09-September.html">Read the log &rarr;</a></article>
+        <article class="panel glass fail-card" id="fail-kraken-volsqueeze"><span class="st t-rev">Negative over 109 trades</span><h3>Kraken VolSqueeze</h3><p class="fail-sub">breakout bot &middot; Sep 2</p><p>First real test, no edge demonstrated.</p><p class="fail-now"><b>Now:</b> Paper bot stopped</p><a class="sec-link" href="DevelopmentLogs/MarketCoach/2026/09-September.html">Read the log &rarr;</a></article>
+        <article class="panel glass fail-card" id="fail-bar-structure"><span class="st t-rev">No standalone edge</span><h3>Bar Structure</h3><p class="fail-sub">bar sequences as entry rules</p><p>A reading aid, not a signal: our backtests of the bar sequences it names found no standalone edge as entry rules.</p><a class="sec-link" href="DevelopmentLogs/Indicators/2026/09-September.html">Read the log &rarr;</a></article>
+        <article class="panel glass fail-card" id="fail-playcall"><span class="st t-rev">Lost a little on average</span><h3>PlayCall</h3><p class="fail-sub">bar-sequence plan</p><p>A template, not a signal: our own test of the pattern lost a little on average on every time frame, so it is read by hand.</p><a class="sec-link" href="DevelopmentLogs/Indicators/2026/09-September.html">Read the log &rarr;</a></article>
+        <article class="panel glass fail-card" id="fail-deviation-reversal"><span class="st t-rev">Mechanical backtest negative</span><h3>Deviation Reversal</h3><p class="fail-sub">session VWAP bands</p><p>Its mechanical backtest was negative; it stays on the chart only as a picture of how far price has stretched.</p><a class="sec-link" href="in-action.html#clips">See it on a chart &rarr;</a></article>
+        <article class="panel glass fail-card" id="fail-csc-ab-trader"><span class="st t-rev">No edge after costs</span><h3>CSC / AB Trader</h3><p class="fail-sub">forward testing on simulation only</p><p>Our mechanical backtest of the coded rules did not find an edge after costs. A handful of trades proves nothing either way.</p><a class="sec-link" href="DevelopmentLogs/Strategies/2026/09-September.html">Read the dev log &rarr;</a></article>
+      </div>
+      <h3 class="shelf-sub">From the weekly notes: what failed</h3>
+      <ul class="shelf-notes">
+        <li class="panel"><time datetime="2026-10-14">Oct 14, 2026</time><a href="https://mgequantnotes.substack.com/p/our-own-test-had-two-bugs-here-is" target="_blank" rel="noopener"><b>Our own test had two bugs. Here is how we caught them.</b></a><span>A control that beats the real strategy is a warning sign, not a discovery.</span></li>
+        <li class="panel"><time datetime="2026-10-07">Oct 7, 2026</time><a href="https://mgequantnotes.substack.com/p/zero-wins-out-of-thirty-three-looked" target="_blank" rel="noopener"><b>Zero wins out of thirty-three looked like a disaster. It was a bug in the counting.</b></a><span>The scariest number on the screen that day was not a losing trade. It was a bug that had never lost a real one.</span></li>
+        <li class="panel"><time datetime="2026-09-21">Sep 21, 2026</time><a href="https://mgequantnotes.substack.com/p/a-passing-walk-forward-test-that" target="_blank" rel="noopener"><b>A passing walk-forward test that failed once the data was corrected</b></a><span>Both configurations got worse once the data was fixed. What we changed, and what stayed.</span></li>
+      </ul>
+      <p class="gallery-note">No live results are claimed for anything still in use; forward tests are how we find out.</p>
     </section>
 
     <section id="charts" class="reveal">
       <div class="sec-head">
         <div><h2>Built on real charts</h2><p>Our tools on real NQ charts, the good calls and the bad ones. No mock-ups.</p></div>
-        <div class="gallery-nav"><button type="button" data-dir="-1" aria-label="Previous charts">&lsaquo; Prev</button><button type="button" data-dir="1" aria-label="Next charts">Next &rsaquo;</button></div>
+        <div class="gallery-nav"><button type="button" data-dir="-1" aria-label="Prev, previous charts">&lsaquo; Prev</button><button type="button" data-dir="1" aria-label="Next charts">Next &rsaquo;</button></div>
       </div>
+      <div class="tool-filter" id="tool-filter" role="group" aria-label="Filter the tool cards" hidden></div>
       <div class="gallery reveal" id="gallery">
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="indicator">
           <a class="shot" href="assets/img/home/flowedge.jpg?v=2" target="_blank" rel="noopener"><img src="assets/img/home/flowedge.jpg?v=2" alt="FlowEdge on a 5-minute NQ chart" loading="lazy" style="object-position: 50% 40%"></a>
           <figcaption><span class="fired">&#9679; On an NQ chart</span><b>FlowEdge</b>Delta heatmap, session VWAP bands, pressure bubbles and a cumulative delta strip, drawn bar by bar on the candles. Live bars use bid/ask; history and playback are estimated from the candle.</figcaption>
         </figure>
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="indicator noedge">
           <a class="shot" href="assets/img/home/liquidity-heatmap.jpg?v=2" target="_blank" rel="noopener"><img src="assets/img/home/liquidity-heatmap.jpg?v=2" alt="Liquidity Heatmap marking sweeps on a 5-minute NQ chart" loading="lazy" style="object-position: 50% 40%"></a>
           <figcaption><span class="fired">&#9679; Sweeps marked</span><b>Liquidity Heatmap</b>Sweeps of highs and lows flagged as they happen, with the session's point of control and volume profile.</figcaption>
         </figure>
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="indicator noedge">
           <a class="shot" href="assets/img/home/bar-structure.jpg?v=2" target="_blank" rel="noopener"><img src="assets/img/home/bar-structure.jpg?v=2" alt="Bar Structure indicator on a 5-minute MNQ chart: every bar numbered 1, 2U, 2D or 3, the previous session's high as a line, and a panel of higher time-frame bar types" loading="lazy" style="object-position: 50% 40%"></a>
           <figcaption><span class="fired" style="color:#7cc4ff">&#9679; Visual only</span><b>Bar Structure</b>Every bar numbered against the one before it (1, 2U, 2D, 3), the previous session's high as one straight line, and a panel showing the same numbering on the higher time frames. A reading aid, not a signal: our backtests of the bar sequences it names found no standalone edge as entry rules.</figcaption>
         </figure>
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="indicator forward">
           <a class="shot" href="assets/img/home/marketcoach.jpg?v=2" target="_blank" rel="noopener"><img src="assets/img/home/marketcoach.jpg?v=2" alt="MarketCoach on a 5-minute NQ chart: context panel reading direction, session, trend, phase and setup quality" loading="lazy" style="object-position: 50% 40%"></a>
           <figcaption><span class="fired" style="color:#f5a524">&#9679; Forward test</span><b>MarketCoach V3.4.1</b>A context panel that reads direction, session, trend, phase and setup quality bar by bar, and says when it is waiting. Forward tested on a Sim account; no results claimed.</figcaption>
         </figure>
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="indicator">
           <a class="shot" href="assets/img/home/ib2575.jpg?v=2" target="_blank" rel="noopener"><img src="assets/img/home/ib2575.jpg?v=2" alt="IB 25/75 on a 5-minute NQ chart: Asia, London and New York initial-balance boxes with their 25% and 75% lines" loading="lazy" style="object-position: 62% 45%"></a>
           <figcaption><span class="fired" style="color:#7cc4ff">&#9679; Visual only</span><b>IB 25/75</b>Asia, London and New York initial-balance boxes, each with its 25% and 75% lines, drawn as the sessions open and kept in your own clock. A map for reading the session, not a signal.</figcaption>
         </figure>
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="indicator">
           <a class="shot" href="assets/img/home/nylowsweep.jpg?v=2" target="_blank" rel="noopener"><img src="assets/img/home/nylowsweep.jpg?v=2" alt="NY Low Sweep panel on an NQ chart: order flow this bar and waiting for setup" loading="lazy" style="object-position: 100% 0%"></a>
           <figcaption><span class="fired" style="color:#f5a524">&#9679; Waiting for setup</span><b>NY Low Sweep</b>Watches the New York session for two lower lows and shows the state of a hypothetical bid, with order flow for the current bar. On NQ most setups are skipped as too volatile, so it rarely arms. A chart aid; it places no orders.</figcaption>
         </figure>
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="strategy forward">
           <a class="shot" href="assets/img/home/ema50-chandelier.jpg" target="_blank" rel="noopener"><img src="assets/img/home/ema50-chandelier.jpg" alt="EMA50 Chandelier strategy panel on a 60-minute NQ chart" loading="lazy" style="object-position: 70% 60%"></a>
           <figcaption><span class="fired" style="color:#f5a524">&#9679; Forward test</span><b>EMA50 Chandelier</b>Automated on a Sim account, 60-minute chart, long only. Waiting for the next EMA cross; no results claimed yet.</figcaption>
         </figure>
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="indicator">
           <a class="shot" href="assets/img/home/news-wire.jpg?v=2" target="_blank" rel="noopener"><img src="assets/img/home/news-wire.jpg?v=2" alt="News Wire on an NQ chart: official release schedule and Federal Reserve headlines with countdowns" loading="lazy" style="object-position: 100% 0%"></a>
           <figcaption><span class="fired">&#9679; Feed on chart</span><b>News Wire</b>The official US release schedule (BLS, BEA, FOMC) and Federal Reserve headlines, each with a time and a source and a countdown. No forecasts. The panel says when a source can't be reached.</figcaption>
         </figure>
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="indicator">
           <a class="shot" href="assets/img/home/playcall.jpg?v=2" target="_blank" rel="noopener"><img src="assets/img/home/playcall.jpg?v=2" alt="PlayCall on a 5-minute NQ chart: manual plan lines drawn after a completed bar sequence" loading="lazy" style="object-position: 50% 40%"></a>
           <figcaption><span class="fired" style="color:#7cc4ff">&#9679; Plan drawn</span><b>PlayCall</b>Draws a manual plan (entry, stop and two targets) when a named bar sequence completes. A template, not a signal: our own test of the pattern lost a little on average on every time frame, so it is read by hand, best on 15 to 60 minute charts.</figcaption>
         </figure>
-        <figure class="panel hov">
+        <figure class="panel hov" data-tags="indicator forward">
           <a class="shot" href="assets/img/home/tsi-divergence.jpg?v=2" target="_blank" rel="noopener"><img src="assets/img/home/tsi-divergence.jpg?v=2" alt="TSI Divergence on a 5-minute NQ chart with its panel and a drawn plan" loading="lazy" style="object-position: 50% 40%"></a>
           <figcaption><span class="fired" style="color:#f5a524">&#9679; Forward test starting</span><b>TSI Divergence</b>Marks a long-only divergence setup on 5-minute NQ and MNQ and draws a manual plan. The stops are wide, about $316 per MNQ contract. A live observation record is starting; no results are claimed.</figcaption>
         </figure>
@@ -649,7 +702,7 @@
             <tr><td>Kraken VolSqueeze<small>breakout bot</small></td><td><span class="st t-rev">Negative over 109 trades</span></td><td><span class="st t-closed">Paper bot stopped</span></td><td>Sep 2</td></tr>
           </tbody>
         </table>
-        <p class="pipe-note">No live results are claimed for anything still in use; forward tests are how we find out. <a class="sec-link" href="DevelopmentLogs/">Read the write-ups &rarr;</a></p>
+        <p class="pipe-note">No live results are claimed for anything still in use; <a class="gl" href="#g-forward" data-term="forward">forward tests</a> are how we find out. <a class="sec-link" href="DevelopmentLogs/">Read the write-ups &rarr;</a></p>
       </div>
     </section>
 
@@ -718,12 +771,28 @@
       </div>
     </section>
 
+
+    <section id="glossary" class="solo reveal">
+      <div class="panel glass">
+        <h2>Plain-language glossary</h2>
+        <p>The words used on this site, in everyday terms.</p>
+        <dl>
+          <dt id="g-r">R</dt><dd>One unit of risk: the amount you are prepared to lose on a single trade. A trade that makes twice that amount is +2R; one that loses it is &minus;1R.</dd>
+          <dt id="g-edge">Edge</dt><dd>A repeatable advantage: a rule that does better than chance would, after costs. Most ideas turn out to have none, which is why we test them.</dd>
+          <dt id="g-backtest">Backtest</dt><dd>Running a fixed set of rules over old data to see what they would have done. It tests one version of a rule, and passing it is not proof.</dd>
+          <dt id="g-oos">Out-of-sample</dt><dd>Data the rules never saw while they were being built. A result that only works on the data it was tuned on is usually luck.</dd>
+          <dt id="g-forward">Forward test</dt><dd>Running the rules on new data as it arrives, on a simulation account, to find out whether the backtest holds up.</dd>
+          <dt id="g-control">Random-entry control</dt><dd>The same test with entries taken at random, using the same stops, targets and timing. If the rule cannot beat it, it has shown nothing beyond chance.</dd>
+        </dl>
+      </div>
+    </section>
+
     <p class="disclaimer">Educational and research content only. Not investment advice. No trade signals are sold or given. Trading futures involves substantial risk of loss. Backtested and simulated results are hypothetical and do not represent actual trading.</p>
 
     <footer>
       <a class="brand" href="./"><img src="assets/img/mgequant-logo.png" alt="MGEQuant logo"><span>MGE<b>QUANT</b></span></a>
-      <nav>
-        <a href="DevelopmentLogs/">Research</a>
+      <nav aria-label="Footer">
+        <a href="research.html">Research</a>
         <a href="#charts">Charts</a>
         <a href="in-action.html">In action</a>
         <a href="in-action.html#notes">Notes</a>
@@ -731,6 +800,7 @@
         <a href="mgequant-propfirm-calculator.html">Tools</a>
         <a href="Mission%20and%20Vision/">Mission</a>
         <a href="labs.html">MGE Labs</a>
+        <a href="#glossary">Glossary</a>
       </nav>
       <div class="social">
         <a href="https://x.com/MGEQuant" target="_blank" rel="noopener noreferrer" aria-label="MGEQuant on X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.3-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg></a>
@@ -883,5 +953,9 @@
 </script>
 <script src="/assets/js/site.js" defer></script>
 <script src="/assets/js/faq-bot.js?v=2" defer></script>
+<script src="/assets/js/option-a.js" defer></script>
+<script src="/assets/js/search.js" defer></script>
+<script src="/assets/js/pipeline.js" defer></script>
+<script src="/assets/js/hero-bars.js" defer></script>
 </body>
 </html>

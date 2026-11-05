@@ -1,5 +1,11 @@
 exclude:
   - "Archive"
+  - "PREVIEW.md"
+  - "MAINTENANCE.md"
+  - "_site_preview"
+  - "_preview"
+  - "NEW_WORDING.md"
+  - "PORT_MANIFEST.md"
 
 plugins:
   - jekyll-seo-tag

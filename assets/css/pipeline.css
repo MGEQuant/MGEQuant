@@ -1,0 +1,96 @@
+/* MGEQuant option H: clickable pipeline, tool filter chips, What failed shelf (from option C). Loaded after option-a.css */
+/* -------------------------------------------------------- pipeline explorer */
+.pipeline li { padding: 0 !important; }
+.pipeline li > a, .pipeline li > button { display: block; width: 100%; min-height: 64px; padding: 12px 4px 12px; border: 0; background: transparent; color: inherit; font: inherit; font-weight: 700; text-align: center; text-decoration: none; cursor: pointer; border-radius: 8px; }
+.pipeline li::before { margin: 10px 0 0 !important; }
+.pipeline li > button .cnt { display: block; margin-top: 3px; font-size: 0.8rem; font-weight: 500; color: var(--text-dim); }
+.pipeline li:hover { border-color: var(--blue-dim); }
+.pipeline li.is-on { border-color: var(--blue); background: color-mix(in oklab, var(--blue) 22%, transparent); box-shadow: 0 0 16px rgba(59, 139, 255, 0.45); }
+.pipe-hint { color: var(--blue-hi); font-weight: 600; }
+:root[data-theme="light"] .pipe-hint { color: var(--blue-deep); }
+.pipe-panel { margin-top: 16px; padding: 16px 18px; border: 1px solid var(--blue-dim); border-radius: 12px; background: color-mix(in oklab, var(--blue) 7%, var(--bg-panel)); }
+.pipe-panel h3 { margin: 0 0 4px; color: var(--silver); font-size: 1.15rem; }
+.pipe-panel .pp-lead { margin: 0 0 12px; color: var(--text-dim); font-size: 0.95rem; }
+.pp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.pp-item { padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-panel); max-width: none !important; }
+.pp-item .pp-name { font-size: 1.05rem; font-weight: 700; }
+.pp-item .pp-name a { color: var(--blue-hi); }
+:root[data-theme="light"] .pp-item .pp-name a { color: var(--blue-deep); }
+.pp-item .pp-status { display: inline-block; margin-left: 8px; padding: 1px 10px; border: 1px solid var(--blue-dim); border-radius: 999px; font-size: 0.88rem; color: var(--silver); }
+.pp-item .pp-cap { margin: 6px 0 0; font-size: 0.95rem; color: var(--text); }
+.pp-item .pp-cap b { color: var(--silver); }
+.pp-item .pp-more { display: inline-block; margin-top: 6px; font-size: 0.92rem; }
+.pp-empty { margin: 0; color: var(--text); }
+.pp-empty a { color: var(--blue-hi); }
+:root[data-theme="light"] .pp-empty a { color: var(--blue-deep); }
+@media (max-width: 760px) {
+  .pipeline { grid-template-columns: repeat(2, 1fr) !important; }
+  .pipeline li::after { display: none !important; }
+  .pipeline li:last-child { grid-column: 1 / -1; }
+}
+.stages li.is-hl { background: color-mix(in oklab, var(--blue) 12%, transparent); border-radius: 6px; }
+
+/* ----------------------------------------------------------- tool filters */
+.tool-filter, .nfilter { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.tool-filter[hidden] { display: none; }
+.tool-filter button { min-height: 44px; padding: 6px 15px; border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--silver-dim); font: inherit; font-size: 0.95rem; cursor: pointer; }
+.tool-filter button:hover { border-color: var(--blue-dim); color: var(--silver); }
+.tool-filter button[aria-pressed="true"] { color: #fff; background: var(--blue); border-color: var(--blue); box-shadow: 0 0 12px rgba(59, 139, 255, 0.5); }
+.tool-filter .tf-count { margin-left: 4px; opacity: 0.85; }
+.tool-status { margin: 0 0 10px; font-size: 0.92rem; color: var(--text-dim); }
+
+/* -------------------------------------------------------- "What failed" shelf */
+.shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.fail-card { padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 4px; }
+.fail-card h3 { margin: 4px 0 0; color: var(--silver); font-size: 1.15rem; }
+.fail-card p { margin: 0; font-size: 0.95rem; max-width: none; }
+.fail-card .fail-sub { color: var(--text-dim); font-size: 0.88rem; }
+.fail-card .fail-now { color: var(--silver-dim); }
+.fail-card .sec-link { margin-top: auto; padding-top: 8px; font-size: 0.95rem; }
+.fail-card .st { align-self: flex-start; padding: 2px 10px; border: 1px solid currentColor; border-radius: 999px; font-weight: 650; }
+.shelf-sub { margin: 24px 0 10px; color: var(--silver); font-size: 1.1rem; }
+.shelf-notes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.shelf-notes li { display: flex; flex-direction: column; gap: 4px; padding: 14px; max-width: none; }
+.shelf-notes time { font-size: 0.88rem; color: var(--text-dim); }
+.shelf-notes a { color: var(--blue-hi); }
+:root[data-theme="light"] .shelf-notes a { color: var(--blue-deep); }
+.shelf-notes b { font-weight: 650; }
+.shelf-notes span { font-size: 0.95rem; color: var(--text); }
+:root[data-theme="light"] .t-rev, :root[data-theme="light"] .st.t-rev { color: #8a4b00; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none !important; }
+  .hero-glow, .labs-dot { animation: none !important; }
+}
+
+.sp-input::-webkit-search-cancel-button { display: none; }
+.site-nav > .nav-search kbd { display: none; }
+
+/* ---- light theme: status and caption colours that were bright-on-white get AA-safe shades */
+:root[data-theme="light"] .fired, :root[data-theme="light"] .tagline { color: #0a6b38 !important; }
+:root[data-theme="light"] .fired[style*="f5a524"] { color: #8a4b00 !important; }
+:root[data-theme="light"] .fired[style*="7cc4ff"] { color: #0b5cad !important; }
+:root[data-theme="light"] .t-live { color: #0a6b38; } :root[data-theme="light"] .t-test, :root[data-theme="light"] .t-rev { color: #8a4b00; }
+:root[data-theme="light"] .t-ctx { color: #0b5cad; } :root[data-theme="light"] .t-fail { color: #b3262b; } :root[data-theme="light"] .t-closed { color: #4f5868; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .fired, :root:not([data-theme="dark"]) .tagline { color: #0a6b38 !important; }
+  :root:not([data-theme="dark"]) .fired[style*="f5a524"] { color: #8a4b00 !important; }
+  :root:not([data-theme="dark"]) .fired[style*="7cc4ff"] { color: #0b5cad !important; }
+  :root:not([data-theme="dark"]) .t-live { color: #0a6b38; } :root:not([data-theme="dark"]) .t-test, :root:not([data-theme="dark"]) .t-rev { color: #8a4b00; }
+  :root:not([data-theme="dark"]) .t-ctx { color: #0b5cad; } :root:not([data-theme="dark"]) .t-fail { color: #b3262b; } :root:not([data-theme="dark"]) .t-closed { color: #4f5868; }
+}
+
+/* ---- AA-safe link colour in both themes, and white-on-blue buttons that pass 4.5:1 */
+:root { --x-link: var(--blue-hi); --x-solid: #1f66d6; }
+:root[data-theme="light"] { --x-link: #0f4fb0; --x-solid: #1558c0; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --x-link: #0f4fb0; --x-solid: #1558c0; } }
+.sec-link, .ls-go, .pipe-hint, .pp-item .pp-name a, .pp-empty a, .shelf-notes a, .sp-empty a, .sp-sugg button, .sp-type, .lx-tag, .lx-try, .lx-seg button.on { color: var(--x-link) !important; }
+.btn-solid, .skip-link, .tool-filter button[aria-pressed="true"], .labs-cta { background: var(--x-solid) !important; color: #fff !important; border-color: var(--x-solid) !important; }
+.btn-solid:hover { background: #1a52a8 !important; }
+:root[data-theme="light"] .strat .disc h3 { color: #8a4b00; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .strat .disc h3 { color: #8a4b00; } }
+.lx-tag, .lx-fine { font-size: 0.85rem !important; }
+
+
+/* option H: the decorative hero glow stuck out 20px on phones and made the page scroll sideways */
+html, body { overflow-x: clip; }

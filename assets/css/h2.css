@@ -1,0 +1,125 @@
+/* MGEQuant · option H2 · assets/css/h2.css
+   Audit fixes on top of option H: links in text, contrast, phone header, chat button, tap targets.
+   Loaded last on every page. Plain CSS, no storage. */
+
+/* ---------- links inside running text must not rely on colour alone ---------- */
+p a:not([class]), li a:not([class]), dd a:not([class]), td a:not([class]), figcaption a:not([class]),
+.hx-more a, .rx-also a, .lead a, footer a:not([class]), .pe-note a, .pipe-note a:not(.gl) {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+/* ---------- contrast fixes (measured with axe-core) ---------- */
+.chip[aria-pressed="true"] { background: #1558c9; border-color: #1558c9; color: #fff; }
+.chip .chip-n { opacity: 1; }
+.tool-filter .tf-count { opacity: 1 !important; }
+.tool-filter button[aria-pressed="true"] .tf-count { color: #fff !important; }
+.chip[aria-pressed="true"] .chip-n, :root[data-theme="light"] .chip[aria-pressed="true"] .chip-n { background: rgba(0, 0, 0, 0.28); color: #fff; }
+:root[data-theme="light"] .chip .chip-n { color: #4a5160; }
+.tool-filter button[aria-pressed="true"] .tf-count { color: #fff; }
+.devlog-category-badge[data-category="Indicators"] { color: #a78bfa; }
+:root[data-theme="light"] .devlog-category-badge[data-category="Indicators"] { color: #6d3fd8; }
+:root[data-theme="light"] .devlog-category-badge { filter: none; }
+/* light theme: accent colours that were too pale on the light background */
+:root[data-theme="light"] .who b, :root[data-theme="light"] .bt > span > b, :root[data-theme="light"] .hero h1 .accent { color: #1450b8; }
+:root[data-theme="light"] .hx-legend i[style*="34d399"] { color: #047857 !important; }
+:root[data-theme="light"] .hx-legend i[style*="f87171"] { color: #b91c1c !important; }
+:root[data-theme="light"] .hx-legend i[style*="f2c14e"] { color: #8a5a00 !important; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .who b, :root:not([data-theme="dark"]) .bt > span > b, :root:not([data-theme="dark"]) .hero h1 .accent { color: #1450b8; }
+  :root:not([data-theme="dark"]) .hx-legend i[style*="34d399"] { color: #047857 !important; }
+  :root:not([data-theme="dark"]) .hx-legend i[style*="f87171"] { color: #b91c1c !important; }
+  :root:not([data-theme="dark"]) .hx-legend i[style*="f2c14e"] { color: #8a5a00 !important; }
+}
+:root[data-theme="light"] .sr-type-note { color: #07582b; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .chip .chip-n { color: #4a5160; }
+  :root:not([data-theme="dark"]) .sr-type-note { color: #07582b; }
+}
+
+/* ---------- scrollable tables must be reachable by keyboard ---------- */
+.table-wrap:focus-visible { outline: 2px solid var(--blue, #3b8bff); outline-offset: 2px; }
+
+/* ---------- deep-linked "What failed" card ---------- */
+.fail-card:target { outline: 2px solid var(--blue, #3b8bff); outline-offset: 3px; }
+.fail-card { scroll-margin-top: 16px; }
+
+/* ---------- menu button (only used on phones, added by h2.js) ---------- */
+.nav-menu-btn { display: none; }
+.menu-only-phone { display: none; }
+
+@media (max-width: 640px) {
+  /* compact MGE Labs strip: two short lines, secondary links move into the menu */
+  .nav-js .labs-strip { margin-top: 6px; padding: 6px 12px; gap: 0; border-radius: 14px; }
+  .nav-js .labs-strip-main { flex: 1 1 100%; flex-wrap: wrap; gap: 0 8px; font-size: 0.9rem; min-height: 44px; align-content: center; }
+  .nav-js .labs-strip-main .ls-sep, .nav-js .labs-strip-main .ls-go { display: none; }
+  .nav-js .labs-strip-main .ls-dim { display: block; flex: 1 1 100%; font-size: 0.8rem; line-height: 1.3; }
+  .nav-js .labs-strip > a.labs-strip-notes { display: none; }
+
+  /* one compact bar: logo, search, theme, menu */
+  .nav-js .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px !important; padding-top: 6px; padding-bottom: 6px; }
+  .nav-js .site-nav .brand { order: 0; margin-right: auto; min-height: 44px; }
+  .nav-js .site-nav .brand img { width: 36px; height: 36px; }
+  .nav-js .site-nav .brand { gap: 8px; }
+  .nav-js .site-nav .brand .bt { font-size: 0.95rem; }
+  .nav-js .site-nav .brand img { margin: 0; }
+  .nav-js .site-nav .nav-search { order: 1; flex: 0 0 44px; width: 44px; min-height: 44px; padding: 0; justify-content: center; }
+  .nav-js .site-nav .nav-search .ns-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .nav-js .site-nav .theme-toggle { order: 2; flex: 0 0 44px; width: 44px; height: 44px; margin: 0 !important; }
+  .nav-js .nav-menu-btn { order: 3; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 10px; border: 1px solid var(--border, rgba(255,255,255,.25)); border-radius: 999px; background: transparent; color: var(--silver, #e6e8ec); font: inherit; font-size: 0.95rem; cursor: pointer; }
+  .nav-js .nav-menu-btn:focus-visible { outline: 2px solid var(--blue, #3b8bff); outline-offset: 2px; }
+  .nav-menu-btn .nm-ic, .nav-menu-btn .nm-ic::before, .nav-menu-btn .nm-ic::after { display: block; width: 16px; height: 2px; background: currentColor; border-radius: 1px; content: ""; position: relative; }
+  .nav-menu-btn .nm-ic::before { position: absolute; top: -5px; left: 0; }
+  .nav-menu-btn .nm-ic::after { position: absolute; top: 5px; left: 0; }
+  .nav-js .site-nav .links { display: none; order: 4; flex: 1 1 100%; width: 100%; flex-direction: column; align-items: stretch; gap: 0 !important; padding: 4px 0 8px; border-top: 1px solid var(--border, rgba(255,255,255,.18)); }
+  .nav-js .site-nav .links.is-open { display: flex; }
+  .nav-js .site-nav .links a { min-height: 44px; display: flex; align-items: center; padding: 0 4px; }
+  .nav-js .site-nav .links .menu-only-phone { display: flex; }
+
+  /* floating help chat button: smaller, tucked into the corner, and clear of the page end */
+  .mge-chat-btn { width: 44px !important; height: 44px !important; right: 8px !important; bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important; font-size: 20px !important; opacity: 0.92; transition: opacity 0.2s ease, transform 0.18s ease; }
+  .mge-chat-btn.is-away:not(:focus-visible) { opacity: 0; pointer-events: none; }
+  body { padding-bottom: 64px; }
+  .mge-chat-panel { right: 8px !important; bottom: calc(60px + env(safe-area-inset-bottom, 0px)) !important; max-width: calc(100vw - 16px) !important; }
+}
+@media (prefers-reduced-motion: reduce) { .mge-chat-btn { transition: none; } }
+
+/* ---------- phone tap targets (44 px) ---------- */
+@media (max-width: 640px) {
+  .labs-strip-main, .labs-strip-notes, .sec-link, .skip-link:focus, .crumbs a, .ticker-pause, .btn, summary, .chip, .gallery-nav button, .tool-filter button,
+  .pipeline a, .pipeline button, .rx-also a, .hx-more a { min-height: 44px; }
+  .crumbs a, .sec-link, .rx-also a { display: inline-flex; align-items: center; }
+  .rx-item h3 a { display: flex; align-items: center; min-height: 44px; }
+  .devlog-card-link { display: block; }
+  button:not(.mge-chat-btn) { min-height: 44px; min-width: 44px; }
+  footer a, .social a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; }
+  footer .brand { justify-content: flex-start; }
+  label:has(> input[type="checkbox"]) { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+  input[type="range"] { min-height: 44px; }
+  .crumbs a.home, a.home { min-width: 44px; }
+}
+.links-flat { display: contents; }
+.h2-vh { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* decorative layers must never swallow taps (on phones the hero glow sat on top of the "Search the site" button) */
+.hero-glow, .site-aurora, .site-orb { pointer-events: none; }
+
+/* light theme: category badges on log pages (measured contrast was 2.8 to 4.1) */
+:root[data-theme="light"] .devlog-category-badge[data-category="TradePilot"] { color: #0f4fb0; }
+:root[data-theme="light"] .devlog-category-badge[data-category="MarketCoach"] { color: #0b6b35; }
+:root[data-theme="light"] .devlog-category-badge[data-category="QAX"] { color: #7a4f00; }
+:root[data-theme="light"] .devlog-category-badge[data-category="Strategies"] { color: #b42318; }
+:root[data-theme="light"] .devlog-category-badge[data-category="Platform"] { color: #454c5a; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .devlog-category-badge[data-category="TradePilot"] { color: #0f4fb0; }
+  :root:not([data-theme="dark"]) .devlog-category-badge[data-category="MarketCoach"] { color: #0b6b35; }
+  :root:not([data-theme="dark"]) .devlog-category-badge[data-category="QAX"] { color: #7a4f00; }
+  :root:not([data-theme="dark"]) .devlog-category-badge[data-category="Strategies"] { color: #b42318; }
+  :root:not([data-theme="dark"]) .devlog-category-badge[data-category="Platform"] { color: #454c5a; }
+  :root:not([data-theme="dark"]) .devlog-category-badge[data-category="Indicators"] { color: #6d3fd8; }
+}
+@media (max-width: 640px) {
+  .legal-toc a, .legal-links a, .labs-legal a, .nfeat .nread, .card > a { display: inline-flex; align-items: center; min-height: 44px; }
+  input[type="checkbox"] { width: 24px; height: 24px; }
+}

@@ -8,7 +8,6 @@
   <link rel="icon" href="/assets/img/mgequant-logo.png">
   <meta name="theme-color" content="#06070a">
   <title>MGEQuant Prop firm payout calculator</title>
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
   <style>
     /* Layout 2026-10-17: numbered setup steps on the left (A), verdict + key numbers + balance/floor chart + rule check +
        day table on the right (A + B). The calculation is the same as before. */
@@ -139,17 +138,23 @@
 <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/favicon-192.png">
 <link rel="apple-touch-icon" href="/assets/img/favicon-192.png">
+<link rel="stylesheet" href="/assets/css/search.css">
+<link rel="stylesheet" href="/assets/css/h2.css">
+<script src="/assets/js/h2.js" defer></script>
 </head>
-<body>
+<body class="calc-page">
+<a style="position:absolute;left:8px;top:-60px;background:#1e6fff;color:#fff;padding:10px 14px;border-radius:8px;z-index:99" onfocus="this.style.top='8px'" onblur="this.style.top='-60px'" class="skip-link" href="#main">Skip to main content</a>
+
   <div class="wrap">
-    <div class="top">
+    <header class="top">
       <div>
-        <a class="home" href="/">&larr; MGEQuant home</a><span class="chip-brand"><i aria-hidden="true"></i>Free tool</span>
+        <nav class="crumbs crumbs-inline" aria-label="Breadcrumb"><ol><li><a class="home" href="/">Home</a></li><li aria-current="page">Prop firm calculator</li></ol></nav><span class="chip-brand"><i aria-hidden="true"></i>Free tool</span>
         <h1>Prop firm payout <span>calculator</span></h1>
         <p class="lead">Set the firm's rules, add your daily results, and see the day you could request a payout, how much, and how much room you have above the drawdown floor. Runs only in your browser.</p>
       </div>
+      <a class="nav-search" href="/search.html" data-open-search><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="ns-label">Search</span><kbd data-kbd>Ctrl K</kbd></a>
       <button class="theme-btn" data-theme-toggle aria-label="Switch light or dark theme">☀︎ / ☾</button>
-    </div>
+    </header>
 
     <div class="layout">
       <aside class="side" aria-label="Firm rules">
@@ -215,7 +220,7 @@
         </details>
       </aside>
 
-      <main class="main" aria-live="polite">
+      <main id="main" tabindex="-1" class="main" aria-live="polite">
         <section class="verdict" id="verdict">
           <div class="ic" id="vIcon">…</div>
           <div><h2 id="vTitle">Add your daily results</h2><p id="vText">The verdict updates as you type.</p></div>
@@ -244,7 +249,7 @@
         <section class="box">
           <h3>Trading days</h3>
           <p class="sub">Day by day: balance, floor, room left, and when every enabled rule first passes.</p>
-          <div class="table-wrap"><table><thead><tr><th>Day</th><th>Daily P&amp;L</th><th>Profit</th><th>Balance</th><th>Floor</th><th>Room</th><th>Consistency</th><th>Days</th><th>Status</th></tr></thead><tbody id="dayTable"></tbody></table></div>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Results table, scrolls sideways"><table><thead><tr><th>Day</th><th>Daily P&amp;L</th><th>Profit</th><th>Balance</th><th>Floor</th><th>Room</th><th>Consistency</th><th>Days</th><th>Status</th></tr></thead><tbody id="dayTable"></tbody></table></div>
         </section>
 
         <section class="disclaimer"><strong>Planning tool only.</strong> Prop firm rules change and differ by account type: drawdown style (end-of-day, intraday or static), consistency %, minimum days, payout minimums and caps. Always check the firm's current rules before trading or requesting a payout. Not financial advice.</section>
@@ -391,5 +396,6 @@ const qp = new URLSearchParams(location.search).get('preset');
 if (qp && presets[qp]) { applyPreset(qp); document.querySelectorAll('details.step').forEach((d) => { d.open = d.querySelector('#pnlInput') !== null || d.querySelector('#payoutGate') !== null; }); } else calculate();
 </script>
 <script src="/assets/js/faq-bot.js?v=2" defer></script>
+<script src="/assets/js/search.js" defer></script>
 </body>
 </html>
