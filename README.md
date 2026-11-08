@@ -3,7 +3,6 @@
 <img src="assets/banner.svg" width="100%" alt="MGEQuant. Data. Structure. Execution. Honest quant trading research, built in the open.">
 
 <a href="https://x.com/MGEQuant"><img src="https://img.shields.io/badge/Follow-@MGEQuant-000000?style=for-the-badge&logo=x&logoColor=white" alt="Follow on X"></a>
-<a href="https://x.com/MGEQuant"><img src="https://img.shields.io/badge/Early_access-DM_@MGEQuant-1f6feb?style=for-the-badge" alt="Early access: DM @MGEQuant on X"></a>
 <a href="https://mgequant.github.io/MGEQuant/mgequant-propfirm-calculator.html"><img src="https://img.shields.io/badge/Free_tool-Prop--firm_calculator-1f6feb?style=for-the-badge" alt="Prop-firm calculator"></a>
 <a href="DevelopmentLogs/"><img src="https://img.shields.io/badge/Dev_logs-Open-0b1730?style=for-the-badge&labelColor=1f6feb" alt="Development logs"></a>
 
@@ -11,7 +10,9 @@
 
 <p align="center"><b>Markets:</b> NQ futures → indices · forex · crypto · stocks</p>
 
-<p align="center"><b>Early access and enquiries:</b> DM <a href="https://x.com/MGEQuant">@MGEQuant on X</a></p>
+<p align="center"><b>Private beta:</b> DM <a href="https://x.com/MGEQuant">@MGEQuant on X</a> to ask for an invite. Invites are not guaranteed.<br>
+We never ask for payment, passwords or account details in a DM.<br>
+No invite yet? Follow the <a href="https://mgequantnotes.substack.com">weekly notes</a>.</p>
 
 We build indicators and strategies and publish what we find, **including what fails**. Most ideas do not survive testing, and we say so.
 
