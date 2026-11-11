@@ -54,9 +54,14 @@ main:focus { outline: none; }
 
 /* ---------- ticker pause ---------- */
 .ticker-wrap { position: relative; }
-.ticker-pause { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 3; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-panel); color: var(--silver); font: inherit; font-size: 0.85rem; cursor: pointer; }
-.ticker-pause:hover { border-color: var(--blue); }
-@media (max-width: 640px) { .ticker-pause { min-height: 44px; } }
+.ticker-pause { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); z-index: 3; width: 30px; height: 30px; padding: 0; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-panel); color: var(--text-dim); font-size: 0; cursor: pointer; opacity: 0.7; }
+.ticker-pause:hover, .ticker-pause:focus-visible { opacity: 1; color: var(--blue); border-color: var(--blue); }
+/* icon drawn with shapes (no font glyphs): two bars = pause, triangle = play; the button keeps its text label for screen readers */
+.ticker-pause::before { content: ""; width: 3px; height: 11px; background: currentColor; box-shadow: 5px 0 0 currentColor; transform: translateX(-2.5px); }
+.ticker-pause[aria-pressed="true"]::before { width: 0; height: 0; background: none; box-shadow: none; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent currentColor; transform: translateX(1px); }
+@media (max-width: 640px) { .ticker-pause { width: 44px; height: 44px; } }
+/* text fades out before the button so nothing runs underneath it */
+.ticker-wrap .ticker { -webkit-mask: linear-gradient(90deg, transparent, #000 7%, #000 88%, transparent 96%); mask: linear-gradient(90deg, transparent, #000 7%, #000 88%, transparent 96%); }
 .ticker.paused .ticker-track, .ticker-wrap.paused .ticker-track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none !important; } }
 
