@@ -261,3 +261,18 @@ fieldset.rx-group legend { padding: 0; margin-bottom: 6px; font-size: 0.95rem; f
 footer nav a { min-width: 44px; justify-content: center; }
 .calc-page input, .calc-page select { min-height: 44px; }
 
+/* beta-tester call-out: a visible pill in the top strip and an accented box on the Labs page */
+.labs-strip-beta { display: inline-flex; align-items: center; margin: 0 4px; padding: 5px 12px; border-radius: 999px; background: #1558c0; color: #fff !important; font-weight: 700; font-size: .85rem; text-decoration: none; white-space: nowrap; }
+.labs-strip-beta:hover { background: #1a52a8; }
+.beta-call { border: 1px solid #1558c0 !important; box-shadow: 0 0 0 3px rgba(21,88,192,.18), 0 18px 50px -24px rgba(31,102,214,.55); margin: 18px 0; padding: 22px 24px !important; background: linear-gradient(180deg, color-mix(in srgb, #1558c0 9%, var(--bg-panel)), var(--bg-panel)) !important; }
+.beta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 14px; }
+.beta-col { padding: 4px 26px; } .beta-col:first-child { padding-left: 0; } .beta-col + .beta-col { border-left: 1px solid color-mix(in srgb, #1558c0 45%, var(--border)); }
+.beta-head { display: flex; align-items: center; gap: 12px; } .beta-head h3 { margin: 0; font-size: 1.25rem; }
+.beta-ico { color: var(--blue-hi, #6ea8ff); display: inline-flex; } :root[data-theme="light"] .beta-ico, :root[data-theme="light"] .beta-col li svg { color: #1558c0; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .beta-ico, :root:not([data-theme="dark"]) .beta-col li svg { color: #1558c0; } }
+.beta-col ul { list-style: none; margin: 12px 0 0; padding: 0; } .beta-col li { display: flex; gap: 10px; align-items: flex-start; margin: 7px 0; } .beta-col li svg { flex: none; margin-top: 4px; color: var(--blue-hi, #6ea8ff); }
+.beta-cta { text-align: center; margin-top: 20px; padding-top: 18px; border-top: 1px solid color-mix(in srgb, #1558c0 35%, var(--border)); }
+.labs-cta.beta-btn { padding: 14px 34px; border-radius: 999px; font-size: 1.1rem; letter-spacing: .04em; text-transform: uppercase; background: linear-gradient(180deg, #2f7bf0, #1558c0) !important; color: #fff !important; box-shadow: 0 10px 30px -10px rgba(31,102,214,.9); }
+.beta-sub { margin: 12px 0 2px; font-style: italic; }
+@media (max-width: 720px) { .beta-grid { grid-template-columns: 1fr; } .beta-col { padding: 4px 0; } .beta-col + .beta-col { border-left: 0; border-top: 1px solid color-mix(in srgb, #1558c0 45%, var(--border)); margin-top: 14px; padding-top: 14px; } .labs-cta.beta-btn { display: block; padding: 15px 16px; font-size: 1.05rem; text-align: center; } .beta-call { padding: 18px 16px !important; } #beta { margin-top: -28px; } }
+.beta-title { margin: 6px 0 4px; font-size: 1.5rem; } .beta-lead { margin: 0 0 4px; }
