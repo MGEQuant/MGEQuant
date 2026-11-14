@@ -218,7 +218,8 @@ fieldset.rx-group legend { padding: 0; margin-bottom: 6px; font-size: 0.95rem; f
 :root[data-theme="light"] .t-live { color: #0a6b36 !important; }
 :root[data-theme="light"] .t-closed { color: #4f5766 !important; }
 :root[data-theme="light"] .bk-yes { color: #0a6b36 !important; }
-:root[data-theme="light"] .labs-cta { color: #fff !important; background: var(--ob-btn) !important; }
+:root[data-theme="light"] .labs-cta:not(.lx-ghost) { color: #fff !important; background: var(--ob-btn, #1558c0) !important; }
+:root[data-theme="light"] .labs-cta.lx-ghost { color: var(--blue-deep) !important; border-color: var(--blue-deep) !important; }
 :root[data-theme="light"] .lx-tag, :root[data-theme="light"] .lx-try { color: var(--blue-deep) !important; }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) .ls-go, :root:not([data-theme="dark"]) .labs-strip a b { color: var(--blue-deep) !important; }
@@ -227,7 +228,8 @@ fieldset.rx-group legend { padding: 0; margin-bottom: 6px; font-size: 0.95rem; f
   :root:not([data-theme="dark"]) .t-live { color: #0a6b36 !important; }
   :root:not([data-theme="dark"]) .t-closed { color: #4f5766 !important; }
   :root:not([data-theme="dark"]) .bk-yes { color: #0a6b36 !important; }
-  :root:not([data-theme="dark"]) .labs-cta { color: #fff !important; background: var(--ob-btn) !important; }
+  :root:not([data-theme="dark"]) .labs-cta:not(.lx-ghost) { color: #fff !important; background: var(--ob-btn, #1558c0) !important; }
+  :root:not([data-theme="dark"]) .labs-cta.lx-ghost { color: var(--blue-deep) !important; border-color: var(--blue-deep) !important; }
   :root:not([data-theme="dark"]) .lx-tag, :root:not([data-theme="dark"]) .lx-try { color: var(--blue-deep) !important; }
 }
 
