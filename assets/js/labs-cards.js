@@ -59,7 +59,7 @@
       } },
     { tag: 'SETUP REVIEW', title: 'How each of your setups compares with random entries, after recorded commissions. Based on your past trades only.',
       why: "A good week doesn't tell you if a setup is better than chance. Setup Review compares each one with random entries taken at the same moments.",
-      det: ["Measured about an hour after each trade, from NinjaTrader's own data on your PC.", 'Shown in R after commissions, never a win rate on its own.', 'Each setup is shown as ahead of, or behind, random entries so far, so you can decide for yourself.'],
+      det: ["Measured about an hour after each trade, from NinjaTrader's own data on your PC.", 'Shown in R after recorded commissions, never a win rate on its own.', 'Each setup is shown as ahead of, or behind, random entries so far, so you can decide for yourself.'],
       tip: 'Drag the slider to add measured trades. Nothing is compared before 20 measured trades.',
       mount: function (el) {
         var self = this, n = S.edge.n, ok = n >= 20;
