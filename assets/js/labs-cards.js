@@ -57,19 +57,19 @@
         el.querySelector('#jr').oninput = function (e) { s.risk = +e.target.value; self.mount(el); focusKeep(el, '#jr'); };
         [].forEach.call(el.querySelectorAll('.lx-row'), function (r) { r.onclick = function () { var i = +r.getAttribute('data-i'); s.open = s.open === i ? -1 : i; self.mount(el); }; });
       } },
-    { tag: 'EDGE CHECK', title: 'Know whether a setup is doing anything',
-      why: "A good week doesn't tell you if a setup works. Edge check compares each one with random entries taken at the same moments.",
-      det: ["Measured about an hour after each trade, from NinjaTrader's own data on your PC.", 'Shown in R after commissions, never a win rate on its own.', 'A setup that is no better than random is flagged, so you decide with the facts.'],
-      tip: 'Drag the slider to add measured trades. Nothing is judged before 30.',
+    { tag: 'SETUP REVIEW', title: 'How each of your setups compares with random entries, after costs. Based on your past trades only.',
+      why: "A good week doesn't tell you if a setup has an edge. Setup Review compares each one with random entries taken at the same moments.",
+      det: ["Measured about an hour after each trade, from NinjaTrader's own data on your PC.", 'Shown in R after commissions, never a win rate on its own.', 'Each setup is shown as ahead of, or behind, random entries so far, so you decide with the facts.'],
+      tip: 'Drag the slider to add measured trades. Nothing is compared before 20 measured trades.',
       mount: function (el) {
-        var self = this, n = S.edge.n, ok = n >= 30;
+        var self = this, n = S.edge.n, ok = n >= 20;
         function line(name, mine, rnd, good) {
-          return '<div style="margin-top:10px"><b>' + name + '</b> <span class="lx-chip ' + (ok ? (good ? 'lx-win' : 'lx-warn') : '') + '">' + (ok ? (good ? 'ahead of random so far' : 'no better than random') : 'measuring ' + n + ' of 30') + '</span><div class="lx-bar"><i style="width:' + Math.min(100, n / 30 * 100) + '%;' + (ok && !good ? 'background:var(--lx-loss)' : '') + '"></i></div><small class="lx-fine">' + (ok ? mine + ' vs random ' + rnd : 'needs 30 measured trades before it says anything') + '</small></div>';
+          return '<div style="margin-top:10px"><b>' + name + '</b> <span class="lx-chip ' + (ok ? (good ? 'lx-win' : 'lx-warn') : '') + '">' + (ok ? (good ? 'AHEAD OF RANDOM, SO FAR' : 'BEHIND RANDOM, SO FAR') : 'NOT ENOUGH TRADES YET') + '</span><div class="lx-bar"><i style="width:' + Math.min(100, n / 20 * 100) + '%;' + (ok && !good ? 'background:var(--lx-loss)' : '') + '"></i></div><small class="lx-fine">' + (ok ? mine + ' vs random ' + rnd : 'needs 30 measured trades before it says anything') + '</small></div>';
         }
         el.innerHTML = '<div class="lx-cap"><span>SETUPS VS RANDOM &middot; <span class="lx-try">TRY IT</span></span><span>SAMPLE DATA</span></div>' +
           '<div class="lx-lab"><span>Trades measured</span><b>' + n + '</b></div><input type="range" id="en" aria-label="Trades measured" min="0" max="40" value="' + n + '">' +
           line('Setup A', '+0.12R', '+0.04R', true) + line('Setup B', '−0.05R', '+0.03R', false) +
-          '<p class="lx-fine" style="margin-top:10px">Random entries are taken at the same moments, with the same stop and holding time, using NinjaTrader\'s own data on your PC.</p>';
+          '<p class="lx-fine" style="margin-top:10px">Random entries are taken at the same moments, with the same stop and holding time, using NinjaTrader\'s own data on your PC. Based on your past trades only. It says nothing about future results.</p>';
         el.querySelector('#en').oninput = function (e) { S.edge.n = +e.target.value; self.mount(el); focusKeep(el, '#en'); };
       } },
     { tag: 'PAYOUT GUARD', title: 'See your prop-firm rules before they cost you',
