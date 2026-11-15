@@ -492,7 +492,7 @@
     <header class="page-head"><h1>Privacy Policy</h1></header>
     <article class="legal">
 
-<p class="meta">Effective October 14, 2026 &middot; Updated November 10, 2026</p>
+<p class="meta">Effective October 14, 2026 &middot; Updated November 15, 2026</p>
 <div class="legal-toc"><a href="terms.html">Terms of Service</a><a href="privacy.html">Privacy Policy</a>
 <a href="refund-policy.html">Refund Policy</a><a href="risk-disclaimer.html">Risk Disclaimer</a></div>
 <div class="callout"><b>In short.</b> We collect what is needed to run your journal: your email, your sign-in security, and the trades your
@@ -510,8 +510,18 @@ Our business registration details, mailing address and phone number will be publ
   <tr><td><b>Sign-in security</b>: two-step sign-in secret (encrypted), recovery codes (hashed), session records, scrambled (hashed) IP addresses and counts of sign-in attempts</td><td>To protect your account and limit abuse.</td></tr>
   <tr><td><b>Trades from your paired computers</b>: instrument, side, size, prices, stops, results in points, dollars and R, times, the name of the strategy or tag, the account type (simulation, prop or live) and the name you gave the computer. <b>Broker account names are removed before they are stored.</b></td><td>To provide your journal, statistics and CSV export.</td></tr>
   <tr><td><b>Support messages</b> you send us, from the Support page or by email to support@mgequant.com: your email address, the subject, the message and our replies. Emails to support@mgequant.com are also kept in our support system and in our own mailbox</td><td>To answer you.</td></tr>
+  <tr><td><b>MGE Payout Guard news-list download</b>: the add-on in NinjaTrader asks our server for a short list of scheduled economic-news times. The request carries no account name, balance, position, setting or sign-in; it shows our server your computer's network address and the time, plus the standard information a web client sends with every request (details below)</td><td>To send the scheduled-news list to MGE Payout Guard.</td></tr>
   <tr><td><b>Billing</b>: subscription status and notifications from the payment provider (plan, dates, an order reference). Not your card number.</td><td>To unlock your plan and keep business records.</td></tr>
 </table>
+<h3>MGE Payout Guard: news-list download</h3>
+<ul>
+  <li><b>What it does.</b> MGE Payout Guard downloads a short list of scheduled economic-news times (a time and a short name, for example central-bank decisions and jobs reports) from MGEQuant's own server. It uses an encrypted connection and downloads at most once every 12 hours while NinjaTrader is running with the add-on. It does this whether or not you use the news blackout rule; there is no setting to turn the download off.</li>
+  <li><b>Why.</b> The news blackout rule uses this list to know when scheduled news is due.</li>
+  <li><b>What the request carries.</b> The request carries no account name, balance, position, setting or sign-in. Like any web request, it shows our server your computer's network address and the time, plus the standard information a web client sends with every request.</li>
+  <li><b>Where the list is kept.</b> The list is kept in a small text file in the tool's own folder on your PC until the next download replaces it.</li>
+  <li><b>What we keep.</b> Our hosting provider keeps a short technical log of requests to our servers (the time, the address requested, your network address, your device's software line, and the approximate location, down to city and postal code, and internet provider worked out from the network address) for about 3 days, for security and fault-finding. We keep nothing else about these requests.</li>
+  <li><b>Other internet use.</b> In the current version of the Journal edition, this download is the only internet use of MGE Payout Guard. The news times you type yourself are applied on your PC and are not sent to us.</li>
+</ul>
 <h2>3. Cookies and similar technology</h2>
 <p>MGE Labs uses one essential cookie to keep you signed in (up to 30 days). Your browser also stores a few preferences on your own device (for
 example sound and theme). There are no advertising, analytics or tracking cookies. mgequant.com itself sets no cookies.</p>
@@ -535,6 +545,7 @@ We do not sell personal information and do not share it for advertising.</p>
     ask us to delete the account.</li>
   <li>Billing records: as long as tax law requires (in Canada, generally six years).</li>
   <li>Security records such as sign-in attempt counts: short periods only.</li>
+  <li>Our hosting provider keeps a short technical log of every request to our servers, including sign-in, the journal and downloads (the time, the address requested, your network address, your device's software line, and the approximate location, down to city and postal code, and internet provider worked out from the network address). It is kept for about 3 days, for security and fault-finding, and then deleted.</li>
   <li>Deleting your account removes your account and journal data within 30 days, except records we must keep by law.</li>
 </ul>
 
