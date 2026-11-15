@@ -44,7 +44,7 @@ The generator is only allowed to discover. It never judges. The data is split th
 
 Two flaws were caught before any real result counted. The random control first drew entries from every hour of the day, so a rule that only fired in the strongest hours "beat random" by timing alone; every trade is now compared with random entries from the same hour, direction and stop size. And a daily loss lockout applied to the rules but not to the random control, which flattered the rules; grading now runs without it on both sides.
 
-On NQ, 13,608 rules were tried across two runs. One cleared every discovery gate. On the confirmation period it lost to its random control. That is the expected shape of a search this wide: the best of thirteen thousand tries is mostly luck, and the confirmation period exists to show it. The holdout stays sealed, and the confirmation period is now used up for this set of rules.
+On NQ, 13,608 rules were tried across two runs. One cleared every discovery gate. The one rule the search kept was tested once, on data it had never seen, and did no better than entering at random at the same hours, so we closed it. A test of that length cannot confirm or rule out a small edge, so the idea itself is not closed. That is why the next search will be checked against its own size before any fresh data is spent on it. The holdout stays sealed, and the confirmation period is now used up for this set of rules.
 
 ## September 25 — Bar-type sequences: no configuration passed
 
