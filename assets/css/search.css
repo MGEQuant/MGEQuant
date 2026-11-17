@@ -274,5 +274,22 @@ footer nav a { min-width: 44px; justify-content: center; }
 .beta-cta { text-align: center; margin-top: 20px; padding-top: 18px; border-top: 1px solid color-mix(in srgb, #1558c0 35%, var(--border)); }
 .labs-cta.beta-btn { padding: 14px 34px; border-radius: 999px; font-size: 1.1rem; letter-spacing: .04em; text-transform: uppercase; background: linear-gradient(180deg, #2f7bf0, #1558c0) !important; color: #fff !important; box-shadow: 0 10px 30px -10px rgba(31,102,214,.9); }
 .beta-sub { margin: 12px 0 2px; font-style: italic; }
+.beta-how { font-size: 1.3rem; margin: 6px 0 12px; text-align: center; }
+.beta-steps { list-style: none; counter-reset: bs; max-width: 580px; margin: 0 auto 6px; padding: 0; text-align: left; }
+.beta-steps > li { counter-increment: bs; position: relative; padding: 4px 0 12px 48px; min-height: 34px; }
+.beta-steps > li::before { content: counter(bs); position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(180deg, #2f7bff, #1558c0); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(47, 123, 255, .35); }
+.beta-q { list-style: none; counter-reset: bq; margin: 10px 0 2px; padding: 10px 14px; border-left: 3px solid #2f7bff; border-radius: 0 10px 10px 0; background: rgba(47, 123, 255, .10); }
+.beta-q li { counter-increment: bq; padding: 2px 0; }
+.beta-q li::before { content: counter(bq) ". "; color: #4d8fff; font-weight: 700; }
+:root[data-theme="light"] .beta-q li::before { color: #1558c0; }
+.beta-actions { text-align: center; margin: 10px 0 4px; }
+.beta-copy { font: inherit; font-size: .95rem; padding: 9px 16px; margin: 3px 6px 3px 0; border-radius: 999px; cursor: pointer; border: 1.5px solid #2f7bff; background: transparent; color: #4d8fff; }
+.beta-copy-main { background: linear-gradient(180deg, #2f7bff, #1558c0); color: #fff; border-color: transparent; }
+:root[data-theme="light"] .beta-copy { color: #1558c0; border-color: #1558c0; }
+:root[data-theme="light"] .beta-copy-main { color: #fff; }
+.beta-copied { font-size: .9rem; opacity: .9; }
+.beta-alt { text-align: center; margin: 4px 0 6px; font-size: .92rem; }
+.beta-alt a { color: #6ea8ff; text-decoration: underline; }
+:root[data-theme="light"] .beta-alt a { color: #1558c0; }
 @media (max-width: 720px) { .beta-grid { grid-template-columns: 1fr; } .beta-col { padding: 4px 0; } .beta-col + .beta-col { border-left: 0; border-top: 1px solid color-mix(in srgb, #1558c0 45%, var(--border)); margin-top: 14px; padding-top: 14px; } .labs-cta.beta-btn { display: block; padding: 15px 16px; font-size: 1.05rem; text-align: center; } .beta-call { padding: 18px 16px !important; } #beta { margin-top: -28px; } }
 .beta-title { margin: 6px 0 4px; font-size: 1.5rem; } .beta-lead { margin: 0 0 4px; }
