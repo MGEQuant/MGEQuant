@@ -127,7 +127,7 @@
       } },
     { tag: 'TILT GUARD', title: 'Catch the habits that follow a loss',
       why: 'The costly trade is often the one right after a loss. Tilt Guard warns you about it in NinjaTrader, and the journal shows how you trade in those minutes.',
-      det: ['Four habit rules: a cooldown after a losing trade, stop after N losses in a row, no bigger size after a loss, too many trades too fast.', 'Warns by default; you choose the limits on the Rules tab.', 'The journal Tilt card shows your trades right after a loss against the rest, by the minute window you pick, in R or dollars.'],
+      det: ['Four habit rules: a cooldown after a losing trade, stop after N losses in a row, no bigger size after a loss, too many trades too fast.', 'Warns you; you choose the limits on the Rules tab.', 'The journal Tilt card shows your trades right after a loss against the rest, by the minute window you pick, in R or dollars.'],
       tip: 'Move the cooldown and the loss limit and watch which sample trades get flagged.',
       mount: function (el) {
         var self = this, s = S.tilt;
