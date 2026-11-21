@@ -4,7 +4,9 @@ date: "2026-10-23"
 title: "Platform — October 2026"
 ---
 
-## October 13–15 — MGE Labs: a trade journal for NinjaTrader 8, in private beta
+<a id="october-1315--mge-labs-a-trade-journal-for-ninjatrader-8-in-private-beta"></a>
+
+## October 13–15 — MGE Labs: a trade journal for NinjaTrader 8, in private beta {#october-1315--mge-labs-a-trade-journal-in-private-beta}
 
 A journal that collects every closed trade from the PCs you trade on into one place, scored in R against the risk you set. It covers automated strategies and hand trades, and hand trades can be tagged with your own setup names. Win rate is only ever shown next to expectancy in R. It runs in the browser and can be installed as an app.
 

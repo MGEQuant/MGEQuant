@@ -4,7 +4,9 @@ date: "2026-09-26"
 title: "Platform — September 2026"
 ---
 
-## September 12 — NinjaTrader recovered: compiling again after a month on a stale assembly
+<a id="september-12--ninjatrader-recovered-compiling-again-after-a-month-on-a-stale-assembly"></a>
+
+## September 12 — NinjaTrader recovered: compiling again after a month on a stale assembly {#september-12--platform-recovered-compiling-again-after-a-month-on-a-stale-assembly}
 
 The laptop running the strategy fleet had not successfully compiled since August 10. A shared C# library was deployed into bin\Custom, where NinjaTrader compiles every .cs file it finds at startup, and the platform stopped opening at all. The uninstaller failed too, so the fix was a full reinstall.
 

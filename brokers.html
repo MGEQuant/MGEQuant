@@ -510,7 +510,7 @@
           </tbody>
         </table>
       </div>
-      <p class="labs-fine">Other platforms (MetaTrader, TradingView, Thinkorswim and others): not yet. MGE Labs runs inside NinjaTrader 8. An import for other platforms is being considered; it would cover the journal but not Setup Review, which needs NinjaTrader's data on your PC.</p>
+      <p class="labs-fine">Other platforms (MetaTrader, TradingView, Thinkorswim and others): MGE Labs runs inside NinjaTrader 8 only.</p>
     </section>
 
     <section id="faq">
@@ -550,15 +550,15 @@
     ['Simulation', 'ok', 'Sim accounts are recorded like any other account.'],
     ['Sim', 'ok', 'Sim accounts are recorded like any other account.'],
     ['Playback', 'nope', 'Playback and backtest accounts are not recorded, on purpose: replays are not real trades.'],
-    ['MetaTrader', 'nope', 'Not yet: MGE Labs runs inside NinjaTrader 8.'],
-    ['MT4', 'nope', 'Not yet: MGE Labs runs inside NinjaTrader 8.'],
-    ['MT5', 'nope', 'Not yet: MGE Labs runs inside NinjaTrader 8.'],
-    ['TradingView', 'nope', 'Not yet: MGE Labs runs inside NinjaTrader 8.'],
-    ['Thinkorswim', 'nope', 'Not yet: MGE Labs runs inside NinjaTrader 8.'],
-    ['Sierra Chart', 'nope', 'Not yet: MGE Labs runs inside NinjaTrader 8.'],
-    ['Quantower', 'nope', 'Not yet: MGE Labs runs inside NinjaTrader 8.']
+    ['MetaTrader', 'nope', 'Not supported: MGE Labs runs inside NinjaTrader 8 only.'],
+    ['MT4', 'nope', 'Not supported: MGE Labs runs inside NinjaTrader 8 only.'],
+    ['MT5', 'nope', 'Not supported: MGE Labs runs inside NinjaTrader 8 only.'],
+    ['TradingView', 'nope', 'Not supported: MGE Labs runs inside NinjaTrader 8 only.'],
+    ['Thinkorswim', 'nope', 'Not supported: MGE Labs runs inside NinjaTrader 8 only.'],
+    ['Sierra Chart', 'nope', 'Not supported: MGE Labs runs inside NinjaTrader 8 only.'],
+    ['Quantower', 'nope', 'Not supported: MGE Labs runs inside NinjaTrader 8 only.']
   ];
-  var LABEL = { ok: 'YES', cond: 'YES, VIA NINJATRADER 8', nope: 'NOT YET' };
+  var LABEL = { ok: 'YES', cond: 'Yes, via NinjaTrader 8', nope: 'NO' };
   var CLS = { ok: 'bk-ok', cond: 'bk-cond', nope: 'bk-nope' };
   var q = document.getElementById('bk-q'), out = document.getElementById('bk-result');
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
