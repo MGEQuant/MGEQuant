@@ -26,10 +26,28 @@
     '.mbq-o button:hover,.mbq-o button:focus{border-color:#c9a25e}',
     '.mbq-fit{color:#c9a25e;font-weight:800;margin:0 0 .3em}',
     '.mbq-go{display:inline-block;font-weight:700;border-radius:9px;padding:10px 16px;background:#c9a25e;color:#1b1408 !important;text-decoration:none;margin-right:10px}',
-    '.mbq-again{font:inherit;background:none;border:0;color:inherit;opacity:.75;cursor:pointer;text-decoration:underline}'
+    '.mbq-again{font:inherit;background:none;border:0;color:inherit;opacity:.75;cursor:pointer;text-decoration:underline}',
+    '.mbq-mail{border:1px solid #2a2e35;border-radius:10px;padding:12px;margin:8px 0}.mbq-mail>div{margin:2px 0 6px}.mbq-mail span{opacity:.7}',
+    '.mbq-text{width:100%;box-sizing:border-box;margin:6px 0 8px;background:transparent;color:inherit;border:1px solid #2a2e35;border-radius:8px;padding:8px;font:14px/1.45 ui-monospace,Consolas,monospace;resize:vertical}',
+    '.mbq-copy{font:inherit;font-size:.9rem;border:1px solid #c9a25e;background:transparent;color:#c9a25e;border-radius:8px;padding:4px 10px;cursor:pointer;margin-left:6px}',
+    '.mbq-copy-main{background:#c9a25e;color:#1b1408;font-weight:700;padding:8px 14px;margin-left:0}',
+    '.mbq-said{color:#c9a25e;font-weight:700;margin-left:6px}.mbq-alt{font-size:.9rem;opacity:.85;margin:.6em 0 0}'
   ].join('\n');
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
+  function copyText(t, said, area) {
+    function ok(m) { if (said) { said.textContent = m; setTimeout(function () { said.textContent = ''; }, 3000); } }
+    function fallback() {
+      var ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+      var done = false; try { done = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      if (!done && area) { area.focus(); area.select(); }
+      ok(done ? 'Copied' : 'Press Ctrl+C to copy');
+    }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(function () { ok('Copied'); }, fallback);
+    else fallback();
+  }
   function closed() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
   function remember() { try { localStorage.setItem(KEY, '1'); } catch (e) {} }
 
@@ -58,9 +76,17 @@
       if (A[0] === 'Yes') {
         var text = 'Hi MGEQuant,\n\nI would like to test MGE Labs.\nNinjaTrader 8 on Windows: ' + A[0] + '\nI trade: ' + A[1] +
           '\nAccounts: ' + A[2] + '\n\n(I will not add account names, numbers or screenshots.)';
-        body.innerHTML = '<p class="mbq-fit">Looks like a fit.</p><p>30 days free, no card. Your answers are already in the e-mail; just press send. If we invite you, we reply with your sign-up link.</p>' +
-          '<a class="mbq-go" href="mailto:' + ADDRESS + '?subject=beta&body=' + encodeURIComponent(text) + '">Open my e-mail to join</a>' +
-          '<button type="button" class="mbq-again">Start over</button>';
+        body.innerHTML = '<p class="mbq-fit">Looks like a fit.</p><p>30 days free, no card. Send this short e-mail from any mailbox you use (web mail is fine). If we invite you, we reply with your sign-up link.</p>' +
+          '<div class="mbq-mail"><div><span>To:</span> ' + ADDRESS + ' <button type="button" class="mbq-copy" data-c="a">Copy address</button></div>' +
+          '<div><span>Subject:</span> beta</div>' +
+          '<textarea class="mbq-text" readonly rows="7" aria-label="E-mail text">' + text.replace(/</g, '&lt;') + '</textarea>' +
+          '<button type="button" class="mbq-copy mbq-copy-main" data-c="t">Copy the e-mail text</button> <span class="mbq-said" aria-live="polite"></span></div>' +
+          '<p class="mbq-alt">Use a mail app on this computer? <a href="mailto:' + ADDRESS + '?subject=beta&body=' + encodeURIComponent(text) + '">Open it there</a>. &middot; <button type="button" class="mbq-again">Start over</button></p>';
+        var said = body.querySelector('.mbq-said');
+        var copyBtns = body.querySelectorAll('.mbq-copy');
+        for (var c = 0; c < copyBtns.length; c++) copyBtns[c].addEventListener('click', function (e) {
+          copyText(e.currentTarget.getAttribute('data-c') === 'a' ? ADDRESS : text, said, body.querySelector('.mbq-text'));
+        });
       } else {
         body.innerHTML = '<p><b>MGE Labs runs inside NinjaTrader 8 on Windows.</b> When you are set up, you are welcome to come back.</p>' +
           '<button type="button" class="mbq-again">Start over</button>';
