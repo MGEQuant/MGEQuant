@@ -154,3 +154,11 @@
 .mge-chat-ask.is-off, .mge-chat-human.is-off { opacity: 0.45; cursor: not-allowed; }
 .mge-chat-ask.is-off input, .mge-chat-ask.is-off button { cursor: not-allowed; }
 .mge-chat-ask.is-off button { background: var(--border, #1e222b); color: var(--text-dim, #7d8390); }
+.mge-chat-addr span { color: var(--silver, #e6e8ec); font-weight: 600; }
+.mge-chat-copy {
+  font: inherit; font-size: 0.8rem; cursor: pointer; border-radius: 8px; padding: 4px 10px;
+  border: 1px solid var(--blue, #3b8bff); background: transparent; color: var(--blue-dim, #6fa8ff);
+}
+.mge-chat-copy:hover { background: rgba(59, 139, 255, 0.14); }
+.mge-chat-said { color: var(--blue-dim, #6fa8ff); font-weight: 600; margin-left: 4px; }
+.mge-chat-small { font-size: 0.78rem; color: var(--text-dim, #7d8390); }

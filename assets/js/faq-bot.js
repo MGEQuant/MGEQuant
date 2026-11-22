@@ -3,9 +3,10 @@
 
   // Switches for the two support channels. Both stay OFF (greyed, "coming soon") until the owner turns them on:
   //   AI_ON    - "Ask anything": answers from an AI that only knows this site (needs the site chat route + an AI key).
-  //   HUMAN_ON - "Talk to a human": the message lands in the MGE support inbox; the reply comes by email.
+  //   HUMAN_ON - "Talk to a human": shows our support e-mail address with copy buttons; a person replies by e-mail.
   var AI_ON = false;
-  var HUMAN_ON = false;
+  var HUMAN_ON = true;
+  var SUPPORT = "support@mgequant.com";
 
   var FAQ = [
     {
@@ -90,6 +91,7 @@
       "&#128100; Talk to a human" + (HUMAN_ON ? "" : " <small>coming soon</small>"));
     human.type = "button";
     human.disabled = !HUMAN_ON;
+    if (HUMAN_ON) human.addEventListener("click", function () { showHuman(); });
 
     var extra = el("div", "mge-chat-extra");
     extra.appendChild(ask);
@@ -116,6 +118,41 @@
       var ans = el("div", "mge-chat-answer");
       ans.innerHTML = "<b>" + item.q + "</b><p>" + item.a + "</p>";
       body.appendChild(ans);
+      var back = el("button", "mge-chat-back", "&larr; Back to questions");
+      back.type = "button";
+      back.addEventListener("click", showMenu);
+      body.appendChild(back);
+    }
+
+    function copyText(t, said) {
+      function ok(m) { said.textContent = m; setTimeout(function () { said.textContent = ""; }, 3000); }
+      function fallback() {
+        var ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", "");
+        ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+        var done = false; try { done = document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta);
+        ok(done ? "Copied" : "Select the text and press Ctrl+C");
+      }
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(function () { ok("Copied"); }, fallback);
+      else fallback();
+    }
+
+    function showHuman() {
+      var start = "Hi MGEQuant,\n\nMy question:\n\n";
+      body.innerHTML = "";
+      var box = el("div", "mge-chat-answer mge-chat-mail");
+      box.innerHTML = "<b>Talk to a person</b>" +
+        "<p>Write to us by e-mail from any mailbox you use. A person reads every message and replies by e-mail.</p>" +
+        "<p class=\"mge-chat-addr\"><span>" + SUPPORT + "</span> <button type=\"button\" class=\"mge-chat-copy\" data-c=\"a\">Copy address</button></p>" +
+        "<p><button type=\"button\" class=\"mge-chat-copy\" data-c=\"t\">Copy a starter message</button> <span class=\"mge-chat-said\" aria-live=\"polite\"></span></p>" +
+        "<p class=\"mge-chat-small\">Please do not send passwords, account numbers or screenshots that show your account. Questions only, no trade advice.</p>" +
+        "<p class=\"mge-chat-small\">Use a mail app on this computer? <a href=\"mailto:" + SUPPORT + "?subject=" + encodeURIComponent("Question from the website") + "\">Open it there</a>.</p>";
+      body.appendChild(box);
+      var said = box.querySelector(".mge-chat-said");
+      var cb = box.querySelectorAll(".mge-chat-copy");
+      for (var i = 0; i < cb.length; i++) cb[i].addEventListener("click", function (e) {
+        copyText(e.currentTarget.getAttribute("data-c") === "a" ? SUPPORT : start, said);
+      });
       var back = el("button", "mge-chat-back", "&larr; Back to questions");
       back.type = "button";
       back.addEventListener("click", showMenu);
