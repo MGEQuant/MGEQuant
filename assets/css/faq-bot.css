@@ -162,3 +162,52 @@
 .mge-chat-copy:hover { background: rgba(59, 139, 255, 0.14); }
 .mge-chat-said { color: var(--blue-dim, #6fa8ff); font-weight: 600; margin-left: 4px; }
 .mge-chat-small { font-size: 0.78rem; color: var(--text-dim, #7d8390); }
+
+/* Home screen (greeting, contact card, search, quick links). */
+.mge-chat-panel { width: 340px; }
+.mge-chat-panel.is-home .mge-chat-head {
+  align-items: flex-start;
+  padding: 22px 18px 34px;
+  border-bottom: none;
+  background: linear-gradient(180deg, var(--blue-deep, #1e6fff), var(--blue, #3b8bff));
+  color: #fff;
+}
+.mge-chat-panel.is-home .mge-chat-head button { color: #fff; }
+.mge-chat-hello { font-size: 0.95rem; line-height: 1.3; }
+.mge-chat-hello br { display: none; }
+.mge-chat-panel.is-home .mge-chat-hello { font-size: 1.3rem; }
+.mge-chat-panel.is-home .mge-chat-hello br { display: inline; }
+.mge-chat-panel.is-home .mge-chat-body { margin-top: -20px; padding-top: 0; }
+.mge-chat-card, .mge-chat-row, .mge-chat-search { box-sizing: border-box; }
+.mge-chat-card {
+  display: block;
+  width: 100%;
+  background: var(--bg-panel, #0d0f14);
+  border: 1px solid var(--border, #1e222b);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  padding: 6px;
+  box-shadow: 0 8px 22px -14px rgba(0, 0, 0, 0.7);
+  font: inherit;
+  color: var(--silver, #e6e8ec);
+}
+.mge-chat-contact {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px; font-weight: 700; font-size: 0.92rem; cursor: pointer; text-align: left;
+}
+.mge-chat-contact i { font-style: normal; color: var(--blue, #3b8bff); }
+.mge-chat-contact:hover { border-color: var(--blue, #3b8bff); }
+.mge-chat-search { display: flex; margin: 0 0 4px; background: rgba(125, 131, 144, 0.14); border-radius: 9px; }
+.mge-chat-search input {
+  flex: 1; min-width: 0; border: none; background: transparent; color: var(--text, #c7cbd4);
+  padding: 11px 12px; font: inherit; font-size: 0.88rem; font-weight: 600;
+}
+.mge-chat-search input:focus { outline: 2px solid var(--blue, #3b8bff); outline-offset: -2px; border-radius: 9px; }
+.mge-chat-search button { border: none; background: none; cursor: pointer; padding: 0 12px; font-size: 0.9rem; }
+.mge-chat-row {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  padding: 10px 12px; border: none; background: none; border-radius: 8px; cursor: pointer;
+  color: var(--text, #c7cbd4); font: inherit; font-size: 0.87rem; text-align: left; text-decoration: none;
+}
+.mge-chat-row i { font-style: normal; font-size: 1.2rem; line-height: 1; color: var(--blue, #3b8bff); }
+.mge-chat-row:hover { background: rgba(59, 139, 255, 0.12); color: var(--silver, #e6e8ec); }

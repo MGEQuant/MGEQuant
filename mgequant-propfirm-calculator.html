@@ -133,7 +133,7 @@
       .rules{grid-template-columns:1fr}.verdict{flex-wrap:wrap}.verdict .prog{margin:0;width:100%}.fields{grid-template-columns:1fr}.chip-brand{margin:6px 0 0}}
     @media (prefers-reduced-motion: reduce){*{transition:none!important}}
   </style>
-  <link rel="stylesheet" href="/assets/css/faq-bot.css?v=3">
+  <link rel="stylesheet" href="/assets/css/faq-bot.css?v=4">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/favicon-48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96.png">
@@ -396,7 +396,7 @@ if (matchMedia('(max-width: 640px)').matches) document.querySelectorAll('details
 const qp = new URLSearchParams(location.search).get('preset');
 if (qp && presets[qp]) { applyPreset(qp); document.querySelectorAll('details.step').forEach((d) => { d.open = d.querySelector('#pnlInput') !== null || d.querySelector('#payoutGate') !== null; }); } else calculate();
 </script>
-<script src="/assets/js/faq-bot.js?v=3" defer></script>
+<script src="/assets/js/faq-bot.js?v=4" defer></script>
 <script src="/assets/js/search.js" defer></script>
 <script src="/assets/js/beta-card.js?v=2" defer></script>
 </body>

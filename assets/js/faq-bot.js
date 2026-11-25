@@ -43,6 +43,15 @@
     }
   ];
 
+  // Home screen: quick links shown under the search box.
+  var LINKS = [
+    { t: "Apply to test MGE Labs", h: "/labs.html#beta" },
+    { t: "What is MGE Labs?", h: "/labs.html" },
+    { t: "Does it support my broker?", h: "/brokers.html" },
+    { t: "Terms of Service", h: "/terms.html" },
+    { t: "Privacy Policy", h: "/privacy.html" }
+  ];
+
   function el(tag, cls, html) {
     var e = document.createElement(tag);
     if (cls) e.className = cls;
@@ -62,7 +71,7 @@
     panel.setAttribute("aria-label", "MGEQuant help");
 
     var head = el("div", "mge-chat-head");
-    head.appendChild(el("span", null, "MGEQuant Help"));
+    head.appendChild(el("span", "mge-chat-hello", "Hi there &#128075;<br>How can we help?"));
     var closeBtn = el("button", null, "&times;");
     closeBtn.type = "button";
     closeBtn.setAttribute("aria-label", "Close help chat");
@@ -99,10 +108,49 @@
 
     panel.appendChild(head);
     panel.appendChild(body);
-    panel.appendChild(extra);
+    if (AI_ON) panel.appendChild(extra);
     panel.appendChild(foot);
 
+    function showHome() {
+      panel.classList.add("is-home");
+      body.innerHTML = "";
+      var contact = el("button", "mge-chat-card mge-chat-contact", "<span>Contact support</span><i aria-hidden=\"true\">&#10148;</i>");
+      contact.type = "button";
+      contact.addEventListener("click", showHuman);
+      body.appendChild(contact);
+
+      var card = el("div", "mge-chat-card");
+      var form = el("form", "mge-chat-search");
+      form.action = "/search.html";
+      form.method = "get";
+      var q = el("input");
+      q.type = "search"; q.name = "q"; q.maxLength = 80; q.placeholder = "Search for help";
+      q.setAttribute("aria-label", "Search the site");
+      var go = el("button", null, "&#128269;");
+      go.type = "submit"; go.setAttribute("aria-label", "Search");
+      form.appendChild(q); form.appendChild(go);
+      card.appendChild(form);
+      LINKS.forEach(function (l) {
+        var a = el("a", "mge-chat-row", "<span>" + l.t + "</span><i aria-hidden=\"true\">&rsaquo;</i>");
+        a.href = l.h;
+        card.appendChild(a);
+      });
+      var more = el("button", "mge-chat-row", "<span>Common questions</span><i aria-hidden=\"true\">&rsaquo;</i>");
+      more.type = "button";
+      more.addEventListener("click", showMenu);
+      card.appendChild(more);
+      body.appendChild(card);
+    }
+
+    function backBtn(label, fn) {
+      var back = el("button", "mge-chat-back", "&larr; " + label);
+      back.type = "button";
+      back.addEventListener("click", fn);
+      return back;
+    }
+
     function showMenu() {
+      panel.classList.remove("is-home");
       body.innerHTML = "";
       body.appendChild(el("p", null, "What do you want to know?"));
       FAQ.forEach(function (item) {
@@ -111,6 +159,7 @@
         qBtn.addEventListener("click", function () { showAnswer(item); });
         body.appendChild(qBtn);
       });
+      body.appendChild(backBtn("Back", showHome));
     }
 
     function showAnswer(item) {
@@ -138,6 +187,7 @@
     }
 
     function showHuman() {
+      panel.classList.remove("is-home");
       var start = "Hi MGEQuant,\n\nMy question:\n\n";
       body.innerHTML = "";
       var box = el("div", "mge-chat-answer mge-chat-mail");
@@ -153,10 +203,7 @@
       for (var i = 0; i < cb.length; i++) cb[i].addEventListener("click", function (e) {
         copyText(e.currentTarget.getAttribute("data-c") === "a" ? SUPPORT : start, said);
       });
-      var back = el("button", "mge-chat-back", "&larr; Back to questions");
-      back.type = "button";
-      back.addEventListener("click", showMenu);
-      body.appendChild(back);
+      body.appendChild(backBtn("Back", showHome));
     }
 
     function open() {
@@ -173,7 +220,7 @@
     });
     closeBtn.addEventListener("click", close);
 
-    showMenu();
+    showHome();
     document.body.appendChild(btn);
     document.body.appendChild(panel);
   }
