@@ -470,6 +470,15 @@
 <link rel="stylesheet" href="/assets/css/h2.css">
 <script src="/assets/js/h2.js" defer></script>
 <link rel="stylesheet" href="/assets/css/pipeline.css">
+<style>
+  .tw-sec { margin: 26px 0 8px; }
+  .tw { display: grid; grid-template-columns: minmax(0, 1.7fr) auto; gap: 22px; align-items: center; padding: 22px 24px !important; border-left: 3px solid var(--blue); }
+  .tw-k { color: var(--blue); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; }
+  .tw h2 { margin: 6px 0 6px; font-size: 1.3rem; }
+  .tw p { margin: 0; color: var(--text-dim); }
+  .tw-b { display: flex; flex-direction: column; gap: 10px; text-align: center; min-width: 200px; }
+  @media (max-width: 820px) { .tw { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#hero">Skip to main content</a>
@@ -549,6 +558,13 @@
           <p>MGE Labs is a trade journal for NinjaTrader 8. It is in private beta, so it is not open to everyone yet. Software only, not advice.</p>
           <div class="door-links"><a class="main" href="labs.html">What is MGE Labs?</a><a href="brokers.html">Does it support my broker?</a></div>
         </div>
+      </div>
+    </section>
+
+    <section class="solo tw-sec" id="testers" aria-labelledby="tw-h">
+      <div class="panel glass tw">
+        <div><span class="tw-k">TESTERS WANTED</span><h2 id="tw-h">Test MGE Labs free for 30 days</h2><p>Help shape a trade journal built for NinjaTrader 8 traders. Free, no card needed. Software only: no signals, no advice. We start with a small group.</p></div>
+        <div class="tw-b"><a class="btn btn-solid" href="labs.html#beta">Apply to test</a><a class="btn btn-ghost" href="labs.html">What is MGE Labs?</a></div>
       </div>
     </section>
 
@@ -632,10 +648,11 @@
       </div>
       <h3 class="shelf-sub">From the weekly notes: what failed</h3>
       <ul class="shelf-notes">
+        <li class="panel"><time datetime="2026-11-11">Nov 11, 2026</time><a href="https://mgequantnotes.substack.com/p/we-tested-13608-trading-rules-the" target="_blank" rel="noopener"><b>We tested 13,608 trading rules. The best one failed.</b></a><span>Why the winner of a big search is usually the luckiest rule, not the best one.</span></li>
         <li class="panel"><time datetime="2026-10-14">Oct 14, 2026</time><a href="https://mgequantnotes.substack.com/p/our-own-test-had-two-bugs-here-is" target="_blank" rel="noopener"><b>Our own test had two bugs. Here is how we caught them.</b></a><span>A control that beats the real strategy is a warning sign, not a discovery.</span></li>
         <li class="panel"><time datetime="2026-10-07">Oct 7, 2026</time><a href="https://mgequantnotes.substack.com/p/zero-wins-out-of-thirty-three-looked" target="_blank" rel="noopener"><b>Zero wins out of thirty-three looked like a disaster. It was a bug in the counting.</b></a><span>The scariest number on the screen that day was not a losing trade. It was a bug that had never lost a real one.</span></li>
-        <li class="panel"><time datetime="2026-09-21">Sep 21, 2026</time><a href="https://mgequantnotes.substack.com/p/a-passing-walk-forward-test-that" target="_blank" rel="noopener"><b>A passing walk-forward test that failed once the data was corrected</b></a><span>Both configurations got worse once the data was fixed. What we changed, and what stayed.</span></li>
       </ul>
+      <p style="margin:10px 0 0"><a class="sec-link" href="in-action.html#notes">All weekly notes &rarr;</a></p>
       <p class="gallery-note">No live results are claimed for anything still in use; forward tests are how we find out.</p>
     </section>
 
