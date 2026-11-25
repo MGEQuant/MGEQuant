@@ -1,22 +1,23 @@
-/* MGE Labs beta: slide-in card (all pages) + 3-tap "Is it for you?" (Labs page #beta).
+/* MGE Labs beta: centred pop-up card (all pages) + 3-tap "Is it for you?" (Labs page #beta).
    No tracking, no cookies: the only thing kept is the visitor's own "closed" choice in their browser. */
 (function () {
   var KEY = 'mge_beta_card_closed_v1';
   var ADDRESS = 'support@mgequant.com';
   var css = [
-    '.mbc{position:fixed;right:18px;bottom:18px;z-index:9000;width:min(380px,calc(100vw - 36px));background:#1a1d22;color:#eceff3;border:1px solid #2a2e35;border-radius:14px;padding:18px 18px 16px;box-shadow:0 24px 50px -20px rgba(0,0,0,.75);font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif;transform:translateY(130%);opacity:0;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .5s}',
-    '.mbc.on{transform:none;opacity:1}',
-    '.mbc-top{display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.12em;font-weight:700;padding-right:22px}',
+    '.mbc-bg{position:fixed;inset:0;z-index:8999;background:rgba(4,6,10,.62);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}',
+    '.mbc-bg.on{opacity:1;visibility:visible}',
+    '.mbc{position:fixed;left:50%;top:50%;z-index:9000;width:min(440px,calc(100vw - 32px));max-height:calc(100vh - 32px);overflow:auto;box-sizing:border-box;text-align:center;background:#1a1d22;color:#eceff3;border:1px solid #2a2e35;border-radius:14px;padding:26px 26px 20px;box-shadow:0 30px 70px -20px rgba(0,0,0,.85);font:16px/1.5 system-ui,Segoe UI,Arial,sans-serif;transform:translate(-50%,-46%);opacity:0;visibility:hidden;transition:transform .3s ease,opacity .3s,visibility .3s}',
+    '.mbc.on{transform:translate(-50%,-50%);opacity:1;visibility:visible}',
+    '.mbc-top{display:flex;justify-content:center;gap:10px;font-size:.72rem;letter-spacing:.12em;font-weight:700}',
     '.mbc-top b{color:#c9a25e;font-weight:700}.mbc-top span{color:#a3abb7}',
-    '.mbc h3{font-size:1.15rem;line-height:1.3;margin:.55em 0 .35em;color:#eceff3}',
+    '.mbc h3{font-size:1.3rem;line-height:1.3;margin:.55em 0 .35em;color:#eceff3}',
     '.mbc p{margin:0 0 .9em;color:#a3abb7;font-size:.94rem}',
     '.mbc-cta{display:inline-block;font-weight:700;border-radius:9px;padding:10px 16px;background:#c9a25e;color:#1b1408 !important;text-decoration:none}',
     '.mbc-cta:hover,.mbc-cta:focus{background:#d8b373}',
     '.mbc-later{font:inherit;background:none;border:0;color:#a3abb7;margin-left:10px;cursor:pointer;text-decoration:underline}',
     '.mbc-x{position:absolute;top:10px;right:12px;background:none;border:0;color:#a3abb7;font-size:22px;cursor:pointer;line-height:1}',
     '.mbc-fine{font-size:.76rem !important;margin:.8em 0 0 !important}',
-    '@media (max-width:520px){.mbc{right:10px;left:10px;bottom:10px;width:auto}}',
-    '@media (prefers-reduced-motion:reduce){.mbc{transition:none}}',
+        '@media (prefers-reduced-motion:reduce){.mbc,.mbc-bg{transition:none}}',
     '.mbq{margin-top:18px;border:1px solid #2a2e35;border-radius:14px;padding:18px;background:rgba(201,162,94,.06)}',
     '.mbq-k{font-size:.72rem;letter-spacing:.12em;font-weight:700;color:#c9a25e}',
     '.mbq h4{margin:.3em 0 .2em;font-size:1.1rem}',
@@ -96,12 +97,12 @@
     draw();
   }
 
-  /* ---- slide-in card on every page ---- */
+  /* ---- centred pop-up card on every page (shown once, after some scrolling) ---- */
   var force = /[?&]betacard=1/.test(location.search);
   if (closed() && !force) return;
   var onLabs = /labs(\.html)?$/.test(location.pathname.replace(/\/$/, ''));
   var card = document.createElement('div');
-  card.className = 'mbc'; card.setAttribute('role', 'dialog'); card.setAttribute('aria-label', 'MGE Labs beta program');
+  card.className = 'mbc'; card.setAttribute('role', 'dialog'); card.setAttribute('aria-modal', 'true'); card.setAttribute('aria-label', 'MGE Labs beta program');
   card.innerHTML = '<button type="button" class="mbc-x" aria-label="Close">&times;</button>' +
     '<div class="mbc-top"><b>MGE LABS</b><span>BETA PROGRAM</span></div>' +
     '<h3>A better way to understand your trading workflow.</h3>' +
@@ -109,18 +110,22 @@
     '<a class="mbc-cta" href="' + (onLabs ? '#beta' : '/labs.html#beta') + '">Explore Beta Access &rarr;</a>' +
     '<button type="button" class="mbc-later">Not now</button>' +
     '<p class="mbc-fine">Software only. No signals, no investment advice.</p>';
+  var bg = document.createElement('div'); bg.className = 'mbc-bg';
+  document.body.appendChild(bg);
   document.body.appendChild(card);
-  function hide() { card.classList.remove('on'); remember(); }
+  function hide() { card.classList.remove('on'); bg.classList.remove('on'); remember(); }
+  bg.addEventListener('click', hide);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && card.classList.contains('on')) hide(); });
   card.querySelector('.mbc-x').addEventListener('click', hide);
   card.querySelector('.mbc-later').addEventListener('click', hide);
-  card.querySelector('.mbc-cta').addEventListener('click', function () { remember(); card.classList.remove('on'); });
+  card.querySelector('.mbc-cta').addEventListener('click', hide);
   var shown = false;
   function maybe() {
     if (shown) return;
     var h = document.documentElement.scrollHeight - window.innerHeight;
     if (force || h <= 0 || window.scrollY / h >= 0.33) {
       shown = true; window.removeEventListener('scroll', maybe);
-      setTimeout(function () { card.classList.add('on'); }, force ? 300 : 0);
+      setTimeout(function () { bg.classList.add('on'); card.classList.add('on'); }, force ? 300 : 0);
     }
   }
   window.addEventListener('scroll', maybe, { passive: true });
